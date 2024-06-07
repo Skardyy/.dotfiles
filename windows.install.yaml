@@ -1,0 +1,15 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json wt
+    ~/AppData/Roaming/alacritty/alacritty.toml alacritty
+    ~/AppData/Local/nvim nvim/**
+    ~/AppData/Local/Programs/oh-my-posh/themes/m.min.omp.json ohmyposh/m.min.omp.json
+    ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1 pwsh
+    ~/AppData/Roaming/Code/User/settings.json vscode
+    ~/.wezterm.lua wezterm
+    ~/AppData/Roaming/nushell/config.nu nushell

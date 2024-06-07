@@ -1,0 +1,61 @@
+oh-my-posh init pwsh --config '~\AppData\Local\Programs\oh-my-posh\themes\myTheme.omp.json' | Invoke-Expression
+Set-Alias lvim 'C:\Users\meron\.local\bin\lvim.ps1'
+#SAM
+function genshin-impact
+{ param($Arguments) C:\Users\meron\.sam\genshin-impact.url $Arguments  
+} 
+function honkai-star-rail
+{ param($Arguments) C:\Users\meron\.sam\honkai-star-rail.url $Arguments  
+} 
+function reproduce
+{ param($Arguments) C:\Users\meron\.sam\reproduce.txt $Arguments  
+} 
+function vivaldi
+{ param($Arguments) C:\Users\meron\.sam\vivaldi.lnk $Arguments  
+} 
+function aqw-script
+{ param($Arguments) C:\Users\meron\.sam\aqw-script.ahk $Arguments  
+} 
+function artix-game-launcher
+{ param($Arguments) C:\Users\meron\.sam\artix-game-launcher.lnk $Arguments  
+} 
+function discord
+{ param($Arguments) C:\Users\meron\.sam\discord.lnk $Arguments  
+} 
+function epic-games-launcher
+{ param($Arguments) C:\Users\meron\.sam\epic-games-launcher.lnk $Arguments  
+} 
+function dc
+{ param($Arguments) C:\Users\meron\.sam\discord.lnk $Arguments  
+} 
+function ed
+{ param($Arguments) fzf --preview 'bat --color=always {}'  $Arguments | split-path | split-path | % { code $ } 
+} 
+function ef
+{ param($Arguments) fzf --preview 'bat --color=always {}'  $Arguments | % { code $_ } 
+} 
+function v
+{ param($Arguments) lvim $Arguments  
+} 
+function aqw
+{ param($Arguments) C:\Users\meron\.sam\artix-game-launcher.lnk $Arguments
+} 
+function de
+{ param($Arguments) fzf --preview 'bat --color=always {}'  $Arguments | split-path | scb 
+} 
+function egl
+{ param($Arguments) C:\Users\meron\.sam\epic-games-launcher.lnk $Arguments  
+} 
+function fe
+{ param($Arguments) fzf --preview 'bat --color=always {}'  $Arguments | scb 
+} 
+function gn
+{ param($Arguments) C:\Users\meron\.sam\genshin-impact.url $Arguments  
+} 
+function hsr
+{ param($Arguments) C:\Users\meron\.sam\honkai-star-rail.url $Arguments  
+} 
+function vd
+{ param($Arguments) C:\Users\meron\.sam\vivaldi.lnk $Arguments  
+} 
+#SAM

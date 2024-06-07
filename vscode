@@ -1,0 +1,72 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "gopls": {
+    "ui.semanticTokens": true
+  },
+  "workbench.editor.empty.hint": "hidden",
+  "security.workspace.trust.untrustedFiles": "open",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "vim.leader": " ",
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["<leader>", "w"], "commands": [":w"] },
+    { "before": ["<leader>", "h"], "commands": [":noh"] },
+
+    {
+      "before": ["<leader>", "/"],
+      "after": ["V", "g", "c", "<Esc>"],
+      "commands": []
+    },
+    {
+      "before": ["<leader>", "n"],
+      "commands": [":cn"]
+    },
+    {
+      "before": ["<leader>", "N"],
+      "commands": [":cp"]
+    },
+    {
+      "before": ["<leader>", "b"],
+      "commands": ["workbench.action.nextEditor"]
+    },
+    {
+      "before": ["<leader>", "c"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    },
+    {
+      "before": ["<leader>", "f"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "/"],
+      "after": ["g", "C", "<Esc>"],
+      "commands": []
+    }
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.colorTheme": "Ayu Mirage",
+  "editor.fontSize": 18,
+  "editor.lineHeight": 1.6,
+  "editor.fontFamily": "ZedMono Nerd Font"
+}

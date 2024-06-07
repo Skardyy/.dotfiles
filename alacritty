@@ -1,0 +1,55 @@
+shell = "nu"
+
+[font]
+size = 18
+offset.y = 2
+
+# Default colors
+[colors.primary]
+background = '#121212'
+foreground = '#FDFDFD'
+
+# Normal colors
+[colors.normal]
+black = '#000000'
+red = '#ff5555'
+green = '#50fa7b'
+yellow = '#f1fa8c'
+blue = '#bd93f9'
+magenta = '#ff79c6'
+cyan = '#8BE9FD'
+white = '#bbbbbb'
+
+# Bright colors
+[colors.bright]
+black = '#555555'
+red = '#ff5555'
+green = '#50fa7b'
+yellow = '#f1fa8c'
+blue = '#BD93F9'
+magenta = '#FF69B4'
+cyan = '#8BE9FD'
+white = '#ffffff'
+
+[font.normal]
+family = "ZedMono Nerd Font"
+style = "Extended Medium"
+
+[font.bold]
+family = "ZedMono Nerd Font"
+style = "Extended Bold"
+
+[font.italic]
+family = "ZedMono Nerd Font"
+style = "Extended Italic"
+
+[cursor]
+style = "Beam"
+
+[window]
+dynamic_title = true
+# opacity = 0.95
+
+[window.dimensions]
+columns = 152
+lines = 48
