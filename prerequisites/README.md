@@ -17,11 +17,11 @@
 winget install JanDeDobbeleer.OhMyPosh -s winget
 
 oh-my-posh init pwsh | Invoke-Expression
-oh-my-posh init pwsh --config '~\AppData\Local\Programs\oh-my-posh\themes\m.min.omp.json' | Invoke-Expression" > $PROFILE
+oh-my-posh init pwsh --config '~\AppData\Local\Programs\oh-my-posh\themes\m.minimal.omp.json' | Invoke-Expression" > $PROFILE
 
 or for nu ~
 
-oh-my-posh init nu --config '~\AppData\Local\Programs\oh-my-posh\themes\m.min.omp.json'
+oh-my-posh init nu --config '~\AppData\Local\Programs\oh-my-posh\themes\m.minimal.omp.json'
 source ~/.oh-my-posh.nu
 ```
 

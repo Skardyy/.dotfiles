@@ -1,4 +1,4 @@
-oh-my-posh init pwsh --config '~\AppData\Local\Programs\oh-my-posh\themes\myTheme.omp.json' | Invoke-Expression
+oh-my-posh init pwsh --config '~\AppData\Local\Programs\oh-my-posh\themes\m.minimal.omp.json' | Invoke-Expression
 Set-Alias lvim 'C:\Users\meron\.local\bin\lvim.ps1'
 #SAM
 function genshin-impact
