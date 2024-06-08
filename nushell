@@ -801,22 +801,3 @@ $env.config = {
 }
 source ~/.oh-my-posh.nu
 alias v = nvim
-#SAM
-alias artix-game-launcher = start C:\Users\meron\.sam\artix-game-launcher.lnk
-alias discord = start C:\Users\meron\.sam\discord.lnk
-alias epic-games-launcher = start C:\Users\meron\.sam\epic-games-launcher.lnk
-alias genshin-impact = start C:\Users\meron\.sam\genshin-impact.url
-alias vivaldi = start C:\Users\meron\.sam\vivaldi.lnk
-alias wwv = start C:\Users\meron\.sam\wwv.url
-alias aqw-script = start C:\Users\meron\.sam\aqw-script.ahk
-alias honkai-star-rail = start C:\Users\meron\.sam\honkai-star-rail.url
-alias reproduce = start C:\Users\meron\.sam\reproduce.txt
-def --env de [] { fzf --preview 'bat --color=always {}' | path dirname | cd $in } 
-alias egl = start C:\Users\meron\.sam\epic-games-launcher.lnk
-def --env fe [] { fzf --preview 'bat --color=always {}' | echo } 
-alias gn = start C:\Users\meron\.sam\genshin-impact.url
-alias hsr = start C:\Users\meron\.sam\honkai-star-rail.url
-alias vd = start C:\Users\meron\.sam\vivaldi.lnk
-alias aqw = start C:\Users\meron\.sam\artix-game-launcher.lnk
-alias dc = start C:\Users\meron\.sam\discord.lnk
-#SAM

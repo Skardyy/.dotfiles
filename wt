@@ -15,9 +15,9 @@
             "command": 
             {
                 "action": "resizePane",
-                "direction": "down"
+                "direction": "left"
             },
-            "keys": "alt+shift+j"
+            "keys": "alt+shift+h"
         },
         {
             "command": "find",
@@ -27,17 +27,9 @@
             "command": 
             {
                 "action": "resizePane",
-                "direction": "left"
+                "direction": "down"
             },
-            "keys": "alt+shift+h"
-        },
-        {
-            "command": 
-            {
-                "action": "resizePane",
-                "direction": "up"
-            },
-            "keys": "alt+shift+k"
+            "keys": "alt+shift+j"
         },
         {
             "command": 
@@ -49,12 +41,16 @@
             "keys": "alt+v"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+shift+v"
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "up"
+            },
+            "keys": "alt+shift+k"
         },
         {
-            "command": "closePane",
-            "keys": "alt+x"
+            "command": "paste",
+            "keys": "ctrl+shift+v"
         },
         {
             "command": 
@@ -63,6 +59,10 @@
                 "direction": "right"
             },
             "keys": "alt+shift+l"
+        },
+        {
+            "command": "closePane",
+            "keys": "alt+x"
         },
         {
             "command": 
@@ -82,16 +82,16 @@
             "keys": "alt+s"
         },
         {
-            "command": "togglePaneZoom",
-            "keys": "alt+o"
-        },
-        {
             "command": 
             {
                 "action": "moveFocus",
                 "direction": "left"
             },
             "keys": "alt+h"
+        },
+        {
+            "command": "togglePaneZoom",
+            "keys": "alt+o"
         },
         {
             "command": 
@@ -104,22 +104,22 @@
         {
             "command": 
             {
-                "action": "moveFocus",
-                "direction": "right"
+                "action": "closeTab"
             },
-            "keys": "alt+l"
+            "keys": "alt+shift+7"
         },
         {
             "command": 
             {
-                "action": "closeTab"
+                "action": "moveFocus",
+                "direction": "right"
             },
-            "keys": "alt+shift+7"
+            "keys": "alt+l"
         }
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "initialCols": 150,
     "initialRows": 45,
     "newTabMenu": 
