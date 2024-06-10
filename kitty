@@ -1,0 +1,71 @@
+shell /usr/bin/fish
+
+# Color Scheme
+# Dracula
+color0 #000000
+color1 #ff5555
+color2 #50fa7b
+color3 #f1fa8c
+color4 #bd93f9
+color5 #ff79c6
+color6 #8be9fd
+color7 #bbbbbb
+color8 #555555
+color9 #ff5555
+color10 #50fa7b
+color11 #f1fa8c
+color12 #bd93f9
+color13 #ff79c6
+color14 #8be9fd
+color15 #ffffff
+background #1e1f29
+selection_foreground #1e1f29
+cursor #bbbbbb
+foreground #f8f8f2
+selection_background #f8f8f2
+
+# Font Settings
+font_family      ZedMono Nerd Font
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+font_size 11.0
+adjust_line_height  140%
+adjust_column_width 0
+adjust_baseline 0
+disable_ligatures never
+
+box_drawing_scale 0.001, 1, 1.5, 2
+
+cursor #cccccc
+cursor_text_color #111111
+cursor_shape block
+cursor_beam_thickness 1.5
+cursor_underline_thickness 2.0
+cursor_blink_interval -1
+cursor_stop_blinking_after 15.0
+
+scrollback_lines 2000
+scrollback_pager less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
+scrollback_pager_history_size 0
+scrollback_fill_enlarged_window no
+wheel_scroll_multiplier 5.0
+touch_scroll_multiplier 1.0
+
+mouse_hide_wait 3.0
+
+url_color #0087bd
+url_style curly
+open_url_with default
+url_prefixes http https file ftp gemini irc gopher mailto news git
+detect_urls yes
+url_excluded_characters 
+
+copy_on_select no
+strip_trailing_spaces never
+select_by_word_characters @-./_~?&=%+#
+click_interval -1.0
+focus_follows_mouse no
+pointer_shape_when_grabbed arrow
+default_pointer_shape beam
+pointer_shape_when_dragging beam
