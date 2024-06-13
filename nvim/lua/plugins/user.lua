@@ -26,4 +26,15 @@ return {
       ]]
     end,
   },
+  {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup {}
+      require("cmp").setup {
+        sources = {
+          { name = "supermaven" },
+        },
+      }
+    end,
+  },
 }
