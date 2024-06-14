@@ -1,9 +1,11 @@
+-- if true then return {} end
+
 ---@type LazySpec
 return {
   {
-    "tanvirtin/monokai.nvim",
+    "Skardyy/ayu-vim",
     config = function()
-      vim.cmd [[colorscheme monokai]]
+      vim.cmd [[colorscheme ayu]]
       vim.cmd [[
         hi Normal guibg=None ctermbg=None
         hi ColorColumn guibg=None ctermbg=None
@@ -22,19 +24,8 @@ return {
         hi TabLine guibg=None ctermbg=None
         hi TabLineSel guibg=None ctermbg=None
 
-        hi @punctuation ctermfg=white
+        " hi @punctuation ctermfg=white
       ]]
-    end,
-  },
-  {
-    "supermaven-inc/supermaven-nvim",
-    config = function()
-      require("supermaven-nvim").setup {}
-      require("cmp").setup {
-        sources = {
-          { name = "supermaven" },
-        },
-      }
     end,
   },
 }
