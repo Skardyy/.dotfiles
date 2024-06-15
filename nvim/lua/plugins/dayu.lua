@@ -4,9 +4,6 @@
 return {
   {
     "Skardyy/dayu-vim",
-    config = function()
-      vim.cmd [[colorscheme ayu]]
-      -- vim.cmd [[hi @punctuation ctermfg=white]]
-    end,
+    config = function() vim.cmd [[colorscheme dayu]] end,
   },
 }
