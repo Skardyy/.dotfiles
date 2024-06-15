@@ -4,6 +4,9 @@
 return {
   {
     "Skardyy/dayu-vim",
-    config = function() vim.cmd [[colorscheme dayu]] end,
+    config = function()
+      vim.g.ayucolor = "soft"
+      vim.cmd [[colorscheme dayu]]
+    end,
   },
 }
