@@ -11,6 +11,3 @@
     ~/.config/i3status/config: i3/i3status
     ~/.config/kitty/kitty.conf: kitty
     ~/.config/fish/config.fish: fish
-
-- shell:
-  - [git submodule update --init --recursive, Installing submodules]
