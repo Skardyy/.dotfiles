@@ -7,7 +7,7 @@ return {
   },
   opts = {},
   config = function()
-    require("noice").setup({
+    require("noice").setup {
       lsp = {
         hover = {
           enabled = false,
@@ -28,7 +28,6 @@ return {
         view_error = "mini", -- view for errors
         view_warn = "mini", -- view for warnings
       },
-    })
-  end
+    }
+  end,
 }
-
