@@ -6,8 +6,7 @@ if status is-interactive
   set -x PATH $ANDROID_HOME/tools $PATH
   set -x PATH $ANDROID_HOME/platform-tools $PATH
 
-  alias rs='i3-msg exec'
-  alias vd='i3-msg exec "vivaldi"'
+  #alias rs='i3-msg exec'
+  #alias vd='i3-msg exec "vivaldi"'
   alias v='nvim'
-  xrdb -merge ~/.Xresources
 end
