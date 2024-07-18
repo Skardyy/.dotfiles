@@ -12,5 +12,7 @@
     ~/.config/kitty/kitty.conf: kitty
     ~/.config/fish/config.fish: fish
     ~/.config/hypr/hyprland.conf: hyperland
-    ~/.config/waybar/config: waybar/config
+    ~/.config/waybar/config.jsonc: waybar/config.jsonc
     ~/.config/waybar/style.css: waybar/style.css
+    ~/.config/waybar/themes: waybar/themes
+    ~/.config/waybar/scripts: waybar/scripts
