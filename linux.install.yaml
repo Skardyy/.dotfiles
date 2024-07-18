@@ -11,3 +11,4 @@
     ~/.config/i3status/config: i3/i3status
     ~/.config/kitty/kitty.conf: kitty
     ~/.config/fish/config.fish: fish
+    ~/.config/hypr/hyprland.conf: hyperland

@@ -11,6 +11,7 @@
 * [Taskbar Tools](#install-taskbar-tools)
 * [fzf and bat](#install-fzf-and-bat)
 * [altDrag](#install-altdrag)
+* [fish](#install-fish)
 
 ## Ohmyposh  
 ```pwsh
@@ -53,3 +54,12 @@ winget install sharkdp.bat
 
 ## install altDrag
 * goto [AltDrag website](https://stefansundin.github.io/altdrag/)
+
+
+## install fish
+```bash
+sudo pacman -S fish
+chsh -s /usr/bin/fish
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+fisher install ilancosman/tide
+```
