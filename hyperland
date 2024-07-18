@@ -173,8 +173,8 @@ bind = $mainMod, down, movefocus, d
 # Same thing just vim like
 bind = $mainMod, H, movefocus, l
 bind = $mainMod, L, movefocus, r
-bind = $mainMod, J, movefocus, u
-bind = $mainMod, K, movefocus, d
+bind = $mainMod, K, movefocus, u
+bind = $mainMod, J, movefocus, d
 
 ##################
 ### WORKSPACES ###
