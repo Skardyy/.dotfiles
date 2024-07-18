@@ -36,6 +36,7 @@ adjust_baseline 0
 disable_ligatures never
 
 box_drawing_scale 0.001, 1, 1.5, 2
+window_padding_width 4 8
 
 cursor #cccccc
 cursor_text_color #111111
