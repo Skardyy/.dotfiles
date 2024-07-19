@@ -10,6 +10,7 @@ if status is-interactive
   #alias vd='i3-msg exec "vivaldi"'
   alias v='nvim'
 
+  # Requires: brightnessctl, acpi, ripgrep
   function what
     set_color yellow
     echo -n "Time: "
@@ -24,7 +25,13 @@ if status is-interactive
     set_color yellow
     echo -n "Battery: "
     set_color green
-    acpi -b | awk '{print $4}'
+    acpi -b | awk '{print $4}' | rg '[^,]+' -o --color never
+
+    set_color yellow
+    echo -n "Brightness: "
+    set brightness_percent (math "round(($(brightnessctl get) / $(brightnessctl max)) * 100)")
+    set_color green
+    echo $brightness_percent%
     set_color normal
   end
 end
