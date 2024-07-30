@@ -24,7 +24,6 @@
   "vim.normalModeKeyBindingsNonRecursive": [
     { "before": ["<leader>", "w"], "commands": [":w"] },
     { "before": ["<leader>", "h"], "commands": [":noh"] },
-
     {
       "before": ["<leader>", "/"],
       "after": ["V", "g", "c", "<Esc>"],
@@ -47,12 +46,24 @@
       "commands": ["workbench.action.closeActiveEditor"]
     },
     {
-      "before": ["<leader>", "f"],
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    },
+    {
+      "before": ["<leader>", "f", "f"],
       "commands": ["workbench.action.quickOpen"]
     },
     {
-      "before": ["<leader>", "e"],
-      "commands": ["workbench.action.toggleSidebarVisibility"]
+      "before": ["<leader>", "f", "w"],
+      "commands": ["workbench.action.findInFiles"]
+    },
+    {
+      "before": ["<leader>", "f", "b"],
+      "commands": ["git.checkout"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
@@ -65,8 +76,9 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.colorTheme": "Mayukai Midnight",
   "editor.fontSize": 18,
   "editor.lineHeight": 1.6,
-  "editor.fontFamily": "ZedMono Nerd Font"
+  "editor.fontFamily": "ZedMono Nerd Font",
+  "editor.bracketPairColorization.enabled": false,
+  "workbench.colorTheme": "dayu"
 }
