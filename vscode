@@ -54,8 +54,16 @@
       "commands": ["workbench.action.quickOpen"]
     },
     {
+      "before": ["<leader>", "f", "s"],
+      "commands": ["workbench.action.gotoSymbol"]
+    },
+    {
+      "before": ["<leader>", "f", "S"],
+      "commands": ["workbench.action.showAllSymbols"]
+    },
+    {
       "before": ["<leader>", "f", "w"],
-      "commands": ["workbench.action.findInFiles"]
+      "commands": ["search.action.openNewEditor"]
     },
     {
       "before": ["<leader>", "f", "b"],
@@ -64,6 +72,14 @@
     {
       "before": ["K"],
       "commands": ["editor.action.showHover"]
+    },
+    {
+      "before": ["<C-j>"],
+      "after": ["<C-d>"]
+    },
+    {
+      "before": ["<C-k>"],
+      "after": ["<C-u>"]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
@@ -80,5 +96,5 @@
   "editor.lineHeight": 1.6,
   "editor.fontFamily": "ZedMono Nerd Font",
   "editor.bracketPairColorization.enabled": false,
-  "workbench.colorTheme": "dayu"
+  "workbench.colorTheme": "dayu-low-contrast"
 }

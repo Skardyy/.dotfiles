@@ -12,5 +12,3 @@
     ~/AppData/Local/Programs/oh-my-posh/themes/m.minimal.omp.json: ohmyposh/m.minimal.omp.json
     ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1: pwsh
     ~/AppData/Roaming/Code/User/settings.json: vscode
-    ~/.wezterm.lua: wezterm
-    ~/AppData/Roaming/nushell/config.nu: nushell
