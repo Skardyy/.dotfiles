@@ -253,9 +253,9 @@
                 "weight": "medium"
             },
             "intenseTextStyle": "all",
-            "opacity": 90,
+            "opacity": 100,
             "padding": "16",
-            "useAcrylic": true,
+            "useAcrylic": false,
             "useAtlasEngine": false
         },
         "list": 
@@ -415,7 +415,7 @@
             "yellow": "#F9E2AF"
         },
         {
-            "background": "#0D1016",
+            "background": "#12131a",
             "black": "#000000",
             "blue": "#BD93F9",
             "brightBlack": "#666666",
