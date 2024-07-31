@@ -13,22 +13,22 @@ if status is-interactive
   # Requires: brightnessctl, acpi, ripgrep
   function what
     set_color yellow
-    echo -n "Time: "
+    echo -n "Time:        "
     set_color green
     date "+%d/%m/%Y %H:%M"
 
     set_color yellow
-    echo -n "WIFI: "
+    echo -n "WIFI:        "
     set_color green
     nmcli device show wlan0 | rg -i general.connection | rg --color never --pcre2 -i '\s*general.connection:\s*(.*)' -r '$1'
 
     set_color yellow
-    echo -n "Battery: "
+    echo -n "Battery:     "
     set_color green
     acpi -b | awk '{print $4}' | rg '[^,]+' -o --color never
 
     set_color yellow
-    echo -n "Brightness: "
+    echo -n "Brightness:  "
     set brightness_percent (math "round(($(brightnessctl get) / $(brightnessctl max)) * 100)")
     set_color green
     echo $brightness_percent%
