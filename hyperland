@@ -45,7 +45,7 @@ general {
     border_size = 1
 
     # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
-    col.active_border = rgba(FF7733aa)
+    col.active_border = rgb(82aaff)
     col.inactive_border = rgba(595959aa)
 
     # Set to true enable resizing windows by clicking and dragging on borders and gaps
@@ -59,11 +59,11 @@ general {
 
 # https://wiki.hyprland.org/Configuring/Variables/#decoration
 decoration {
-    rounding = 10
+    rounding = 6
 
     # Change transparency of focused and unfocused windows
-    active_opacity = 1.0
-    inactive_opacity = 1.0
+    active_opacity = 0.98
+    inactive_opacity = 0.95
 
     drop_shadow = true
     shadow_range = 4
