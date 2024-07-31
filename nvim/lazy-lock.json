@@ -24,7 +24,7 @@
   "lazydev.nvim": { "branch": "main", "commit": "491452cf1ca6f029e90ad0d0368848fac717c6d2" },
   "lspkind.nvim": { "branch": "master", "commit": "cff4ae321a91ee3473a92ea1a8c637e3a9510aec" },
   "luvit-meta": { "branch": "main", "commit": "ce76f6f6cdc9201523a5875a4471dcfe0186eb60" },
-  "makurai-vim": { "branch": "main", "commit": "4ed9c1d334c20941cf587f3e7d69fa4e916f1b1c" },
+  "makurai-vim": { "branch": "main", "commit": "4261a0c0b18e790dd1d9e4938a0e5cb86195547f" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "9ae570e206360e47d30b4c35a4550c165f4ea7b7" },
   "mason-null-ls.nvim": { "branch": "main", "commit": "2b8433f76598397fcc97318d410e0c4f7a4bea6a" },
   "mason-nvim-dap.nvim": { "branch": "main", "commit": "4ba55f9755ebe8297d92c419b90a946123292ae6" },

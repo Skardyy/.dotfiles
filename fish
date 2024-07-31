@@ -10,6 +10,8 @@ if status is-interactive
   #alias vd='i3-msg exec "vivaldi"'
   alias v='nvim'
 
+  nvm use latest
+
   # Requires: brightnessctl, acpi, ripgrep
   function what
     set_color yellow
