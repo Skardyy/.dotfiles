@@ -1,8 +1,10 @@
--- if true then return {} end
----@type LazySpec
 return {
   {
     "Skardyy/makurai-vim",
-    config = function() vim.cmd [[colorscheme makurai]] end,
-  },
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme "makurai"
+    end
+  }
 }
