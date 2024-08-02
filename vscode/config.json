@@ -38,8 +38,12 @@
       "commands": [":cp"]
     },
     {
-      "before": ["<leader>", "b"],
+      "before": ["<leader>", "l"],
       "commands": ["workbench.action.nextEditor"]
+    },
+    {
+      "before": ["<leader>", "h"],
+      "commands": ["workbench.action.previousEditor"]
     },
     {
       "before": ["<leader>", "c"],
@@ -63,7 +67,7 @@
     },
     {
       "before": ["<leader>", "f", "w"],
-      "commands": ["search.action.openNewEditor"]
+      "commands": ["workbench.action.findInFiles"]
     },
     {
       "before": ["<leader>", "f", "b"],
@@ -80,6 +84,20 @@
     {
       "before": ["<C-k>"],
       "after": ["<C-u>"]
+    },
+    {
+      "before": ["<Tab>"],
+      "commands": ["selectNextSuggestion"],
+      "when": "suggestWidgetVisible"
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": ["editor.action.triggerSuggest"]
+    },
+    {
+      "before": ["<Esc>"],
+      "commands": ["hideSuggestWidget", "hideSignatureHelp"],
+      "when": "suggestWidgetVisible || parameterHintsVisible"
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
@@ -87,6 +105,14 @@
       "before": ["<leader>", "/"],
       "after": ["g", "C", "<Esc>"],
       "commands": []
+    },
+    {
+      "before": ["<Tab>"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<S-Tab>"],
+      "commands": ["editor.action.outdentLines"]
     }
   ],
   "[json]": {
@@ -106,13 +132,6 @@
   "window.menuBarVisibility": "toggle",
   "workbench.tips.enabled": false,
   "editor.lightbulb.enabled": "off",
-
-  "editor.gotoLocation.multipleReferences": "goto",
-  "editor.gotoLocation.multipleDefinitions": "goto",
-  "editor.gotoLocation.multipleDeclarations": "goto",
-  "workbench.editor.enablePreviewFromQuickOpen": false,
-  "editor.gotoLocation.multipleImplementations": "goto",
-  "editor.gotoLocation.multipleTypeDefinitions": "goto",
 
   "vscode_custom_css.imports": [
     "file:///C:/Users/meron/.dotfiles/vscode/config.css"
