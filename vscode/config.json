@@ -96,5 +96,25 @@
   "editor.lineHeight": 1.6,
   "editor.fontFamily": "ZedMono Nerd Font",
   "editor.bracketPairColorization.enabled": false,
-  "workbench.colorTheme": "Makurai"
+  "workbench.colorTheme": "Makurai",
+
+  "workbench.statusBar.visible": false,
+  "editor.minimap.enabled": false,
+  "workbench.activityBar.location": "hidden",
+  "workbench.sideBar.location": "right",
+  "breadcrumbs.enabled": false,
+  "window.menuBarVisibility": "toggle",
+  "workbench.tips.enabled": false,
+  "editor.lightbulb.enabled": "off",
+
+  "editor.gotoLocation.multipleReferences": "goto",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "editor.gotoLocation.multipleImplementations": "goto",
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+
+  "vscode_custom_css.imports": [
+    "file:///C:/Users/meron/.dotfiles/vscode/config.css"
+  ]
 }
