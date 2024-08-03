@@ -2,16 +2,9 @@ return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
-		local auto_theme_custom = require("lualine.themes.auto")
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
-				theme = auto_theme_custom,
-				component_separators = { left = "", right = "" },
-				section_separators = { left = "", right = "" },
-				disabled_filetypes = {},
-				always_divide_middle = true,
-				globalstatus = false,
 			},
 			sections = {
 				lualine_a = { "mode" },
@@ -24,12 +17,6 @@ return {
 						"diagnostics",
 						sources = { "nvim_diagnostic" },
 						sections = { "error" },
-						diagnostics_color = {
-							error = "DiagnosticError",
-						},
-						format = function(d)
-							return d.count > 0 and d.count .. " errors" or ""
-						end,
 					},
 				},
 				lualine_x = {
