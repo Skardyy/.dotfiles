@@ -1,11 +1,10 @@
 return {
   {
-    "marko-cerovac/material.nvim",
+    "Skardyy/makurai-nvim", -- Make sure this matches your GitHub repo name exactly
     lazy = false,
     priority = 1000,
     config = function()
-      vim.g.material_style = "deep ocean"
-      vim.cmd.colorscheme("material")
+      vim.cmd.colorscheme("makurai")
     end,
   },
 }
