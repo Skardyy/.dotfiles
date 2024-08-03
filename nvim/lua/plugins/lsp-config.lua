@@ -9,6 +9,7 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		lazy = false,
+		dependencies = { "williamboman/mason.nvim" },
 		opts = {
 			auto_install = true,
 		},
@@ -16,6 +17,10 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		lazy = false,
+		dependencies = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+		},
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
@@ -32,9 +37,9 @@ return {
 				capabilities = capabilities,
 			})
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-			vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, {})
+			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Goto definition" })
+			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "Goto references" })
+			vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
 		end,
 	},
 	{

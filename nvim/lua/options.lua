@@ -38,13 +38,13 @@ vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
 vim.opt.title = false
 vim.opt.fillchars = vim.opt.fillchars + "eob: "
-vim.opt.fillchars:append {
-  stl = " ",
-}
+vim.opt.fillchars:append({
+	stl = " ",
+})
 
-vim.opt.shortmess:append "c"
-vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd [[set iskeyword+=-]]
+vim.opt.shortmess:append("c")
+vim.cmd("set whichwrap+=<,>,[,],h,l")
+vim.cmd([[set iskeyword+=-]])
 
 vim.g.netrw_banner = 0
 vim.g.netrw_mouse = 2

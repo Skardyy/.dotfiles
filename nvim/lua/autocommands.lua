@@ -1,10 +1,16 @@
 -- Auto-format on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function()
-    vim.lsp.buf.format()
-  end,
-})
+vim.api.nvim_create_augroup("AutoFormat", {})
+vim.api.nvim_create_autocmd(
+    "BufWritePost",
+    {
+        pattern = "*",
+        group = "AutoFormat",
+        callback = function()
+            vim.cmd("silent !black --quiet %")
+            vim.cmd("edit")
+        end,
+    }
+)
 
 -- Return to last edit position when opening files
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -20,7 +26,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 100 })
   end,
 })
 
@@ -28,15 +34,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("VimResized", {
   pattern = "*",
   command = "wincmd =",
-})
-
--- Set indentation for specific file types
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "lua", "javascript", "typescript", "javascriptreact", "typescriptreact" },
-  callback = function()
-    vim.opt_local.shiftwidth = 2
-    vim.opt_local.tabstop = 2
-  end,
 })
 
 -- Auto-create directory when saving a file, in case some intermediate directory does not exist

@@ -1,0 +1,8 @@
+* make lualine better, (need to know ts and lsp)
+* add l and h keybind to oil and neotree
+* add lsp leader l d (line diagnostic)
+* figure out why lua lsp sometimes doesn't work
+* figure out why gitsigns does diff wrong (maybe crlf vs lf issue)
+* figure out why lsp doesn't work in lua, (maye not work in other filetype)
+
+* finally test it

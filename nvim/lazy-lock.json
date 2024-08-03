@@ -6,6 +6,7 @@
   "friendly-snippets": { "branch": "main", "commit": "00ebcaa159e817150bd83bfe2d51fa3b3377d5c4" },
   "gitsigns.nvim": { "branch": "main", "commit": "0ed466953fe5885166e0d60799172a8b1f752d16" },
   "lazy.nvim": { "branch": "main", "commit": "077102c5bfc578693f12377846d427f49bc50076" },
+  "lualine.nvim": { "branch": "master", "commit": "544dd1583f9bb27b393f598475c89809c4d5e86b" },
   "makurai-vim": { "branch": "main", "commit": "14c4aec7642a1b4aec5d26163d7e5f2ab589919a" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "ba9c2f0b93deb48d0a99ae0e8d8dd36f7cc286d6" },
   "mason-null-ls.nvim": { "branch": "main", "commit": "de19726de7260c68d94691afb057fa73d3cc53e7" },
@@ -13,13 +14,15 @@
   "neo-tree.nvim": { "branch": "v3.x", "commit": "29f7c215332ba95e470811c380ddbce2cebe2af4" },
   "none-ls.nvim": { "branch": "main", "commit": "cfa65d86e21eeb60544d5e823f6db43941322a53" },
   "nui.nvim": { "branch": "main", "commit": "61574ce6e60c815b0a0c4b5655b8486ba58089a1" },
+  "nvim-autopairs": { "branch": "master", "commit": "e38c5d837e755ce186ae51d2c48e1b387c4425c6" },
   "nvim-cmp": { "branch": "main", "commit": "ae644feb7b67bf1ce4260c231d1d4300b19c6f30" },
   "nvim-lspconfig": { "branch": "master", "commit": "e6528f4613c8db2e04be908eb2b5886d63f62a98" },
   "nvim-treesitter": { "branch": "master", "commit": "09bad640e4507885fa0e7035348c7854c531b3d6" },
   "nvim-web-devicons": { "branch": "master", "commit": "5be6c4e685618b99c3210a69375b38a1202369b4" },
-  "oil.nvim": { "branch": "master", "commit": "fcca212c2e966fc3dec1d4baf888e670631d25d1" },
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
+  "supermaven-nvim": { "branch": "main", "commit": "d71257f431e190d9236d7f30da4c2d659389e91f" },
   "telescope-ui-select.nvim": { "branch": "master", "commit": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2" },
   "telescope.nvim": { "branch": "master", "commit": "d90956833d7c27e73c621a61f20b29fdb7122709" },
-  "vim-fugitive": { "branch": "master", "commit": "0444df68cd1cdabc7453d6bd84099458327e5513" }
+  "vim-fugitive": { "branch": "master", "commit": "0444df68cd1cdabc7453d6bd84099458327e5513" },
+  "which-key.nvim": { "branch": "main", "commit": "6c1584eb76b55629702716995cca4ae2798a9cca" }
 }
