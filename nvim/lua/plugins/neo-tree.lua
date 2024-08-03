@@ -8,5 +8,14 @@ return {
   },
   config = function()
     vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", {})
+    require("neo-tree").setup({
+      window = {
+        mappings = {
+          ["l"] = "open",
+          ["h"] = "close_node",
+          ["<CR>"] = "open",
+        },
+      },
+    })
   end,
 }
