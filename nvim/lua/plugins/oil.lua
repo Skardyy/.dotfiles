@@ -13,9 +13,9 @@ return {
       delete_to_trash = true,
       keymaps = {
         ["l"] = "actions.select",
-        ["<C-p>"] = "actions.preview",
+        ["<BS>"] = "actions.preview",
         ["h"] = "actions.parent",
-        ["<BS>"] = "actions.open_cwd",
+        ["<CR>"] = "actions.cd",
       },
     })
     local function open_oil_cwd()
