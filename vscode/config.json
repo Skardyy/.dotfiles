@@ -122,7 +122,7 @@
   "editor.lineHeight": 1.6,
   "editor.fontFamily": "ZedMono Nerd Font",
   "editor.bracketPairColorization.enabled": false,
-  "workbench.colorTheme": "Makurai",
+  "workbench.colorTheme": "Tokyo Night",
 
   "workbench.statusBar.visible": false,
   "editor.minimap.enabled": false,

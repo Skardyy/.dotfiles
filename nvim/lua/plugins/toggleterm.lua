@@ -2,7 +2,7 @@ return {
   "akinsho/toggleterm.nvim",
   config = function()
     require("toggleterm").setup({
-      direction = "float",
+      direction = "tab",
       shell = os.getenv("SHELL") or "pwsh",
     })
     vim.api.nvim_set_keymap("n", "<Leader>t", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
