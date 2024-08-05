@@ -14,8 +14,12 @@ vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent =
 vim.api.nvim_set_keymap("n", "<leader>/", "gcc", { noremap = false, silent = true, desc = "Comment" })
 vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", { noremap = false, silent = true, desc = "Close buffer" })
 vim.api.nvim_set_keymap("n", "<leader>o", ":enew<CR>", { noremap = false, silent = true, desc = "New buffer" })
+vim.keymap.set("n", "<leader>tk", function()
+  vim.diagnostic.setqflist()
+  vim.cmd("copen")
+end, { noremap = false, silent = true, desc = "Quick Fix" })
 vim.api.nvim_set_keymap("n", "<C-n>", ":cn<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-N>", ":cp<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-p>", ":cp<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-d>", opts)
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-u>", opts)
 vim.api.nvim_set_keymap(
