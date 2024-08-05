@@ -18,11 +18,9 @@ vim.api.nvim_set_keymap("n", "<C-n>", ":cn<CR>", { noremap = true, silent = true
 vim.api.nvim_set_keymap("n", "<C-N>", ":cp<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-d>", opts)
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-u>", opts)
-vim.api.nvim_set_keymap("n", "H", ":bprevious<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "L", ":bnext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>F",
+  "<leader>tf",
   ":lua ToggleAutoformat()<CR>",
   { noremap = true, silent = true, desc = "Toggle autoformat" }
 )
