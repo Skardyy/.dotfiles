@@ -16,7 +16,6 @@ vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", { noremap = false, silent =
 vim.api.nvim_set_keymap("n", "<leader>C", ":bd!<CR>", { noremap = false, silent = true, desc = "CLOSE buffer" })
 vim.api.nvim_set_keymap("n", "<leader>n", ":enew<CR>", { noremap = false, silent = true, desc = "New buffer" })
 vim.api.nvim_set_keymap("n", "<leader>t", ":term<CR>", { noremap = false, silent = true, desc = "Open terminal" })
-vim.api.nvim_set_keymap("n", "<leader>o", ":e #<CR>", { noremap = false, silent = true, desc = "Previous edited file" })
 vim.keymap.set("n", "<leader>lq", function()
   vim.diagnostic.setqflist()
   vim.cmd("copen")
@@ -37,5 +36,5 @@ vim.api.nvim_set_keymap(
 ---------------------------------
 
 vim.api.nvim_set_keymap("v", "<leader>/", "gc", { noremap = false, silent = true, desc = "Comment" })
-vim.api.nvim_set_keymap("v", "<Tab>", ">", opts)
-vim.api.nvim_set_keymap("v", "<S-Tab>", "<", opts)
+vim.api.nvim_set_keymap("v", "<Tab>", ">gv", opts)
+vim.api.nvim_set_keymap("v", "<S-Tab>", "<gv", opts)
