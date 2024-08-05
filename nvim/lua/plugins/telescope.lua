@@ -36,25 +36,31 @@ return {
       local function telescope_find_dir(opts)
         opts = opts or {}
         pickers
-          .new(opts, {
-            prompt_title = "Find Directory",
-            finder = finders.new_oneshot_job({ "fd", "-t", "d", ".", vim.fn.expand("~") }),
-            sorter = conf.generic_sorter(opts),
-            attach_mappings = function(prompt_bufnr, map)
-              actions.select_default:replace(function()
-                local selection = action_state.get_selected_entry()
-                if selection ~= nil then
-                  actions.close(prompt_bufnr)
-                  vim.cmd("cd " .. selection[1])
-                end
-              end)
-              return true
-            end,
-          })
-          :find()
+            .new(opts, {
+              prompt_title = "Find Directory",
+              finder = finders.new_oneshot_job({ "fd", "-t", "d", ".", vim.fn.expand("~") }),
+              sorter = conf.generic_sorter(opts),
+              attach_mappings = function(prompt_bufnr, map)
+                actions.select_default:replace(function()
+                  local selection = action_state.get_selected_entry()
+                  if selection ~= nil then
+                    actions.close(prompt_bufnr)
+                    vim.cmd("cd " .. selection[1])
+                  end
+                end)
+                return true
+              end,
+            })
+            :find()
+      end
+      local function telescope_find_term()
+        builtin.buffers({
+          default_text = "term://",
+        })
       end
 
-      vim.keymap.set("n", "<leader>fb", builtin.git_branches, { desc = "Git Branches" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
+      vim.keymap.set("n", "<leader>ft", telescope_find_term, { desc = "Terminals" })
       vim.keymap.set("n", "<leader>fw", builtin.live_grep, { desc = "Live Grep" })
       vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help Tags" })
