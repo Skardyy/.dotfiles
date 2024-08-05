@@ -50,10 +50,6 @@ return {
     },
     config = function()
       require("mason-null-ls").setup({
-        ensure_installed = {
-          "stylua",
-          "prettier",
-        },
         automatic_installation = true,
         automatic_setup = true,
       })
