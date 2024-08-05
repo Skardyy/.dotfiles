@@ -1,4 +1,8 @@
 local opts = { noremap = true, silent = true }
+function ToggleAutoformat()
+  vim.g.autoformat = not vim.g.autoformat
+  print("Autoformat is " .. (vim.g.autoformat and "ON" or "OFF"))
+end
 
 ---------------------------------
 -- Normal mode mappings
@@ -16,6 +20,12 @@ vim.api.nvim_set_keymap("n", "<C-j>", "<C-d>", opts)
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-u>", opts)
 vim.api.nvim_set_keymap("n", "H", ":bprevious<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "L", ":bnext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>F",
+  ":lua ToggleAutoformat()<CR>",
+  { noremap = true, silent = true, desc = "Toggle autoformat" }
+)
 
 ---------------------------------
 -- Visual mode mapping
