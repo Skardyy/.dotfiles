@@ -1,6 +1,6 @@
 return {
   {
-    "Skardyy/makurai-nvim", -- Make sure this matches your GitHub repo name exactly
+    "Skardyy/makurai-nvim",
     -- dir = "~/Desktop/makurai-nvim",
     lazy = false,
     priority = 1000,

@@ -1,5 +1,6 @@
 oh-my-posh init pwsh --config '~\AppData\Local\Programs\oh-my-posh\themes\m.minimal.omp.json' | Invoke-Expression
 Set-Alias -Name v -Value nvim
+$env:SHELL = "pwsh"
 
 #34de4b3d-13a8-4540-b76d-b9e8d3851756 PowerToys CommandNotFound module
 
