@@ -22,8 +22,6 @@ vim.keymap.set("n", "<leader>lq", function()
 end, { noremap = false, silent = true, desc = "Quick lsp fix" })
 vim.api.nvim_set_keymap("n", "<C-n>", ":cn<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-p>", ":cp<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-j>", "<C-d>", opts)
-vim.api.nvim_set_keymap("n", "<C-k>", "<C-u>", opts)
 vim.api.nvim_set_keymap(
   "n",
   "<leader>F",
