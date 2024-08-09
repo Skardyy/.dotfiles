@@ -21,8 +21,8 @@ vim.opt.shiftwidth = 2       -- the number of spaces inserted for each indentati
 vim.opt.cursorline = true    -- highlight the current line
 vim.opt.number = true        -- set numbered lines
 vim.opt.wrap = false         -- display lines as one long line
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
+vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 5
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 
 vim.opt.fillchars = vim.opt.fillchars + "eob: "
