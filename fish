@@ -10,7 +10,7 @@ if status is-interactive
   #alias vd='i3-msg exec "vivaldi"'
   alias v='nvim'
 
-  nvm use latest
+  nvm use latest > /dev/null
 
   # Requires: brightnessctl, acpi, ripgrep
   function what
