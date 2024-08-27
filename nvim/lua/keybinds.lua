@@ -4,6 +4,20 @@ function ToggleAutoformat()
   print("Autoformat is " .. (vim.g.autoformat and "ON" or "OFF"))
 end
 
+function ToggleQuickfix()
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 then
+      qf_exists = true
+    end
+  end
+  if qf_exists == true then
+    vim.cmd "cclose"
+  else
+    vim.cmd "copen"
+  end
+end
+
 ---------------------------------
 -- Normal mode mappings
 ---------------------------------
@@ -16,6 +30,8 @@ vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", { noremap = false, silent =
 vim.api.nvim_set_keymap("n", "<leader>C", ":bd!<CR>", { noremap = false, silent = true, desc = "CLOSE buffer" })
 vim.api.nvim_set_keymap("n", "<leader>n", ":enew<CR>", { noremap = false, silent = true, desc = "New buffer" })
 vim.api.nvim_set_keymap("n", "<leader>t", ":term<CR>", { noremap = false, silent = true, desc = "Open terminal" })
+vim.api.nvim_set_keymap('n', '<leader>o', '<cmd>lua ToggleQuickfix()<CR>',
+  { noremap = true, silent = true, desc = "Toggle quickfix" })
 vim.keymap.set("n", "<leader>lq", function()
   vim.diagnostic.setqflist()
   vim.cmd("copen")
