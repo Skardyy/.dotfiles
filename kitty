@@ -1,28 +1,28 @@
 shell /usr/bin/fish
 
 # Color Scheme
-# Dracula
+# Makurai
 color0 #000000
 color1 #ff5555
-color2 #50fa7b
-color3 #f1fa8c
-color4 #bd93f9
+color2 #95FB79
+color3 #FFEE99
+color4 #D2A6FF
 color5 #ff79c6
 color6 #8be9fd
 color7 #bbbbbb
 color8 #555555
 color9 #ff5555
-color10 #50fa7b
-color11 #f1fa8c
-color12 #bd93f9
+color10 #95FB79
+color11 #FFEE99
+color12 #D2A6FF
 color13 #ff79c6
 color14 #8be9fd
 color15 #ffffff
-background #12131A
-selection_foreground #1e1f29
-cursor #bbbbbb
-foreground #f8f8f2
-selection_background #f8f8f2
+background #15161b
+selection_foreground #3d424d
+cursor #f8f8f0
+foreground #f8f8f0
+selection_background #f8f8f0
 
 # Font Settings
 font_family      ZedMono Nerd Font

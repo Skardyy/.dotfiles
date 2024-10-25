@@ -6,28 +6,28 @@ offset.y = 2
 
 # Default colors
 [colors.primary]
-background = '#121212'
-foreground = '#FDFDFD'
+background = '#15161b'
+foreground = '#f8f8f0'
 
 # Normal colors
 [colors.normal]
 black = '#000000'
 red = '#ff5555'
-green = '#50fa7b'
-yellow = '#f1fa8c'
-blue = '#bd93f9'
-magenta = '#ff79c6'
+green = '#95FB79'
+yellow = '#FFEE99'
+blue = '#82aaff'
+magenta = '#D2A6FF'
 cyan = '#8BE9FD'
-white = '#bbbbbb'
+white = '#ffffff'
 
 # Bright colors
 [colors.bright]
-black = '#555555'
+black = '#000000'
 red = '#ff5555'
-green = '#50fa7b'
-yellow = '#f1fa8c'
-blue = '#BD93F9'
-magenta = '#FF69B4'
+green = '#95FB79'
+yellow = '#FFEE99'
+blue = '#82aaff'
+magenta = '#D2A6FF'
 cyan = '#8BE9FD'
 white = '#ffffff'
 

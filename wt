@@ -153,7 +153,7 @@
             "adjustIndistinguishableColors": "never",
             "altGrAliasing": true,
             "antialiasingMode": "grayscale",
-            "colorScheme": "MaterialDark",
+            "colorScheme": "Makurai",
             "compatibility.reloadEnvironmentVariables": true,
             "cursorShape": "bar",
             "experimental.retroTerminalEffect": false,
@@ -268,50 +268,27 @@
             "yellow": "#C19C00"
         },
         {
-            "background": "#1E1E2E",
-            "black": "#45475A",
-            "blue": "#89B4FA",
-            "brightBlack": "#585B70",
-            "brightBlue": "#89B4FA",
-            "brightCyan": "#94E2D5",
-            "brightGreen": "#A6E3A1",
-            "brightPurple": "#F5C2E7",
-            "brightRed": "#F38BA8",
-            "brightWhite": "#A6ADC8",
-            "brightYellow": "#F9E2AF",
-            "cursorColor": "#F5E0DC",
-            "cyan": "#94E2D5",
-            "foreground": "#CDD6F4",
-            "green": "#A6E3A1",
-            "name": "Catppuccin Mocha",
-            "purple": "#F5C2E7",
-            "red": "#F38BA8",
-            "selectionBackground": "#585B70",
-            "white": "#BAC2DE",
-            "yellow": "#F9E2AF"
-        },
-        {
-            "background": "#12131A",
+            "background": "#15161b",
             "black": "#000000",
-            "blue": "#BD93F9",
+            "blue": "#82aaff",
             "brightBlack": "#666666",
-            "brightBlue": "#BD93F9",
-            "brightCyan": "#A4FFFF",
-            "brightGreen": "#50FA7B",
-            "brightPurple": "#BD93F9",
+            "brightBlue": "#82aaff",
+            "brightCyan": "#82aaff",
+            "brightGreen": "#95FB79",
+            "brightPurple": "#D2A6FF",
             "brightRed": "#FF5555",
-            "brightWhite": "#FDFDFD",
-            "brightYellow": "#F1FA8C",
-            "cursorColor": "#FDFDFD",
-            "cyan": "#8BE9FD",
-            "foreground": "#FDFDFD",
-            "green": "#50FA7B",
-            "name": "MaterialDark",
-            "purple": "#BD93F9",
+            "brightWhite": "#f8f8f0",
+            "brightYellow": "#FFEE99",
+            "cursorColor": "#f8f8f0",
+            "cyan": "#82aaff",
+            "foreground": "#f8f8f0",
+            "green": "#95FB79",
+            "name": "Makurai",
+            "purple": "#D2A6FF",
             "red": "#FF5555",
-            "selectionBackground": "#44475A",
-            "white": "#CCCCCC",
-            "yellow": "#F1FA8C"
+            "selectionBackground": "#3d424d",
+            "white": "#f8f8f0",
+            "yellow": "#FFEE99"
         },
         {
             "background": "#1A1A1A",
@@ -434,29 +411,6 @@
     "theme": "d",
     "themes": 
     [
-        {
-            "name": "Catppuccin Mocha",
-            "tab": 
-            {
-                "background": "#1E1E2EFF",
-                "iconStyle": "default",
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "tabRow": 
-            {
-                "background": "#181825FF",
-                "unfocusedBackground": "#11111BFF"
-            },
-            "window": 
-            {
-                "applicationTheme": "dark",
-                "experimental.rainbowFrame": false,
-                "frame": null,
-                "unfocusedFrame": null,
-                "useMica": false
-            }
-        },
         {
             "name": "d",
             "tab": 
