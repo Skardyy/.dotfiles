@@ -1,18 +1,30 @@
 return {
   {
     "nvim-telescope/telescope-ui-select.nvim",
-    event = "VeryLazy",
+    dependencies = "telescope.nvim",
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
+    dependencies = "telescope.nvim",
     build = "make",
-    event = "VeryLazy"
   },
   {
     "nvim-telescope/telescope.nvim",
-    event = "VeryLazy",
+    lazy = true,
+    cmd = "Telescope",
+    keys = {
+      { "<leader>fb", "<cmd>Telescope buffers<cr>",               desc = "Buffers" },
+      { "<leader>fw", "<cmd>Telescope live_grep<cr>",             desc = "Live Grep" },
+      { "<leader>ff", "<cmd>Telescope find_files<cr>",            desc = "Find Files" },
+      { "<leader>fh", "<cmd>Telescope help_tags<cr>",             desc = "Help Tags" },
+      { "<leader>fc", "<cmd>Telescope git_commits<cr>",           desc = "Git Commits" },
+      { "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>",  desc = "LSP Document Symbols" },
+      { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "LSP Workspace Symbols" },
+      -- Custom functions need to be handled in the config
+      { "<leader>ft", function() _G.telescope_find_term() end,    desc = "Terminals" },
+      { "<leader>fo", function() _G.telescope_find_dir() end,     desc = "Find Directory" },
+    },
     tag = "0.1.5",
-    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim" },
     config = function()
       local telescope = require("telescope")
       local builtin = require("telescope.builtin")
@@ -22,24 +34,8 @@ return {
       local actions = require("telescope.actions")
       local action_state = require("telescope.actions.state")
 
-      telescope.setup({
-        extensions = {
-          ["ui-select"] = {
-            require("telescope.themes").get_dropdown({}),
-          },
-          fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-          },
-        },
-      })
-      telescope.load_extension("fzf")
-      telescope.load_extension("ui-select")
-
       -- Find directory
-      local function telescope_find_dir(opts)
+      function _G.telescope_find_dir(opts)
         opts = opts or {}
         pickers
             .new(opts, {
@@ -59,22 +55,28 @@ return {
             })
             :find()
       end
-      local function telescope_find_term()
+
+      function _G.telescope_find_term()
         builtin.buffers({
           default_text = "term://",
         })
       end
 
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
-      vim.keymap.set("n", "<leader>ft", telescope_find_term, { desc = "Terminals" })
-      vim.keymap.set("n", "<leader>fw", builtin.live_grep, { desc = "Live Grep" })
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help Tags" })
-      vim.keymap.set("n", "<leader>fc", builtin.git_commits, { desc = "Git Commits" })
-      vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "LSP Document Symbols" })
-      vim.keymap.set("n", "<leader>fS", builtin.lsp_workspace_symbols, { desc = "LSP Workspace Symbols" })
-
-      vim.keymap.set("n", "<leader>fo", telescope_find_dir, { desc = "Find Directory" })
+      telescope.load_extension("fzf")
+      telescope.load_extension("ui-select")
+      telescope.setup({
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown({}),
+          },
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+          },
+        },
+      })
     end,
   },
 }

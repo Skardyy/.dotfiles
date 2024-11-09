@@ -1,11 +1,11 @@
 return {
   {
     "hrsh7th/cmp-nvim-lsp",
-    event = "VeryLazy",
+    event = "InsertEnter",
   },
   {
     "hrsh7th/nvim-cmp",
-    event = "VeryLazy",
+    event = "InsertEnter",
     config = function()
       local cmp = require("cmp")
       cmp.setup({
