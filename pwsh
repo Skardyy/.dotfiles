@@ -2,7 +2,3 @@ oh-my-posh init pwsh --config '~\AppData\Local\Programs\oh-my-posh\themes\m.mini
 Set-Alias -Name v -Value nvim
 $env:SHELL = "pwsh"
 
-#34de4b3d-13a8-4540-b76d-b9e8d3851756 PowerToys CommandNotFound module
-
-Import-Module "C:\Users\meron\AppData\Local\PowerToys\WinUI3Apps\..\WinGetCommandNotFound.psd1"
-#34de4b3d-13a8-4540-b76d-b9e8d3851756

@@ -142,7 +142,7 @@
       "experimental.retroTerminalEffect": false,
       "font": {
         "cellHeight": "1.6",
-        "face": "ZedMono Nerd Font",
+        "face": "ZedMono Nerd Font Mono",
         "size": 15,
         "weight": "medium"
       },
