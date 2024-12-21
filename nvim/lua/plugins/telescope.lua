@@ -15,6 +15,7 @@ return {
       { "<leader>fc", "<cmd>Telescope git_commits<cr>",           desc = "Git Commits" },
       { "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>",  desc = "LSP Document Symbols" },
       { "<leader>fS", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "LSP Workspace Symbols" },
+      { "<leader>fr", "<cmd>Telescope lsp_references<cr>", desc = "LSP references" },
       -- Custom functions need to be handled in the config
       { "<leader>ft", function() _G.telescope_find_term() end,    desc = "Terminals" },
       { "<leader>fo", function() _G.telescope_find_dir() end,     desc = "Find Directory" },

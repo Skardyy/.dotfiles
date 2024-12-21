@@ -49,6 +49,5 @@ vim.api.nvim_set_keymap(
 -- Visual mode mapping
 ---------------------------------
 
-vim.api.nvim_set_keymap("v", "<leader>/", "gc", { noremap = false, silent = true, desc = "Comment" })
 vim.api.nvim_set_keymap("v", "<Tab>", ">gv", opts)
 vim.api.nvim_set_keymap("v", "<S-Tab>", "<gv", opts)
