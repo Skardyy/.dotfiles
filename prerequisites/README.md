@@ -7,6 +7,19 @@
 * run `irm "https://christitus.com/win" | iex`
 * import the [winutil config](https://github.com/Skardyy/.dotfiles/blob/main/prerequisites/winutil.json)
 
+# Sam
+* Shell-alias-maker is a tool i build for quickly opening apps from the terminal
+* start by doing
+```pwsh
+git clone https://github.com/Skardyy/Shell-Alias-Maker sam
+cd sam
+go build
+./sam.exe
+cp ./sam.exe ~/.sam/dst
+```
+* finish by adding ~/.sam/dst into your path env
+* and now you can add shortcuts by doing `sam add -c -n 'shortcut name' -t 'full path'`
+
 
 ## Seprate configs
 * [Ohmyposh](#ohmyposh)
