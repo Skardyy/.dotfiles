@@ -14,4 +14,4 @@ dotbot -c linux.install.yaml
 
 > # Prerequisites
 > The above was only the dotfiles for apps that may need to be installed and may lack things they depend on  
-> Follow the instruction in [here]() to finish installation  
+> Follow the instruction in [here](https://github.com/Skardyy/.dotfiles/tree/main/prerequisites) to finish installation  
