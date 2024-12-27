@@ -21,24 +21,16 @@ cp ./sam.exe ~/.sam/dst
 * and now you can add shortcuts by doing `sam add -c -n 'shortcut name' -t 'full path'`
 
 
-## Seprate configs
-* [Ohmyposh](#ohmyposh)
+# Seprate configs
 * [Fonts](#fonts)
 * [Taskbar Tools](#install-taskbar-tools)
 * [altDrag](#install-altdrag)
 * [cursor](#cursor)
 * [fish](#install-fish)
 
-### Ohmyposh  
-```pwsh
-oh-my-posh init pwsh | Invoke-Expression
-oh-my-posh init pwsh --config '~\AppData\Local\Programs\oh-my-posh\themes\m.minimal.omp.json' | Invoke-Expression" > $PROFILE
-```
-
 ### Fonts  
 * goto [nerd repo](https://github.com/ryanoasis/nerd-fonts/releases/latest)
-* install the ZedMono font (extended version)
-
+* install the ZedMono font (extended version)  
 
 ### install taskbar tools
 * mainly for windows 10
