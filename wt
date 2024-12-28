@@ -158,7 +158,7 @@
             "experimental.retroTerminalEffect": false,
             "font": 
             {
-                "cellHeight": "1.6",
+                "cellHeight": "1.5",
                 "face": "CaskaydiaCove Nerd Font",
                 "features": {},
                 "size": 15,
