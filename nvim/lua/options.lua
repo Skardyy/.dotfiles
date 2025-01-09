@@ -39,3 +39,9 @@ vim.opt.fillchars = vim.opt.fillchars + "eob: "
 vim.opt.fillchars:append({
   stl = " ",
 })
+
+if vim.g.neovide then
+  vim.opt.guifont = "CaskaydiaCove Nerd Font:h15"
+  vim.g.neovide_refresh_rate = 120
+  vim.opt.linespace = 2
+end

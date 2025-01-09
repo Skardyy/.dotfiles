@@ -8,7 +8,7 @@ return {
         extra = true,
       },
       options = {
-        mode = "cursor",
+        mode = "window",
         max_delta = {
           time = 100
         }
