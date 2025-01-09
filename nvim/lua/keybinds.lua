@@ -60,11 +60,11 @@ vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent =
 vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", { noremap = false, silent = true, desc = "Close buffer" })
 vim.api.nvim_set_keymap("n", "<leader>C", ":bd!<CR>", { noremap = false, silent = true, desc = "CLOSE buffer" })
 vim.api.nvim_set_keymap("n", "<leader>n", ":enew<CR>", { noremap = false, silent = true, desc = "New buffer" })
-vim.api.nvim_set_keymap("n", "<leader>t", ":lua ExecuteCommand()<CR>",
+vim.api.nvim_set_keymap("n", "<leader>o", ":lua ExecuteCommand()<CR>",
   { noremap = false, silent = true, desc = "Run Command" })
 vim.api.nvim_set_keymap('n', '<leader>fd', ':lua FindDirectory()<CR>',
   { noremap = false, silent = true, desc = "Open Dir" })
-vim.api.nvim_set_keymap('n', '<leader>o', '<cmd>lua ToggleQuickfix()<CR>',
+vim.api.nvim_set_keymap('n', '<leader>t', '<cmd>lua ToggleQuickfix()<CR>',
   { noremap = true, silent = true, desc = "Toggle quickfix" })
 vim.keymap.set("n", "<leader>lq", function()
   vim.diagnostic.setqflist()
