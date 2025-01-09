@@ -7,7 +7,12 @@ return {
         basic = true,
         extra = true,
       },
-      options = { mode = "window" },
+      options = {
+        mode = "cursor",
+        max_delta = {
+          time = 100
+        }
+      },
     }
   end
 }

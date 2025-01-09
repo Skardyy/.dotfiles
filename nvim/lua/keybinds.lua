@@ -5,7 +5,6 @@ function ToggleAutoformat()
 end
 
 function FindDirectory()
-  vim.g.quickd = true
   local current_dir = vim.fn.expand('%:p:h'):gsub("^oil://", "")
   if vim.fn.has('win32') == 1 then
     current_dir = current_dir:gsub("^(%a)([/\\])", "%1:%2")
@@ -22,7 +21,6 @@ function FindDirectory()
       vim.cmd('cd ' .. input)
     end
   end)
-  vim.g.quickd = false
 end
 
 function ExecuteCommand()
