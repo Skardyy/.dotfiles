@@ -66,3 +66,21 @@ function _G.set_terminal_keymaps()
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+
+-- Does Control BS on certain commands
+vim.api.nvim_create_autocmd({ "CmdlineEnter" }, {
+  pattern = "*",
+  callback = function()
+    if vim.g.quickd then
+      vim.keymap.set("c", "<BS>", "<C-W>")
+    end
+  end,
+})
+vim.api.nvim_create_autocmd({ "CmdlineLeave" }, {
+  pattern = "*",
+  callback = function()
+    if vim.g.quickd then
+      vim.keymap.del("c", "<BS>")
+    end
+  end,
+})
