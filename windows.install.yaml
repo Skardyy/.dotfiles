@@ -11,3 +11,4 @@
     ~/AppData/Local/nvim: nvim
     ~/AppData/Local/Programs/oh-my-posh/themes/m.minimal.omp.json: ohmyposh/m.minimal.omp.json
     ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1: pwsh
+    ~/.wezterm.lua: wezterm
