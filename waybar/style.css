@@ -126,6 +126,7 @@ tooltip label {
   padding-left: 2px;
 }
 #workspaces {
+  border-radius: 20px;
   background: @workspaces;
 }
 #custom-right1 {
@@ -141,11 +142,11 @@ tooltip label {
 }
 #custom-left2 {
   color: @cpuinfo;
-  background: @main-bg;
   padding-left: 3px;
 }
 #custom-cpuinfo {
-  background: @cpuinfo;
+  background: @workspaces;
+  border-radius: 20px;
   padding-left: 1px;
   padding-right: 0;
 }
@@ -154,11 +155,11 @@ tooltip label {
 
 #custom-left3 {
   color: @memory;
-  background: @cpuinfo;
   padding-left: 3px;
 }
 #memory {
-  background: @memory;
+  background: @workspaces;
+  border-radius: 20px;
   padding-left: 1px;
   padding-right: 0;
 }
@@ -173,11 +174,11 @@ tooltip label {
 
 #custom-left4 {
   color: @cpu;
-  background: @memory;
   padding-left: 3px;
 }
 #custom-cpu {
-  background: @cpu;
+  border-radius: 20px;
+  background: @workspaces;
 }
 #custom-leftin1 {
   color: @cpu;
@@ -189,13 +190,11 @@ tooltip label {
 
 #custom-left5 {
   color: @distro-bg;
-  background: @main-bg;
   text-shadow: -2px 0 2px rgba(0, 0, 0, 0.6);
   padding-left: 3px;
 }
 #idle_inhibitor {
-  color: @distro-fg;
-  background: @distro-bg;
+  color: @distro-bg;
   font-size: 11pt;
   margin-right: -1px;
   margin-bottom: -2px;
@@ -205,7 +204,6 @@ tooltip label {
 }
 #custom-right2 {
   color: @distro-bg;
-  background: @main-bg;
 }
 
 /* == Time == */
@@ -216,17 +214,18 @@ tooltip label {
   margin-bottom: -2px;
 }
 #clock.time {
-  background: @time;
+  border-radius: 20px;
+  background: @workspaces;
 }
 #custom-right3 {
   color: @time;
-  background: @date;
 }
 
 /* == Date == */
 
 #clock.date {
-  background: @date;
+  background: @workspaces;
+  border-radius: 20px;
 }
 #clock.date:hover {
   color: @hover-fg;
@@ -235,15 +234,15 @@ tooltip label {
 }
 #custom-right4 {
   color: @date;
-  background: @tray;
 }
 
 /* == Tray == */
 
 #custom-wifi {
+  border-radius: 10px 0 0 10px;
   padding-left: 5px;
   padding-right: 8px;
-  background: @tray;
+  background: @workspaces;
 }
 #custom-wifi:hover {
   color: @hover-fg;
@@ -252,8 +251,9 @@ tooltip label {
 }
 
 #bluetooth {
-  padding-right: 5px;
-  background: @tray;
+  border-radius: 0 10px 10px 0;
+  padding-right: 8px;
+  background: @workspaces;
 }
 #bluetooth:hover {
   color: @hover-fg;
@@ -272,12 +272,12 @@ tooltip label {
 }
 #custom-right5 {
   color: @tray;
-  background: @main-bg;
 }
 
 /* == Media Info == */
 
 #custom-media {
+  border-radius: 20px;
   font-weight: normal;
   background-color: @main-bg;
   padding-right: 8px;
@@ -293,11 +293,10 @@ tooltip label {
 
 #custom-left6 {
   color: @pulseaudio;
-  background: @main-bg;
   padding-left: 3px;
 }
 #pulseaudio {
-  background: @pulseaudio;
+  border-radius: 20px;
 }
 #pulseaudio:hover {
   color: @hover-fg;
@@ -309,22 +308,20 @@ tooltip label {
 
 #custom-left7 {
   color: @backlight;
-  background: @pulseaudio;
   padding-left: 2px;
 }
 #custom-backlight {
-  background: @backlight;
+  border-radius: 20px;
 }
 
 /* == Battery == */
 
 #custom-left8 {
   color: @battery;
-  background: @backlight;
   padding-left: 2px;
 }
 #battery {
-  background: @battery;
+  border-radius: 20px;
 }
 #battery.full {
   color: @full;
@@ -346,7 +343,6 @@ tooltip label {
 
 #custom-leftin2 {
   color: @battery;
-  background: @main-bg;
   font-size: 12.2pt;
   margin-bottom: -2px;
 }

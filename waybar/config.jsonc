@@ -32,9 +32,9 @@
     "custom/cpu",           // cpu
     "custom/leftin1",
 
-    "custom/left5",
+    "custom/paddw",
     "idle_inhibitor",       // distro icon
-    "custom/right2",
+    "custom/paddw",
 
     "custom/rightin1",
     "clock#time",           // time
@@ -45,7 +45,6 @@
 
     "custom/wifi",          // wi-fi
     "bluetooth",            // bluetooth
-    "custom/update",        // system update
     "custom/right5"
   ],
 
@@ -401,76 +400,76 @@
   // == Left Arrows ==
 
   "custom/left1": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/left2": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/left3": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/left4": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/left5": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/left6": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/left7": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/left8": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
 
   // == Right Arrows ==
 
   "custom/right1": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/right2": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/right3": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/right4": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/right5": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
 
   // == Left Inverse ==
 
   "custom/leftin1": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
   "custom/leftin2": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   },
 
   // == Right Inverse ==
 
   "custom/rightin1": {
-    "format": "",
+    "format": " ",
     "tooltip": false
   }
 }
