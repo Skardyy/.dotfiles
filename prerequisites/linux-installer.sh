@@ -21,6 +21,7 @@ install_dependencies() {
     python \
     ttf-jetbrains-mono-nerd \
     wireplumber \
+    hyprlock \
     # rofi may be needed idk
   )
 
