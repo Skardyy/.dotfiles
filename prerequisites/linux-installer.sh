@@ -16,12 +16,12 @@ install_dependencies() {
     bluez-utils \
     brightnessctl \
     hyprlock \
+    hyprpaper \
     pipewire \
     pipewire-pulse \
     python \
     ttf-jetbrains-mono-nerd \
-    wireplumber \
-    hyprlock \
+    wireplumber 
     # rofi may be needed idk
   )
 
