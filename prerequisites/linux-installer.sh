@@ -17,11 +17,12 @@ install_dependencies() {
     brightnessctl \
     hyprlock \
     hyprpaper \
+    hypridle \
     pipewire \
     pipewire-pulse \
     python \
     ttf-jetbrains-mono-nerd \
-    wireplumber 
+    wireplumber
     # rofi may be needed idk
   )
 
@@ -56,3 +57,5 @@ setup_scripts() {
 install_dependencies
 install_aur_packages
 setup_scripts
+
+# you may need to enable some systemctl services
