@@ -2,7 +2,6 @@
 
 # checks for hyprpaper as indicator
 while ! pgrep -x "waybar" > /dev/null; do
+    sleep 2
     (nohup waybar &> /dev/null) &
-    sleep 1
 done
-# (nohup waybar &> /dev/null) &

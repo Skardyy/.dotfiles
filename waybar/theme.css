@@ -1,25 +1,25 @@
 /* Main Colors */
 
 /* Mostly Tooltip but others as well */
-@define-color main-fg         #cdd6f4;
-@define-color main-bg         #11111b;
-@define-color main-br         #cdd6f4;
+@define-color main-fg         #5C6773;
+@define-color main-bg         #08090d;
+@define-color main-br         #5C6773;
 
 /* For Workspace Buttons */
-@define-color active-bg       #9399b2;
-@define-color active-fg       #11111b;
+@define-color active-bg       #82aaff;
+@define-color active-fg       #000;
 
 /* For Workspace Buttons Hover And Other Buttons Hover */
-@define-color hover-bg        #313244;
-@define-color hover-fg        rgba(205, 214, 244, 0.75);
+@define-color hover-bg        #15161b;
+@define-color hover-fg        #82aaff;
 
 @define-color white           #ffffff;
 @define-color black           #000000;
 
 /* State Colors */
 
-@define-color good            #a6e3a1;
-@define-color warning         #f9e2af;
+@define-color good            #95FB79;
+@define-color warning         #FFEE99;
 @define-color critical        #f38ba8;
-@define-color full            #a6e3a1;
-@define-color charging        #cdd6f4;
+@define-color full            #95FB79;
+@define-color charging        #82aaff;

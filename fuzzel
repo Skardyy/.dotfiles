@@ -2,13 +2,13 @@ font=ZedMono Nerd Font:weight=bold:size=12
 ling-height=16
 
 [colors]
-background=1e1e2eaa
-text=cdd6f4ff
-match=f38ba8ff
-selection=585b70ff
-selection-match=f38ba8ff
-selection-text=cdd6f4ff
-border=b4befeff
+background=08090daa
+text=f8f8f0ff
+match=82aaffff
+selection=3d424dff
+selection-match=FF7733ff
+selection-text=f8f8f0ff
+border=5C6773ff
 
 [border]
 radius=8

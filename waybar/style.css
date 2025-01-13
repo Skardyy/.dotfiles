@@ -50,7 +50,7 @@ tooltip label {
   transition: none;
 }
 #workspaces button:hover {
-  color: @hover-fg;
+  color: @white;
   background: @hover-bg;
   text-shadow: none;
   box-shadow: none;
