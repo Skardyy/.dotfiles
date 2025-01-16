@@ -6,16 +6,6 @@
         {
             "command": 
             {
-                "action": "splitPane",
-                "profile": "YourProfileName",
-                "split": "right"
-            },
-            "id": "User.splitPane.99A31E8",
-            "keys": "alt+v"
-        },
-        {
-            "command": 
-            {
                 "action": "copy",
                 "singleLine": false
             },
@@ -25,11 +15,12 @@
         {
             "command": 
             {
-                "action": "resizePane",
-                "direction": "down"
+                "action": "splitPane",
+                "profile": "YourProfileName",
+                "split": "right"
             },
-            "id": "User.resizePane.F747588A",
-            "keys": "alt+shift+j"
+            "id": "User.splitPane.99A31E8",
+            "keys": "alt+v"
         },
         {
             "command": 
@@ -46,9 +37,13 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command": "paste",
-            "id": "User.paste",
-            "keys": "ctrl+shift+v"
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "down"
+            },
+            "id": "User.resizePane.F747588A",
+            "keys": "alt+shift+j"
         },
         {
             "command": 
@@ -58,6 +53,11 @@
             },
             "id": "User.resizePane.6CD791B",
             "keys": "alt+shift+k"
+        },
+        {
+            "command": "paste",
+            "id": "User.paste",
+            "keys": "ctrl+shift+v"
         },
         {
             "command": 
@@ -371,29 +371,6 @@
             "foreground": "#FFFFFF",
             "green": "#26A269",
             "name": "Ubuntu-22.04-ColorScheme",
-            "purple": "#881798",
-            "red": "#C21A23",
-            "selectionBackground": "#FFFFFF",
-            "white": "#CCCCCC",
-            "yellow": "#A2734C"
-        },
-        {
-            "background": "#300A24",
-            "black": "#171421",
-            "blue": "#0037DA",
-            "brightBlack": "#767676",
-            "brightBlue": "#08458F",
-            "brightCyan": "#2C9FB3",
-            "brightGreen": "#26A269",
-            "brightPurple": "#A347BA",
-            "brightRed": "#C01C28",
-            "brightWhite": "#F2F2F2",
-            "brightYellow": "#A2734C",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#3A96DD",
-            "foreground": "#FFFFFF",
-            "green": "#26A269",
-            "name": "Ubuntu-24.04-ColorScheme",
             "purple": "#881798",
             "red": "#C21A23",
             "selectionBackground": "#FFFFFF",
