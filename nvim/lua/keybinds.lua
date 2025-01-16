@@ -62,7 +62,7 @@ vim.api.nvim_set_keymap("n", "<leader>C", ":bd!<CR>", { noremap = false, silent 
 vim.api.nvim_set_keymap("n", "<leader>n", ":enew<CR>", { noremap = false, silent = true, desc = "New buffer" })
 vim.api.nvim_set_keymap("n", "<leader>o", ":lua ExecuteCommand()<CR>",
   { noremap = false, silent = true, desc = "Run Command" })
-vim.api.nvim_set_keymap('n', '<leader>fd', ':lua FindDirectory()<CR>',
+vim.api.nvim_set_keymap('n', '<leader>d', ':lua FindDirectory()<CR>',
   { noremap = false, silent = true, desc = "Open Dir" })
 vim.api.nvim_set_keymap('n', '<leader>t', '<cmd>lua ToggleQuickfix()<CR>',
   { noremap = true, silent = true, desc = "Toggle quickfix" })
