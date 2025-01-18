@@ -1,0 +1,9 @@
+[2025-01-15 08:59:54.114] [info] Using configuration file /home/meron/.config/waybar/config.jsonc
+[2025-01-15 08:59:54.117] [info] Unable to receive desktop appearance: GDBus.Error:org.freedesktop.DBus.Error.UnknownMethod: No such interface “org.freedesktop.portal.Settings” on object at path /org/freedesktop/portal/desktop
+[2025-01-15 08:59:54.117] [info] Using CSS file /home/meron/.config/waybar/style.css
+[2025-01-15 08:59:54.123] [info] Hyprland IPC starting
+[2025-01-15 08:59:54.124] [info] Loading persistent workspaces from Waybar config
+[2025-01-15 08:59:54.124] [info] Loading persistent workspaces from Hyprland workspace rules
+[2025-01-15 08:59:54.190] [info] Bar configured (width: 1280, height: 22) for output: eDP-1
+Gdk-Message: 09:25:18.609: Error reading events from display: Broken pipe
+grep: write error: Broken pipe
