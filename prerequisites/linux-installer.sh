@@ -22,7 +22,8 @@ install_dependencies() {
     pipewire-pulse \
     python \
     ttf-jetbrains-mono-nerd \
-    wireplumber
+    wireplumber \
+    slurp
     # rofi may be needed idk
   )
 
