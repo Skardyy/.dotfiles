@@ -26,7 +26,8 @@ return {
           },
           {
             function()
-              local lang = vim.treesitter.language.get_lang(vim.api.nvim_buf_get_option(0, "filetype"))
+              local l = vim.treesitter.get_parser():lang()
+              local lang = l or nil
               return lang and " " .. lang .. "🌲" or ""
             end,
           },
