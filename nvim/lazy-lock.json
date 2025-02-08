@@ -1,5 +1,4 @@
 {
-  "chafa.nvim": { "branch": "main", "commit": "792c8f4f0e86b5e27c3602be4614f886f3a12a5a" },
   "cinnamon.nvim": { "branch": "master", "commit": "ecd211e46a1d4fb0efffbdb2c2bbd59785605870" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "99290b3ec1322070bcfb9e846450a46f6efa50f0" },
   "gitsigns.nvim": { "branch": "main", "commit": "fc56fc25cfc3dc3f24266508aa4a7096102eb6a6" },
@@ -10,6 +9,7 @@
   "mason-lspconfig.nvim": { "branch": "main", "commit": "f75e877f5266e87523eb5a18fcde2081820d087b" },
   "mason-null-ls.nvim": { "branch": "main", "commit": "de19726de7260c68d94691afb057fa73d3cc53e7" },
   "mason.nvim": { "branch": "main", "commit": "e2f7f9044ec30067bc11800a9e266664b88cda22" },
+  "neo-img": { "branch": "main", "commit": "daeb5d456ae9c55af4870958ab7587bf6a9d1f12" },
   "noice.nvim": { "branch": "main", "commit": "cf758e9df66451889aab56613a21b8673f045ec2" },
   "none-ls.nvim": { "branch": "main", "commit": "ed8f80849ef1ad31c2f74679fafdef7801091247" },
   "nui.nvim": { "branch": "main", "commit": "53e907ffe5eedebdca1cd503b00aa8692068ca46" },
