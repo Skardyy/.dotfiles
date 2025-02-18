@@ -60,6 +60,7 @@ vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent =
 vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", { noremap = false, silent = true, desc = "Close buffer" })
 vim.api.nvim_set_keymap("n", "<leader>C", ":bd!<CR>", { noremap = false, silent = true, desc = "CLOSE buffer" })
 vim.api.nvim_set_keymap("n", "<leader>n", ":enew<CR>", { noremap = false, silent = true, desc = "New buffer" })
+vim.api.nvim_set_keymap("n", "<leader>fs", ":Namu symbols<CR>", { noremap = false, silent = true, desc = "Find symbols" })
 vim.api.nvim_set_keymap("n", "<leader>o", ":lua ExecuteCommand()<CR>",
   { noremap = false, silent = true, desc = "Run Command" })
 vim.api.nvim_set_keymap('n', '<leader>d', ':lua FindDirectory()<CR>',
