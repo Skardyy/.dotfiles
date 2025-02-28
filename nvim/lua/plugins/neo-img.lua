@@ -7,13 +7,6 @@ return {
     require("neo-img").install()
   end,
   config = function()
-    require('neo-img').setup({
-      size = {
-        x = 1500,
-      },
-      offset = {
-        x = 25,
-      }
-    })
+    require('neo-img').setup()
   end
 }
