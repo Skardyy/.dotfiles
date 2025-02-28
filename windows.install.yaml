@@ -2,13 +2,15 @@
     link:
       relink: true
       create: true
+      force: true
 
 - clean: ['~']
 
 - link:
-    ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json: wt
-    ~/AppData/Roaming/alacritty/alacritty.toml: alacritty
-    ~/AppData/Local/nvim: nvim
-    ~/AppData/Local/Programs/oh-my-posh/themes/m.minimal.omp.json: ohmyposh/m.minimal.omp.json
-    ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1: pwsh
-    ~/.wezterm.lua: wezterm
+    ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json: terminals/windows-terminal.json
+    ~/AppData/Roaming/alacritty/alacritty.toml: terminals/alacritty.toml
+    ~/AppData/Local/nvim: editors/nvim
+    ~/AppData/Local/Programs/oh-my-posh/themes/m.minimal.omp.json: profiles/ohmyposh/m.minimal.omp.json
+    ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1: profiles/pwsh.ps1
+    ~/.wezterm.lua: terminals/wezterm.lua
+    ~/AppData/Roaming/warp/Warp/data/themes/Makurai.yaml: terminals/warp-theme.yaml

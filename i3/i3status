@@ -1,8 +1,0 @@
-order += "tztime local"
-tztime local {
-    format = "%d/%m/%Y - %H:%M"
-}
-order += "battery 0"
-battery 0 {
-    format = "AC %status, %percentage %remaining"
-}

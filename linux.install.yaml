@@ -7,12 +7,10 @@
 - clean: ['~']
 
 - link:
-    ~/.config/nvim: nvim
-    ~/.config/i3/config: i3/i3
-    ~/.config/i3status/config: i3/i3status
-    ~/.config/kitty/kitty.conf: kitty
-    ~/.config/fish/config.fish: fish
-    ~/.config/hypr: hypr
-    ~/.config/fuzzel/fuzzel.ini: fuzzel
-    ~/.config/waybar: waybar
-    ~/.config/rofi: rofi
+    ~/.config/nvim: editors/nvim
+    ~/.config/kitty/kitty.conf: terminals/kitty.conf
+    ~/.config/fish/config.fish: profiles/config.fish
+    ~/.config/hypr: others/hypr
+    ~/.config/fuzzel/fuzzel.ini: others/fuzzel.ini
+    ~/.config/waybar: others/waybar
+    ~/.config/rofi: others/rofi
