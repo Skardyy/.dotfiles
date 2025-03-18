@@ -1,12 +1,12 @@
 -- if true then return {} end
 return {
   "Skardyy/neo-img",
-  branch = "main",
-  -- dir = "~/Desktop/neo-img",
-  build = function()
-    require("neo-img").install()
-  end,
+  -- branch = "macos-fix",
+  dir = "~/Desktop/neo-img",
+  build = ":NeoImg Install",
   config = function()
-    require('neo-img').setup()
+    require('neo-img').setup({
+      -- backend = "iterm",
+    })
   end
 }
