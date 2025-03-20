@@ -35,6 +35,27 @@ return {
         end,
       })
 
+      local signs = {
+        Error = " ", -- Heavy X (Error)
+        Warn = " ", -- Triangle Warning
+        Hint = " ", -- Lightbulb (Hint)
+        Info = " " -- Info Circle
+      }
+      for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+      end
+      vim.diagnostic.config({
+        virtual_text = {
+          prefix = "●", -- Bullet point (or change it)
+          spacing = 2,
+        },
+        signs = true,
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+      })
+
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition" })
       vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Goto references" })
