@@ -58,7 +58,6 @@ return {
           border = "rounded",
           source = "always",
           header = "",
-          focusable = false,
         },
       })
 
