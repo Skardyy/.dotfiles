@@ -45,7 +45,9 @@ function ToggleQuickfix()
   if qf_exists == true then
     vim.cmd "cclose"
   else
+    local win = vim.api.nvim_get_current_win()
     vim.cmd "copen"
+    vim.api.nvim_set_current_win(win)
   end
 end
 
@@ -57,21 +59,20 @@ vim.api.nvim_set_keymap("n", "<leader>1", ":lua vim.lsp.buf.format()<CR>",
   { noremap = true, silent = true, desc = "Format Buffer" })
 vim.api.nvim_set_keymap("n", "<leader>w", ":w!<CR>", { noremap = true, silent = true, desc = "Save" })
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent = true, desc = "No highlight" })
-vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", { noremap = false, silent = true, desc = "Close buffer" })
-vim.api.nvim_set_keymap("n", "<leader>C", ":bd!<CR>", { noremap = false, silent = true, desc = "CLOSE buffer" })
-vim.api.nvim_set_keymap("n", "<leader>n", ":enew<CR>", { noremap = false, silent = true, desc = "New buffer" })
 vim.api.nvim_set_keymap("n", "<leader>fs", ":Namu symbols<CR>", { noremap = false, silent = true, desc = "Find symbols" })
 vim.api.nvim_set_keymap("n", "<leader>fc", ":Namu colorscheme<CR>",
-  { noremap = false, silent = true, desc = "Find symbols" })
+  { noremap = false, silent = true, desc = "Find colorscheme" })
 vim.api.nvim_set_keymap("n", "<leader>o", ":lua ExecuteCommand()<CR>",
   { noremap = false, silent = true, desc = "Run Command" })
 vim.api.nvim_set_keymap('n', '<leader>d', ':lua FindDirectory()<CR>',
   { noremap = false, silent = true, desc = "Open Dir" })
-vim.api.nvim_set_keymap('n', '<leader>t', '<cmd>lua ToggleQuickfix()<CR>',
+vim.api.nvim_set_keymap('n', '<leader>t', ':lua ToggleQuickfix()<CR>',
   { noremap = true, silent = true, desc = "Toggle quickfix" })
 vim.keymap.set("n", "<leader>lq", function()
+  local win = vim.api.nvim_get_current_win()
   vim.diagnostic.setqflist()
   vim.cmd("copen")
+  vim.api.nvim_set_current_win(win)
 end, { noremap = false, silent = true, desc = "Quick lsp fix" })
 vim.api.nvim_set_keymap("n", "<C-n>", ":cn<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-p>", ":cp<CR>", { noremap = true, silent = true })

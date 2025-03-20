@@ -11,7 +11,14 @@ return {
             enabled = false
           }
         }
-      }
+      },
+      colorscheme = {
+        enable = true,
+        options = {
+          persist = true,
+          write_shada = false,
+        },
+      },
     })
   end,
 }
