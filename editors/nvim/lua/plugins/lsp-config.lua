@@ -36,10 +36,10 @@ return {
       })
 
       local signs = {
-        Error = " ", -- Heavy X (Error)
-        Warn = " ", -- Triangle Warning
-        Hint = " ", -- Lightbulb (Hint)
-        Info = " " -- Info Circle
+        Error = " ",
+        Warn = " ",
+        Hint = " ",
+        Info = " "
       }
       for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
@@ -62,7 +62,9 @@ return {
         },
       })
 
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+      vim.keymap.set("n", "K", function()
+        vim.lsp.buf.hover({ border = "rounded" })
+      end, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition" })
       vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Goto references" })
       vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
@@ -72,7 +74,6 @@ return {
   {
     "jay-babu/mason-null-ls.nvim",
     lazy = false,
-    -- event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "williamboman/mason.nvim",
       "nvimtools/none-ls.nvim",
