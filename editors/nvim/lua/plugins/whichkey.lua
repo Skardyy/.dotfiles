@@ -19,7 +19,6 @@ return {
     })
     wk.add({
       { "<leader>l", "LSP" },
-      { "<leader>f", "Telescope" },
     })
   end,
 }

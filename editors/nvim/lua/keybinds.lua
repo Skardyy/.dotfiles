@@ -59,12 +59,10 @@ vim.api.nvim_set_keymap("n", "<leader>1", ":lua vim.lsp.buf.format()<CR>",
   { noremap = true, silent = true, desc = "Format Buffer" })
 vim.api.nvim_set_keymap("n", "<leader>w", ":w!<CR>", { noremap = true, silent = true, desc = "Save" })
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent = true, desc = "No highlight" })
-vim.api.nvim_set_keymap("n", "<leader>fs", ":Namu symbols<CR>", { noremap = false, silent = true, desc = "Find symbols" })
-vim.api.nvim_set_keymap("n", "<leader>fc", ":Namu colorscheme<CR>",
-  { noremap = false, silent = true, desc = "Find colorscheme" })
-vim.api.nvim_set_keymap("n", "<leader>o", ":lua ExecuteCommand()<CR>",
+vim.api.nvim_set_keymap("n", "<leader>o", ":Namu symbols<CR>", { noremap = false, silent = true, desc = "Find symbols" })
+vim.api.nvim_set_keymap("n", "<leader>c", ":lua ExecuteCommand()<CR>",
   { noremap = false, silent = true, desc = "Run Command" })
-vim.api.nvim_set_keymap('n', '<leader>d', ':lua FindDirectory()<CR>',
+vim.api.nvim_set_keymap('n', '<leader>b', ':lua FindDirectory()<CR>',
   { noremap = false, silent = true, desc = "Open Dir" })
 vim.api.nvim_set_keymap('n', '<leader>t', ':lua ToggleQuickfix()<CR>',
   { noremap = true, silent = true, desc = "Toggle quickfix" })
