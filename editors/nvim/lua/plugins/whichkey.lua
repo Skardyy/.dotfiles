@@ -10,7 +10,9 @@ return {
         padding = { left = 5, right = 5 },
         margin = { top = 5, bottom = 5 },
       },
-      delay = 1000,
+      delay = function(ctx)
+        return ctx.plugin == "spelling" and 0 or 500
+      end,
       icons = {
         group = vim.g.icons_enabled ~= false and "" or "+",
         rules = false,
