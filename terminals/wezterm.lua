@@ -2,13 +2,13 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 config.default_prog = { os.getenv("shell") }
-config.initial_rows = 30
+config.initial_rows = 32
 config.initial_cols = 157
 config.max_fps = 120
 
 config.font = wezterm.font('CaskaydiaCove Nerd Font', { weight = 'Regular' })
 
-config.line_height = 1.35
+config.line_height = 1.25
 -- config.freetype_load_target = 'Light'
 config.font_size = 15
 config.colors = {
@@ -17,7 +17,7 @@ config.colors = {
   cursor_bg = '#ffdb29',
   cursor_fg = '#15161b',
   selection_bg = '#264F78',
-  split = '#A6ACCD',
+  split = '#a6accd',
   ansi = {
     '#000000',
     '#ff5555',
@@ -57,7 +57,7 @@ config.colors = {
       strikethrough = false,
     },
     inactive_tab_hover = {
-      bg_color = '#25282e',
+      bg_color = '#1b1c21',
       fg_color = '#ffffff',
       intensity = 'Normal',
       underline = 'None',
