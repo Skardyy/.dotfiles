@@ -16,14 +16,14 @@ return {
     config = function()
       local telescope = require("telescope")
 
-      telescope.load_extension("ui-select")
       telescope.setup({
         extensions = {
           ["ui-select"] = {
-            require("telescope.themes").get_dropdown({}),
+            require("telescope.themes").get_cursor({}),
           },
         },
       })
+      telescope.load_extension("ui-select")
     end,
   },
 }
