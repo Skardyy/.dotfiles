@@ -7,7 +7,6 @@
 - clean: ['~']
 
 - link:
-    ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json: terminals/windows-terminal.json
     ~/AppData/Roaming/alacritty/alacritty.toml: terminals/alacritty.toml
     ~/AppData/Local/nvim: editors/nvim
     ~/AppData/Local/Programs/oh-my-posh/themes/m.minimal.omp.json: profiles/ohmyposh/m.minimal.omp.json
