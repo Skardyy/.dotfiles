@@ -4,7 +4,7 @@ function ToggleAutoformat()
   print("Autoformat is " .. (vim.g.autoformat and "ON" or "OFF"))
 end
 
-function FindDirectory()
+function FindFile()
   local current_dir = vim.fn.expand('%:p:h'):gsub("^oil://", "")
   if vim.fn.has('win32') == 1 then
     current_dir = current_dir:gsub("^(%a)([/\\])", "%1:%2")
@@ -12,13 +12,14 @@ function FindDirectory()
     current_dir = current_dir:gsub("\\C\\", "C:\\")
   end
   vim.ui.input({
-    prompt = "Directory: ",
+    prompt = "Open: ",
     default = current_dir,
-    completion = "dir",
+    completion = "file_in_path",
   }, function(input)
     if input then
       vim.cmd('edit ' .. input)
-      vim.cmd('cd ' .. input)
+      local dir = vim.fn.fnamemodify(input, ":h")
+      vim.cmd('cd ' .. dir)
     end
   end)
 end
@@ -62,8 +63,8 @@ vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent =
 vim.api.nvim_set_keymap("n", "<leader>o", ":Namu symbols<CR>", { noremap = false, silent = true, desc = "Find symbols" })
 vim.api.nvim_set_keymap("n", "<leader>c", ":lua ExecuteCommand()<CR>",
   { noremap = false, silent = true, desc = "Run Command" })
-vim.api.nvim_set_keymap('n', '<leader>b', ':lua FindDirectory()<CR>',
-  { noremap = false, silent = true, desc = "Open Dir" })
+vim.api.nvim_set_keymap('n', '<leader>i', ':lua FindFile()<CR>',
+  { noremap = false, silent = true, desc = "Open Path" })
 vim.api.nvim_set_keymap('n', '<leader>t', ':lua ToggleQuickfix()<CR>',
   { noremap = true, silent = true, desc = "Toggle quickfix" })
 vim.keymap.set("n", "<leader>lq", function()
