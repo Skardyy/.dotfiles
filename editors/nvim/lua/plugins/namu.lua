@@ -25,7 +25,10 @@ return {
           },
           AllowKinds = {
             default = allow_kinds,
-            go = allow_kinds
+            go = allow_kinds,
+            rust = allow_kinds,
+            lua = allow_kinds,
+            python = allow_kinds,
           }
         }
       },
