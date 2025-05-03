@@ -5,7 +5,7 @@ return {
   priority = 1000,
   config = function()
     require "makurai".setup({
-      transparent = true
+      -- transparent = true
     })
     -- vim.cmd.colorscheme("makurai")
   end,
