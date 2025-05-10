@@ -10,7 +10,8 @@
     ~/.config/nvim: editors/nvim
     ~/.config/kitty/kitty.conf: terminals/kitty.conf
     ~/.config/fish/config.fish: profiles/config.fish
-    ~/.config/hypr: others/hypr
-    ~/.config/fuzzel/fuzzel.ini: others/fuzzel.ini
-    ~/.config/waybar: others/waybar
-    ~/.config/rofi: others/rofi
+    ~/.local/share/color-schemes/Makurai.colors: styles/qt/kdeglobals
+    ~/.config/gtk-3.0/gtk.css: styles/gtk/gtk-3.0/gtk.css
+    ~/.config/kdeglobals: styles/qt/kdeglobals
+    ~/.config/kwinrc: styles/kwin/kwinrc
+    ~/.config/rofi/makurai.rasi: styles/rofi/makurai.rasi
