@@ -16,5 +16,6 @@ if status is-interactive
 
   alias v='nvim'
   alias scb='wl-copy'
-  alias c="fd --type d --hidden --exclude .git --exclude node_modules . ~ | fzf --preview 'exa --tree --color=always {}' | read -l dir; and cd \$dir; and commandline -f repaint"
+  alias c="fd --type d --hidden --exclude .git --exclude node_modules . ~ | fzf --preview 'exa --tree --color=always {}' --bind tab:down | read -l dir; and cd \$dir; and commandline -f repaint"
+  bind \co 'c'
 end
