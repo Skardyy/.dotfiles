@@ -15,6 +15,6 @@ if status is-interactive
   --height 40% --border=rounded --reverse --margin=1 --padding=1"
 
   alias v='nvim'
-  alias scb='xclip -selection clipboard'
+  alias scb='wl-copy'
   alias c="fd --type d --hidden --exclude .git --exclude node_modules . ~ | fzf --preview 'exa --tree --color=always {}' | read -l dir; and cd \$dir; and commandline -f repaint"
 end

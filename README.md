@@ -3,6 +3,10 @@
 ![image](https://github.com/user-attachments/assets/a8d38226-fb17-46fe-a335-8305e39379e3)
 ![image](https://github.com/user-attachments/assets/35cf50e0-8388-48ab-9e30-037c88cd2219)
 
+# BEFORE
+the linux install mostly uses things from hyde  
+installing without hyde before could lead to broken system
+
 # Install  
 ```sh
 pip install dotbot
