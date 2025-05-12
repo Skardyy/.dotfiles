@@ -1,6 +1,7 @@
 return {
   {
     "williamboman/mason.nvim",
+    commit = "fc98833b6da",
     lazy = false,
     config = function()
       require("mason").setup()
@@ -8,6 +9,7 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    commit = "1a31f824b9cd5b",
     lazy = false,
     dependencies = { "williamboman/mason.nvim" },
     opts = {
