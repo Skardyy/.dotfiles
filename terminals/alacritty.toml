@@ -3,54 +3,60 @@ shell = "pwsh"
 
 [font]
 size = 18
-offset.y = 2
+offset.y = 5
+glyph_offset.y = 3
 
+# Makurai Mage Theme
 # Default colors
 [colors.primary]
-background = '#15161b'
-foreground = '#f8f8f0'
+background = '#15161B'
+foreground = '#FFFFFF'
 
 # Normal colors
 [colors.normal]
 black = '#000000'
-red = '#ff5555'
+red = '#FF5555'
 green = '#95FB79'
 yellow = '#FFEE99'
-blue = '#82aaff'
+blue = '#82AAFF'
 magenta = '#D2A6FF'
-cyan = '#8BE9FD'
-white = '#ffffff'
+cyan = '#82AAFF'
+white = '#FFFFFF'
 
 # Bright colors
 [colors.bright]
-black = '#000000'
-red = '#ff5555'
+black = '#5C6773'
+red = '#FF5555'
 green = '#95FB79'
 yellow = '#FFEE99'
-blue = '#82aaff'
-magenta = '#D2A6FF'
-cyan = '#8BE9FD'
-white = '#ffffff'
+blue = '#82AAFF'
+magenta = '#ff79c6'
+cyan = '#82AAFF'
+white = '#FFFFFF'
 
-[font.normal]
-family = "ZedMono Nerd Font"
-style = "Extended Medium"
-
-[font.bold]
-family = "ZedMono Nerd Font"
-style = "Extended Bold"
-
-[font.italic]
-family = "ZedMono Nerd Font"
-style = "Extended Italic"
+[colors.cursor]
+text = '#000000'
+cursor = '#ffdb29'
 
 [cursor]
 style = "Beam"
+
+[font.normal]
+family = "CaskaydiaCove Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "CaskaydiaCove Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "CaskaydiaCove Nerd Font"
+style = "Italic"
 
 [window]
 dynamic_title = true
 padding.x = 10
 
 [window.dimensions]
-columns = 152
-lines = 30
+columns = 125
+lines = 35
