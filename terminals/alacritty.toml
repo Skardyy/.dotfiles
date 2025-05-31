@@ -14,7 +14,7 @@ foreground = '#FFFFFF'
 
 # Normal colors
 [colors.normal]
-black = '#000000'
+black = '#2e3339'
 red = '#FF5555'
 green = '#95FB79'
 yellow = '#FFEE99'
@@ -25,14 +25,25 @@ white = '#FFFFFF'
 
 # Bright colors
 [colors.bright]
-black = '#5C6773'
-red = '#FF5555'
-green = '#95FB79'
-yellow = '#FFEE99'
-blue = '#82AAFF'
-magenta = '#ff79c6'
-cyan = '#82AAFF'
-white = '#FFFFFF'
+black = '#49525c'
+red = '#ff5d5d'
+green = '#a3ff85'
+yellow = '#ffffa8'
+blue = '#8fbbff'
+magenta = '#e7b6ff'
+cyan = '#8fbbff'
+white = '#ffffff'
+
+# Dim colors
+[colors.dim]
+black = '#1b1e22'
+red = '#e54c4c'
+green = '#86e16c'
+yellow = '#e5d689'
+blue = '#7599e5'
+magenta = '#bd95e5'
+cyan = '#7599e5'
+white = '#e5e5e5'
 
 [colors.cursor]
 text = '#000000'
@@ -58,5 +69,5 @@ dynamic_title = true
 padding.x = 10
 
 [window.dimensions]
-columns = 125
-lines = 35
+columns = 130
+lines = 33

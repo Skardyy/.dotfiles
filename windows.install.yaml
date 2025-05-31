@@ -13,3 +13,4 @@
     ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1: profiles/pwsh.ps1
     ~/.wezterm.lua: terminals/wezterm.lua
     ~/AppData/Roaming/warp/Warp/data/themes/Makurai.yaml: terminals/warp-theme.yaml
+    ~/AppData/Local/rio/config.toml: terminals/rio.toml

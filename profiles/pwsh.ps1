@@ -4,11 +4,18 @@ Set-Alias -Name e -Value explorer
 Set-Alias -Name pss -Value tasklist
 $env:SHELL = "pwsh"
 $env:FZF_DEFAULT_OPTS = @"
---color=bg+:#1e2029,bg:#15161B,spinner:#FFEE99,hl:#FFEE99 `
---color=fg:#A6ACCD,header:#FF7733,info:#D2A6FF,pointer:#FFEE99 `
---color=marker:#95FB79,fg+:#FFFFFF,prompt:#82AAFF,hl+:#95FB79 `
---color=border:#25282E `
---height 40% --border=rounded --reverse --margin=1 --padding=1
+--color=fg:#e5e5e5,hl:#95FB79
+--color=fg+:#ffffff,bg+:#1E1F24,hl+:#95FB79
+--color=info:#82AAFF,prompt:#82AAFF,pointer:#ffdb29
+--color=marker:#D2A6FF,spinner:#FFEE99,header:#2e3339
+--color=border:#1E1F24,label:#82AAFF,query:#FFFFFF
+--color=disabled:#2e3339,preview-fg:#FFFFFF
+--border=rounded
+--height=40%
+--layout=reverse
+--info=inline
+--margin=1
+--padding=1
 "@
 
 # ~/.config/powershell/Microsoft.PowerShell_profile.ps1
