@@ -8,12 +8,12 @@ if status is-interactive
   set -x PATH $ANDROID_HOME/tools $PATH
   set -x PATH $ANDROID_HOME/platform-tools $PATH
   export FZF_DEFAULT_OPTS="
-  --color=fg:#d0d0d2,hl:#92c468
-  --color=fg+:#ffffff,bg+:#1E1F24,hl+:#92c468
-  --color=info:#94A3C5,prompt:#f7e254,pointer:#ffdb29
-  --color=marker:#FF875F,spinner:#94A3C5,header:#24292e
-  --color=border:#1E1F24,label:#8e8e90,query:#e8e8ea
-  --color=disabled:#24292e,preview-fg:#e8e8ea
+  --color=fg:#e5e5e5,hl:#95FB79
+  --color=fg+:#ffffff,bg+:#1E1F24,hl+:#95FB79
+  --color=info:#82AAFF,prompt:#82AAFF,pointer:#ffdb29
+  --color=marker:#D2A6FF,spinner:#FFEE99,header:#2e3339
+  --color=border:#1E1F24,label:#82AAFF,query:#FFFFFF
+  --color=disabled:#2e3339,preview-fg:#FFFFFF
   --border=rounded
   --height=40%
   --layout=reverse
