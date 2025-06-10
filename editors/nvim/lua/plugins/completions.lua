@@ -1,35 +1,89 @@
 return {
   {
-    'saghen/blink.cmp',
-    version = '1.*',
-    opts = {
-      keymap = {
-        preset = 'none',
-        ['<Up>'] = { 'select_prev', 'fallback' },
-        ['<Down>'] = { 'select_next', 'fallback' },
-        ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
-        ['<C-n>'] = { 'select_next', 'show', 'fallback_to_mappings' },
-        ['<Tab>'] = { 'select_next', 'fallback_to_mappings' },
-        ['<CR>'] = { 'accept', 'fallback' },
-      },
-      appearance = {
-        nerd_font_variant = 'mono',
-      },
-      sources = {
-        default = { 'lsp', 'path', 'buffer' },
-      },
-      fuzzy = { implementation = 'prefer_rust_with_warning' },
-      completion = {
-        documentation = {
-          auto_show = true,
-          window = {
-            border = 'rounded',
-          }
+    "hrsh7th/cmp-nvim-lsp",
+    event = "InsertEnter",
+  },
+  {
+    "hrsh7th/cmp-path",
+    event = "InsertEnter",
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    config = function()
+      local cmp = require("cmp")
+      local icons = {
+        Text = "󰉿",
+        Method = "󰆧",
+        Function = "󰊕",
+        Constructor = "",
+        Field = "󰜢",
+        Variable = "󰀫",
+        Class = "󰠱",
+        Interface = "",
+        Module = "",
+        Property = "󰜢",
+        Unit = "󰑭",
+        Value = "󰎠",
+        Enum = "",
+        Keyword = "󰌋",
+        Snippet = "",
+        Color = "󰏘",
+        File = "󰈙",
+        Reference = "󰈇",
+        Folder = "󰉋",
+        EnumMember = "",
+        Constant = "󰏿",
+        Struct = "󰙅",
+        Event = "",
+        Operator = "󰆕",
+        TypeParameter = "",
+      }
+      cmp.setup({
+        window = {
+          completion = {
+            border = "rounded",
+            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+            col_offset = -3,
+            side_padding = 0,
+            max_height = 10,
+          },
+          documentation = {
+            border = "rounded",
+            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+            max_width = 80,
+            max_height = 10,
+          },
         },
-        menu = { border = 'rounded' },
-      },
-      signature = { window = { border = 'rounded' } },
-    },
-    opts_extend = { 'sources.default' },
+        formatting = {
+          fields = { "menu", "abbr", "kind" },
+          format = function(entry, vim_item)
+            local kind_hl_group = "CmpItemKind" .. vim_item.kind
+            vim_item.menu = string.format(" %s ", icons[vim_item.kind])
+            vim_item.menu_hl_group = kind_hl_group
+            return vim_item
+          end,
+        },
+        completion = {
+          completeopt = 'menu,menuone,noinsert',
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
+          ["<C-K>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+          ["<C-J>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+          ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+        }),
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "path" },
+        }, {
+          { name = "buffer" },
+        }),
+      })
+    end,
   },
 }

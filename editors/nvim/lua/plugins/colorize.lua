@@ -1,7 +1,11 @@
 return {
-  "norcalli/nvim-colorizer.lua",
+  "catgoose/nvim-colorizer.lua",
   event = "BufReadPre",
-  config = function()
-    require("colorizer").setup()
-  end,
+  opts = {
+    user_default_options = {
+      virtualtext = " ",
+      mode = "virtualtext",
+      virtualtext_inline = true,
+    },
+  }
 }

@@ -8,30 +8,46 @@ return {
         icons_enabled = true,
       },
       sections = {
-        lualine_a = { "mode" },
+        lualine_a = {
+          { "mode", separator = { left = " ", right = "" }, icon = "" },
+        },
         lualine_b = {
-          { "branch" },
-          { "filename" },
+          {
+            "filename",
+            separator = { right = "" }
+          }
         },
         lualine_c = {
           {
+            "branch",
+            icon = "",
+            separator = { right = "" }
+          },
+          {
             "diff",
+            symbols = { added = " ", modified = " ", removed = " " },
+            colored = true,
           },
         },
         lualine_x = {
           {
             "diagnostics",
-            sources = { "nvim_diagnostic" },
-            sections = { "error" },
+            symbols = { error = " ", warn = " ", info = " ", hint = " " },
+            separator = { left = '' },
+            update_in_insert = true,
           },
+        },
+        lualine_y = {
           {
+            separator = { left = '' },
             function()
               local l = vim.treesitter.get_parser():lang()
               local lang = l or nil
-              return lang and " " .. lang .. "🌲" or ""
+              return lang and "  " .. lang
             end,
           },
           {
+            separator = { left = '' },
             function()
               local clients = vim.lsp.get_clients()
               if next(clients) == nil then
@@ -43,12 +59,18 @@ return {
                   table.insert(names, client.name)
                 end
               end
-              return #names > 0 and " " .. table.concat(names, ", ") .. "💡" or ""
+              return #names > 0 and "  " .. table.concat(names, ", ")
             end,
           },
         },
-        lualine_y = { "progress" },
-        lualine_z = { "location" },
+        lualine_z = {
+          {
+            function()
+              return " " .. vim.fn.line(".") .. ":" .. vim.fn.col(".")
+            end,
+            separator = { left = '', right = '' },
+          },
+        },
       },
       inactive_sections = {
         lualine_a = {},
