@@ -18,6 +18,18 @@ return
     ToggleTerminal("N")
 return
 
+; Win+Shift+M hotkey - reset M terminal vars
+#+m::
+TerminalM_HWND := 0
+TerminalM_Hidden := false
+return
+
+; Win+Shift+N hotkey - reset N terminal vars
+#+n::
+TerminalN_HWND := 0
+TerminalN_Hidden := false
+return
+
 ToggleTerminal(Key) {
     global
     
