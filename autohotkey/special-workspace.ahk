@@ -7,6 +7,7 @@ TerminalM_HWND := 0
 TerminalN_HWND := 0
 TerminalM_Hidden := false
 TerminalN_Hidden := false
+term := "wezterm.exe"
 
 ; Win+M hotkey
 #m::
@@ -16,6 +17,11 @@ return
 ; Win+N hotkey  
 #n::
     ToggleTerminal("N")
+return
+
+; Just launch
+#Enter::
+run %term%
 return
 
 ; Win+Shift+M hotkey - reset M terminal vars
@@ -59,11 +65,9 @@ ToggleTerminal(Key) {
     ; Check if our terminal exists (either visible or hidden)
     if (!CurrentHWND) {
         ; Terminal doesn't exist - create new one
-        Run, wt.exe
-        Sleep, 500  ; Give it time to open
-        
-        ; Get the newest terminal window
-        WinGet, NewHWND, ID, A  ; Get active window ID
+        Run, %term%,,, NewPID  ; Get the PID of the newly launched wezterm
+        WinWait, ahk_pid %NewPID%   ; Wait for the window with that PID to appear
+        WinGet, NewHWND, ID, ahk_pid %NewPID%  ; Get the HWND of that window
         
         ; Store the new window handle
         if (Key = "M") {
