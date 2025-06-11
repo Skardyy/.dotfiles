@@ -16,6 +16,7 @@ return {
       automatic_installation = true,
     },
   },
+  { "folke/neodev.nvim", opts = {} },
   {
     "neovim/nvim-lspconfig",
     lazy = false,
@@ -24,6 +25,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     config = function()
+      require("neodev").setup({})
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
       local mason_lspconfig = require("mason-lspconfig")
