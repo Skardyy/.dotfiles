@@ -11,6 +11,7 @@ return {
       view_options = {
         show_hidden = true,
       },
+      cleanup_delay_ms = 0,
       keymaps = {
         ["l"] = "actions.select",
         ["<BS>"] = "actions.preview",
@@ -22,7 +23,7 @@ return {
       if oil.get_current_dir() then
         oil.close()
       else
-        oil.open_float(vim.fn.getcwd())
+        oil.open(vim.fn.getcwd())
       end
     end
     vim.keymap.set("n", "<leader>e", open_oil_cwd, { desc = "Open oil" })
