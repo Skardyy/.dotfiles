@@ -10,6 +10,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+-- clear jump list at start
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.cmd("clearjumps")
+  end,
+})
+
 -- go to last loc when opening a buffer
 -- this mean that when you open a file, you will be at the last position
 vim.api.nvim_create_autocmd("BufReadPost", {

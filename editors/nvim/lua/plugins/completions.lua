@@ -67,6 +67,9 @@ return {
         completion = {
           completeopt = 'menu,menuone,noinsert',
         },
+        experimental = {
+          ghost_text = false, -- if you use this
+        },
         preselect = cmp.PreselectMode.None,
         sorting = {
           priority_weight = 1.0,
