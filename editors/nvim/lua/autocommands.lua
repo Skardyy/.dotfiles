@@ -2,10 +2,9 @@
 vim.g.autoformat = true
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
-  callback = function()
+  callback = function(args)
     if vim.g.autoformat then
-      vim.lsp.buf.format({ async = false })
-      vim.cmd("retab")
+      require('conform').format({ bufnr = args.buf })
     end
   end,
 })

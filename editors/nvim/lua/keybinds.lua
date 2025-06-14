@@ -56,7 +56,7 @@ end
 -- Normal mode mappings
 ---------------------------------
 
-vim.api.nvim_set_keymap("n", "<leader>1", ":lua vim.lsp.buf.format()<CR>",
+vim.api.nvim_set_keymap("n", "<leader>1", ":lua require('conform').format({})<CR>",
   { noremap = true, silent = true, desc = "Format Buffer" })
 vim.api.nvim_set_keymap("n", "<leader>w", ":w!<CR>", { noremap = true, silent = true, desc = "Save" })
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent = true, desc = "No highlight" })
