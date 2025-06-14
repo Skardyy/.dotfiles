@@ -13,14 +13,14 @@ return {
         },
         lualine_b = {
           {
-            "filename",
+            "branch",
+            icon = "",
             separator = { right = "" }
-          }
+          },
         },
         lualine_c = {
           {
-            "branch",
-            icon = "",
+            "filename",
             separator = { right = "" }
           },
           {
