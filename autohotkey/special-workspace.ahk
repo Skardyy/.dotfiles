@@ -7,7 +7,7 @@ TerminalM_HWND := 0
 TerminalN_HWND := 0
 TerminalM_Hidden := false
 TerminalN_Hidden := false
-term := "wezterm.exe"
+term := A_Desktop . "\wezterm\target\release\wezterm-gui.exe"
 
 ; Win+M hotkey
 #m::

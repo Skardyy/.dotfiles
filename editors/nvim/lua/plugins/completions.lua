@@ -67,6 +67,22 @@ return {
         completion = {
           completeopt = 'menu,menuone,noinsert',
         },
+        preselect = cmp.PreselectMode.None,
+        sorting = {
+          priority_weight = 1.0,
+          comparators = {
+            cmp.config.compare.locality,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.score,
+            cmp.config.compare.offset,
+            cmp.config.compare.order,
+            -- cmp.config.compare.offset,
+            -- cmp.config.compare.sort_text,
+            -- cmp.config.compare.length,
+            -- cmp.config.compare.kind,
+            -- cmp.config.compare.exact,
+          },
+        },
         mapping = cmp.mapping.preset.insert({
           ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
           ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
