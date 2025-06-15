@@ -3,7 +3,6 @@ Set-Alias -Name v -Value nvim
 Set-Alias -Name e -Value explorer
 Set-Alias -Name pss -Value tasklist
 $env:SHELL = "pwsh"
-$env:MCAT_PAGER = "moar --no-linenumbers --no-statusbar"
 $env:FZF_DEFAULT_OPTS = @"
 --color=fg:#e5e5e5,hl:#95FB79
 --color=fg+:#ffffff,bg+:#1E1F24,hl+:#95FB79
