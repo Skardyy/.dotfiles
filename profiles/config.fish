@@ -22,7 +22,15 @@ if status is-interactive
   --padding=1"
 
   alias v='nvim'
-  alias e='hyprctl dispatch exec dolphin'
+  function e
+      set -l target "."
+      if test (count $argv) -gt 0
+          set target "$argv[1]"
+      end
+
+      set target (realpath "$target")
+      hyprctl dispatch exec dolphin "$target"
+  end
   alias scb='wl-copy'
   alias c="fd --type d --hidden --exclude .git --exclude node_modules . ~ | fzf --preview 'exa --tree --color=always {}' --bind tab:down | read -l dir; and cd \$dir; and commandline -f repaint"
   bind \co 'c'
