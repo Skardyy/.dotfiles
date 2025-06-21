@@ -1,6 +1,7 @@
 oh-my-posh init pwsh --config '~\AppData\Local\Programs\oh-my-posh\themes\m.minimal.omp.json' | Invoke-Expression
 Set-Alias -Name v -Value nvim
 Set-Alias -Name e -Value explorer
+Set-Alias -Name o -Value mcat
 Set-Alias -Name pss -Value tasklist
 $env:SHELL = "pwsh"
 $env:FZF_DEFAULT_OPTS = @"

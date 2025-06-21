@@ -22,6 +22,7 @@ if status is-interactive
   --padding=1"
 
   alias v='nvim'
+  alias o='mcat'
   function e
       set -l target "."
       if test (count $argv) -gt 0
