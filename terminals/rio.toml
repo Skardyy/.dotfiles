@@ -53,9 +53,8 @@ dim-cyan = '#7599e5'
 dim-white = '#e5e5e5'
 
 [fonts]
-size = 28
-family = "Cascadia Code NF"
-use-drawable-chars = false
+size = 22
+family = "CaskaydiaCove Nerd Font"
 
 [window]
 width = 1900

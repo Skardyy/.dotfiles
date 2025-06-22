@@ -21,6 +21,7 @@ return {
     })
     wk.add({
       { "<leader>l", "LSP" },
+      { "<leader>r", "Git" },
     })
   end,
 }

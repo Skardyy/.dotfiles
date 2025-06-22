@@ -58,6 +58,10 @@ end
 
 vim.api.nvim_set_keymap("n", "<leader>1", ":lua require('conform').format({})<CR>",
   { noremap = true, silent = true, desc = "Format Buffer" })
+vim.api.nvim_set_keymap("n", "<leader>r1", ":GitConflictChooseOurs",
+  { noremap = true, silent = true, desc = "Choose Ours" })
+vim.api.nvim_set_keymap("n", "<leader>r2", ":GitConflictChooseTheirs",
+  { noremap = true, silent = true, desc = "Choose Theirs" })
 vim.api.nvim_set_keymap("n", "<leader>w", ":w!<CR>", { noremap = true, silent = true, desc = "Save" })
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent = true, desc = "No highlight" })
 vim.api.nvim_set_keymap("n", "<leader>o", ":Namu symbols<CR>", { noremap = false, silent = true, desc = "Find symbols" })
