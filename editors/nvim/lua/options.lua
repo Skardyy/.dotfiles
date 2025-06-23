@@ -24,6 +24,7 @@ vim.opt.wrap = false        -- display lines as one long line
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
+vim.opt.guicursor:append("a:blinkon0")
 
 -- Make command work on windows, i hate windows..
 if vim.fn.has('win32') == 1 then
