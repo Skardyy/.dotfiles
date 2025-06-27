@@ -3,7 +3,7 @@
 the main point of those scripts is to try and replicate hyprland functionality in windows.  
 
 * [kill-window](./kill-window.ahk) simply kills the window under the cursor when hitting win+c
-* [special-workspace](./special-workspace.ahk) allows you to toggle the view of 2 different terminals (1 for coding the other for testing). you can modify the terminal variable for your own terminal
+* [special-workspace](./special-workspace.ahk) allows you to toggle the view of 2 different terminals by win + m/n (1 for coding the other for testing). you can modify the terminal variable for your own terminal
 * [caps-esc-swap](./caps-esc-swap.ahk) simply swaps caps and esc keys.
 * [compiler](./compile.ps1) compiles all the AHK scripts to an exe
 
