@@ -22,7 +22,7 @@ vim.opt.cursorline = true   -- highlight the current line
 vim.opt.number = true       -- set numbered lines
 vim.opt.wrap = false        -- display lines as one long line
 vim.opt.list = true
-vim.opt.listchars = { tab = '→ ', leadmultispace = '· ', trail = '⋅' }
+vim.opt.listchars = { tab = '· ', leadmultispace = '· ', trail = '⋅' }
 vim.deprecate = function() end
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5

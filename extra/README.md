@@ -5,7 +5,7 @@
 
 ### Fonts  
 * goto [nerd repo](https://github.com/ryanoasis/nerd-fonts/releases/latest)
-* install either ZedMono font (extended version) / CascadiaCode  
+* I like CascadiaCode  
 
 ### install altDrag (windows only)
 * goto [AltDrag website](https://stefansundin.github.io/altdrag/)  
@@ -13,6 +13,11 @@
 ### Rhiza (windows only)  
 ```pwsh
 cargo install rhiza  
+```
+
+### mcat
+```pwsh
+cargo install mcat  
 ```
 
 ## Cursor
