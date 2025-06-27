@@ -3,13 +3,10 @@
   # My dotfiles
 
   minimal dotfiles for neovim and hyprland with ahk scripts for windows  
-  made with *Makurai theme*
   
   [![Static Badge](https://img.shields.io/badge/Hyprland-1C1F2E?style=for-the-badge&logo=hyprland)](./hypr)
   [![Static Badge](https://img.shields.io/badge/Neovim-1C1F2E?style=for-the-badge&logo=neovim)](./editors/nvim)
   [![Static Badge](https://img.shields.io/badge/Makurai%20Theme-1C1F2E?style=for-the-badge&logo=codefactor)](https://github.com/Skardyy/makurai-theme)
-
-
 
 </div>
     
@@ -27,7 +24,7 @@
 >
 > the hyprland config is built using [HyDE](https://github.com/HyDE-Project/HyDE)  
 > installing it without installing HyDE may lead to a broken config.  
-> I'd also suggest making sure modify the installer to install only the things you want
+> I'd also suggest making sure to modify the installer to install only the things you want
 
 # Install  
 ```sh
