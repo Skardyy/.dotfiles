@@ -21,6 +21,12 @@
 > but configuring it differently or using a different dotfiles manager should be rather easy --  
 > the [windows installer](./windows.install.yaml) and [linux installer](./linux.install.yaml) tell you everything on what should be where
 
+> [!Caution]
+>
+> the hyprland config is built using [HyDE](https://github.com/HyDE-Project/HyDE)  
+> installing it without installing HyDE may lead to a broken config.  
+> I'd also suggest making sure modify the installer to install only the things you want
+
 # Install  
 ```sh
 pip install dotbot
