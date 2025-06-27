@@ -23,6 +23,7 @@ return {
           lib.component.treesitter(),
           lib.component.lsp(),
           lib.component.nav(),
+          { provider = "  " },
         }
       })
 
