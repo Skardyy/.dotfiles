@@ -21,6 +21,9 @@ vim.opt.shiftwidth = 2      -- the number of spaces inserted for each indentatio
 vim.opt.cursorline = true   -- highlight the current line
 vim.opt.number = true       -- set numbered lines
 vim.opt.wrap = false        -- display lines as one long line
+vim.opt.list = true
+vim.opt.listchars = { tab = '→ ', leadmultispace = '· ', trail = '⋅' }
+vim.deprecate = function() end
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
@@ -40,9 +43,3 @@ vim.opt.fillchars = vim.opt.fillchars + "eob: "
 vim.opt.fillchars:append({
   stl = " ",
 })
-
-if vim.g.neovide then
-  vim.opt.guifont = "CaskaydiaCove Nerd Font:h15"
-  vim.g.neovide_refresh_rate = 120
-  vim.opt.linespace = 3
-end
