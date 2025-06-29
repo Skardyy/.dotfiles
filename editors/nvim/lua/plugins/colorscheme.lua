@@ -6,6 +6,6 @@ return {
     require "makurai".setup({
       bordered = true
     })
-    vim.cmd.colorscheme("makurai_mage")
+    vim.cmd.colorscheme("makurai_dark")
   end,
 }
