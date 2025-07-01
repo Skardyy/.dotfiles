@@ -16,7 +16,7 @@ config.colors = {
   background = "#15161B",
   cursor_bg = "#ffdb29",
   cursor_fg = "#15161B",
-  selection_bg = "#264F78",
+  selection_bg = "#602c3d",
   split = "#A6ACCD",
   ansi = {
     "#2e3339",
@@ -41,7 +41,7 @@ config.colors = {
   tab_bar = {
     background = "#15161B",
     active_tab = {
-      bg_color = "#1C1F2E",
+      bg_color = "#15161B",
       fg_color = "#FFFFFF",
     },
     inactive_tab = {
@@ -49,7 +49,7 @@ config.colors = {
       fg_color = "#2e3339",
     },
     inactive_tab_hover = {
-      bg_color = "#14161f",
+      bg_color = "#25282E",
       fg_color = "#FFFFFF",
     },
     new_tab = {

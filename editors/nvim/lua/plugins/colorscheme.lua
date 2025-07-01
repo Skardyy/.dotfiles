@@ -1,6 +1,6 @@
 return {
-  "Skardyy/makurai-nvim",
-  -- dir = "~/Desktop/makurai-nvim",
+  -- "Skardyy/makurai-nvim",
+  dir = "~/Desktop/makurai-nvim",
   lazy = false,
   config = function()
     require "makurai".setup({
