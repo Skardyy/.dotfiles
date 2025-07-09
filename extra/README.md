@@ -1,3 +1,9 @@
+### Arch-setup  
+```sh
+chmod +x ./arch-setup.sh
+./arch-setup.sh
+```
+
 ### Winutil (windows only)
 * open a terminal on admin
 * run `irm "https://christitus.com/win" | iex`
