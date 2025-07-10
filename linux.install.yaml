@@ -12,6 +12,3 @@
     ~/.config/fish/config.fish: profiles/config.fish
     ~/.config/hypr: hypr
     ~/.config/ghostty: terminals/ghostty
-    ~/.config/wal: wal
-    ~/.config/wofi: wofi
-    ~/.config/waybar: waybar
