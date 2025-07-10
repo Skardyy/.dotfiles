@@ -4,6 +4,14 @@ chmod +x ./arch-setup.sh
 ./arch-setup.sh
 ```
 
+### Wayland Nvidia shi
+```
+sudo vim /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT="quiet nvidia-drm.modeset=1"
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+reboot
+```
+
 ### Winutil (windows only)
 * open a terminal on admin
 * run `irm "https://christitus.com/win" | iex`

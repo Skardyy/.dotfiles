@@ -58,6 +58,7 @@ sudo pacman -S --needed --noconfirm \
   git \
   nvim \
   zip unzip \
+  libva-nvidia-driver \ # only if you have nvidia, im lazy to check
   fd \
   fzf \
   python-pipx
