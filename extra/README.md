@@ -6,6 +6,7 @@ chmod +x ./arch-setup.sh
 
 ### Wayland Nvidia shi
 ```
+sudo pacman -S libva-nvidia-driver
 sudo vim /etc/default/grub
 GRUB_CMDLINE_LINUX_DEFAULT="quiet nvidia-drm.modeset=1"
 sudo grub-mkconfig -o /boot/grub/grub.cfg

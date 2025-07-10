@@ -58,7 +58,6 @@ sudo pacman -S --needed --noconfirm \
   git \
   nvim \
   zip unzip \
-  libva-nvidia-driver \ # only if you have nvidia, im lazy to check
   fd \
   fzf \
   python-pipx
@@ -104,10 +103,7 @@ if ! command -v yay &> /dev/null; then
   rm -rf yay
 fi
 
-yay -S --needed --noconfirm moka-icon-theme-git iwgtk
-
-echo -e "\nInstalling pywal..."
-pipx install pywal
+yay -S --needed --noconfirm iwgtk
 
 # Service management
 echo -e "\n=== Configuring services ==="
@@ -116,7 +112,6 @@ enable_service iwd
 enable_service pipewire.service user
 enable_service pipewire-pulse.service user
 enable_service wireplumber.service user
-
 
 echo -e "\n=== Setup complete! ==="
 echo "You may want to reboot to ensure all services start properly."
