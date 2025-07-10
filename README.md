@@ -10,8 +10,7 @@
 
 </div>
     
-![image](https://github.com/user-attachments/assets/d6823219-cec0-4e88-92f5-821d82e3b67c)
-![image](https://github.com/user-attachments/assets/37791d5a-009a-4e1a-a5f0-30ab66a91445)
+<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/336571fd-6cc2-4523-a6c2-b8dafceea827" />
 
 > [!Note]
 > 
@@ -19,11 +18,9 @@
 > but configuring it differently or using a different dotfiles manager should be rather easy --  
 > the [windows installer](./windows.install.yaml) and [linux installer](./linux.install.yaml) tell you everything on what should be where
 
-> [!Caution]
+> [!Tip]
 >
-> the hyprland config is built using [HyDE](https://github.com/HyDE-Project/HyDE)  
-> installing it without installing HyDE may lead to a broken config.  
-> I'd also suggest making sure to modify the installer to install only the things you want
+> the notch in the config is [Ax-shell](https://github.com/Axenide/Ax-Shell)
 
 # Install  
 ```sh
