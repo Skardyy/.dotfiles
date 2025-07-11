@@ -5,11 +5,11 @@ Set-Alias -Name o -Value mcat
 Set-Alias -Name pss -Value tasklist
 $env:SHELL = "pwsh"
 $env:FZF_DEFAULT_OPTS = @"
---color=fg:#e5e5e5,hl:#a1cd32
---color=fg+:#ffffff,bg+:#1E1F24,hl+:#a1cd32
---color=info:#5abffa,prompt:#5abffa,pointer:#ffdb29
---color=marker:#FF6B9D,spinner:#fac25a,header:#2e3339
---color=border:#1E1F24,label:#5abffa,query:#FFFFFF
+--color=fg:#e5e5e5,hl:#95FB79
+--color=fg+:#ffffff,bg+:#1E1F24,hl+:#95FB79
+--color=info:#82AAFF,prompt:#82AAFF,pointer:#ffdb29
+--color=marker:#D2A6FF,spinner:#FFEE99,header:#2e3339
+--color=border:#1E1F24,label:#82AAFF,query:#FFFFFF
 --color=disabled:#2e3339,preview-fg:#FFFFFF
 --border=rounded
 --height=60%
