@@ -5,18 +5,18 @@ Set-Alias -Name o -Value mcat
 Set-Alias -Name pss -Value tasklist
 $env:SHELL = "pwsh"
 $env:FZF_DEFAULT_OPTS = @"
---color=fg:#e5e5e5,hl:#95FB79
---color=fg+:#ffffff,bg+:#1E1F24,hl+:#95FB79
---color=info:#82AAFF,prompt:#82AAFF,pointer:#ffdb29
---color=marker:#D2A6FF,spinner:#FFEE99,header:#2e3339
---color=border:#1E1F24,label:#82AAFF,query:#FFFFFF
+--color=fg:#e5e5e5,hl:#a2d93d
+--color=fg+:#ffffff,bg+:#1E1F24,hl+:#a2d93d
+--color=info:#60bfbf,prompt:#60bfbf,pointer:#ffdb29
+--color=marker:#e67399,spinner:#facc75,header:#2e3339
+--color=border:#1E1F24,label:#60bfbf,query:#FFFFFF
 --color=disabled:#2e3339,preview-fg:#FFFFFF
 --border=rounded
 --height=60%
 --layout=reverse
 --info=inline
 --margin=1
---padding=1
+--padding=1"
 "@
 
 # ~/.config/powershell/Microsoft.PowerShell_profile.ps1
