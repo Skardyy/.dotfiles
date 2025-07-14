@@ -9,6 +9,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+-- cuz f conceal in markdown.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { 'markdown' },
+  command = 'setlocal conceallevel=0'
+})
+
 -- clear jump list at start
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
