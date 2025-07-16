@@ -75,6 +75,7 @@ echo -e "\n[3/6] Installing UI components..."
 sudo pacman -S --needed --noconfirm \
   waybar \
   swww \
+  nwg-look \
   wofi \
   bibata-cursor-theme
 
