@@ -76,6 +76,7 @@ sudo pacman -S --needed --noconfirm \
   waybar \
   swww \
   wofi \
+  tela-icon-theme \
   bibata-cursor-theme
 
 echo -e "\n[4/6] Installing fonts..."
@@ -83,6 +84,7 @@ sudo pacman -S --needed --noconfirm \
   noto-fonts \
   noto-fonts-emoji \
   ttf-font-awesome \
+  ttf-ubuntu-nerd \
   ttf-cascadia-code-nerd
 
 echo -e "\n[5/6] Setting up adapters and audio..."
@@ -104,8 +106,7 @@ if ! command -v yay &> /dev/null; then
   rm -rf yay
 fi
 
-yay -S --needed --noconfirm iwgtk \
-  ttf-ubuntu-nerd
+yay -S --needed --noconfirm iwgtk
 
 # Service management
 echo -e "\n=== Configuring services ==="
