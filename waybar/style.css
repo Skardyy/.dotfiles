@@ -1,0 +1,62 @@
+@import url('../../.cache/wal/colors-waybar.css');
+
+* {
+  font-family: "Ubuntu Nerd Font";
+  font-size: 14px;
+  color: @foreground;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+window#waybar {
+  all: unset;
+}
+
+.modules-left, .modules-center, .modules-right {
+  margin-left: 18px;
+  margin-right: 18px;
+  margin-top: 6px;
+}
+
+#workspaces, #clock, #system-tray {
+  padding: 8px 15px;
+  background: alpha(@background, 0.8);
+  border: solid 1px alpha(@foreground, 0.3);
+  border-radius: 12px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.85);
+}
+
+#bluetooth,
+#pulseaudio,
+#network,
+#workspaces button {
+  all: unset;
+  padding: 0px 8px;
+  border-radius: 50%;
+  transition: color 0.2s ease;
+}
+
+#workspaces button label {
+  color: alpha(@foreground, 0.5);
+}
+#workspaces button:hover label {
+  color: alpha(@foreground, 0.85);
+}
+#workspaces button.active label {
+  color: alpha(@foreground, 1.0);
+}
+
+/* Green */
+#clock:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#network:hover {
+  color: @color2;
+}
+
+/* Red */
+#pulseaudio.muted,
+#network.disconnected,
+#bluetooth.disabled {
+  color: @color1;
+}

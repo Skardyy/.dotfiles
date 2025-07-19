@@ -12,4 +12,5 @@
     ~/.config/fish/config.fish: profiles/config.fish
     ~/.config/hypr: hypr
     ~/.config/ghostty: terminals/ghostty
-    ~/.themes/PywalTheme: gtk/.themes/PywalTheme
+    ~/.themes/PywalTheme: gtk/PywalTheme
+    ~/.config/waybar: waybar

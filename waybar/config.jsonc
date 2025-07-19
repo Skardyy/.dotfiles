@@ -1,0 +1,55 @@
+{
+  "layer": "top",
+  "position": "top",
+  "margin": "0 0 -20px 0",
+
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": ["group/system-tray"],
+
+  "group/system-tray": {
+    "orientation": "horizontal",
+    "modules": ["bluetooth", "pulseaudio", "network"]
+  },
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "●",
+    "format-icons": {
+      "active": "●",
+      "default": "○"
+    }
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "{:L%A %d/%m - %I:%M %p}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+
+  "bluetooth": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱",
+    "on-click": "blueman-manager"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-muted": "󰖁",
+    "format-icons": {
+      "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-wifi": "󰤨",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰤭",
+    "on-click": "iwgtk"
+  }
+}
