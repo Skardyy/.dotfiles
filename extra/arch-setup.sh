@@ -75,7 +75,6 @@ echo -e "\n[3/6] Installing UI components..."
 sudo pacman -S --needed --noconfirm \
   waybar \
   swww \
-  nwg-look \
   wofi \
   bibata-cursor-theme
 
@@ -89,6 +88,7 @@ sudo pacman -S --needed --noconfirm \
 echo -e "\n[5/6] Setting up adapters and audio..."
 sudo pacman -S --needed --noconfirm \
   iwd \
+  nwg-look \
   blueman bluez bluez-utils \
   pavucontrol \
   pipewire pipewire-pulse pipewire-alsa wireplumber
@@ -104,7 +104,8 @@ if ! command -v yay &> /dev/null; then
   rm -rf yay
 fi
 
-yay -S --needed --noconfirm iwgtk
+yay -S --needed --noconfirm iwgtk \
+  ttf-ubuntu-nerd
 
 # Service management
 echo -e "\n=== Configuring services ==="

@@ -13,6 +13,15 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 reboot
 ```
 
+### Colloid-gtk-theme
+```
+git clone https://github.com/vinceliuice/Colloid-gtk-theme
+cd Colloid-gtk-theme
+./install.sh --theme all --tweaks dracula black
+
+finally run nwg-look and set it.
+```
+
 ### Winutil (windows only)
 * open a terminal on admin
 * run `irm "https://christitus.com/win" | iex`

@@ -1,7 +1,7 @@
 {
   "layer": "top",
   "position": "top",
-  "margin": "0 0 -20px 0",
+  "margin": "0 0 -30px 0",
 
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
@@ -23,33 +23,42 @@
   },
 
   "clock": {
-    "interval": 1,
-    "format": "{:L%A %d/%m - %I:%M %p}",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    "format": "{:%A %d/%m - %I:%M %p}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "format": {
+        "months": "<span color='#ff9e64'><b>{}</b></span>",
+        "days": "<span color='#e0e0e0'>{}</span>",
+        "weekdays": "<span color='#ff9e64'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b>{}</b></span>"
+      }
+    }
   },
 
   "bluetooth": {
     "format": "󰂯",
     "format-disabled": "󰂲",
-    "format-off": "󰂲",
-    "format-on": "󰂯",
-    "format-connected": "󰂱",
+    "format-connected": "󰂱 {device_battery_percentage}%",
+    "tooltip-format": "{status}",
+    "tooltip-format-connected": "Connected to {device_alias}",
     "on-click": "blueman-manager"
   },
 
   "pulseaudio": {
-    "format": "{icon}",
-    "format-muted": "󰖁",
-    "format-icons": {
-      "default": ["󰕿", "󰖀", "󰕾"]
-    },
-    "on-click": "pavucontrol"
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 {volume}%",
+    "format-icons": ["󰕿", "󰖀", "󰕾"],
+    "tooltip-format": "{desc}\nVolume: {volume}%",
+    "on-click": "pavucontrol",
+    "scroll-step": 5
   },
 
   "network": {
-    "format-wifi": "󰤨",
-    "format-ethernet": "󰈀",
-    "format-disconnected": "󰤭",
+    "format-wifi": "󰤨 {essid}",
+    "format-ethernet": "󰈀 Ethernet",
+    "format-disconnected": "󰤭 Disconnected",
+    "tooltip-format": "{ifname}",
+    "tooltip-format-wifi": "WiFi: {essid}\nSignal: {signalStrength}%",
     "on-click": "iwgtk"
   }
 }
