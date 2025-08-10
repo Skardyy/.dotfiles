@@ -30,7 +30,7 @@ if status is-interactive
       end
 
       set target (realpath "$target")
-      hyprctl dispatch exec dolphin "$target"
+      hyprctl dispatch exec nemo "$target"
   end
   alias scb='wl-copy'
   alias c="fd --type d --hidden --exclude .git --exclude node_modules . ~ | fzf --preview 'exa --tree --color=always {}' --bind tab:down | read -l dir; and cd \$dir; and commandline -f repaint"
