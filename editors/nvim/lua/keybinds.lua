@@ -32,10 +32,32 @@ function ToggleQuickfix()
   end
 end
 
+function TelescopeGitDiff()
+  local builtin = require('telescope.builtin')
+  local actions = require('telescope.actions')
+  local action_state = require('telescope.actions.state')
+
+  builtin.git_commits({
+    attach_mappings = function(prompt_bufnr, _)
+      actions.select_default:replace(function()
+        local selection = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+
+        vim.cmd('DiffviewOpen HEAD..' .. selection.value)
+      end)
+
+      return true
+    end,
+  })
+end
+
 ---------------------------------
 -- Normal mode mappings
 ---------------------------------
 
+vim.api.nvim_set_keymap("n", "<leader>b", ":lua TelescopeGitDiff()<CR>",
+  { noremap = true, silent = true, desc = "Git Diff" })
+vim.keymap.set('n', 'zi', 'zc', { desc = 'Close fold' })
 vim.api.nvim_set_keymap("n", "<leader>1", "gg=G``",
   { noremap = true, silent = true, desc = "Format Buffer" })
 vim.api.nvim_set_keymap("n", "<leader>w", ":silent! w!<CR>", { noremap = true, silent = true, desc = "Save" })
