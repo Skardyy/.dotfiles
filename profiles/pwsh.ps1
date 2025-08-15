@@ -16,7 +16,7 @@ $env:FZF_DEFAULT_OPTS = @"
 --layout=reverse
 --info=inline
 --margin=1
---padding=1"
+--padding=1
 "@
 
 # ~/.config/powershell/Microsoft.PowerShell_profile.ps1
