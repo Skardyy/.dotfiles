@@ -65,8 +65,11 @@ vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent =
 vim.api.nvim_set_keymap("n", "<leader>o", ":Namu symbols<CR>", { noremap = false, silent = true, desc = "Find symbols" })
 vim.api.nvim_set_keymap("n", "<leader>c", ":lua ExecuteCommand()<CR>",
   { noremap = false, silent = true, desc = "Run Command" })
-vim.api.nvim_set_keymap('n', '<leader>t', ':lua ToggleQuickfix()<CR>',
+vim.api.nvim_set_keymap('n', '<leader>q', ':lua ToggleQuickfix()<CR>',
   { noremap = true, silent = true, desc = "Toggle quickfix" })
+vim.keymap.set('n', '<leader>t', '<CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('t', '<leader>t', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+vim.keymap.set('t', '<leader>s', '<C-\\><C-n><CMD>lua require("FTerm").run("cd" .. " " .. vim.fn.getcwd())<CR>i')
 vim.keymap.set("n", "<leader>lq", function()
   local win = vim.api.nvim_get_current_win()
   vim.diagnostic.setqflist()

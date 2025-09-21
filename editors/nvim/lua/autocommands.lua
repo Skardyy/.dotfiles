@@ -78,3 +78,28 @@ function _G.set_terminal_keymaps()
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+
+-- allow cd without args while also integrating it to oil
+vim.api.nvim_create_autocmd('CmdlineLeave', {
+  pattern = ':',
+  callback = function()
+    local cmdline = vim.fn.getcmdline()
+    if cmdline == 'cd' then
+      vim.schedule(function()
+        vim.cmd('cd ~')
+        vim.cmd('pwd')
+        if vim.bo.filetype == 'oil' then
+          local cwd = vim.fn.getcwd()
+          require("oil").open(cwd)
+        end
+      end)
+    elseif cmdline:match('^cd%s') then
+      vim.schedule(function()
+        if vim.bo.filetype == 'oil' then
+          local cwd = vim.fn.getcwd()
+          require("oil").open(cwd)
+        end
+      end)
+    end
+  end
+})
