@@ -8,6 +8,7 @@ TerminalN_HWND := 0
 TerminalM_Hidden := false
 TerminalN_Hidden := false
 term := A_Desktop . "\wezterm\target\release\wezterm-gui.exe"
+editor := "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Neovide.lnk"
 
 ; Win+M hotkey
 #m::
@@ -36,6 +37,18 @@ TerminalN_HWND := 0
 TerminalN_Hidden := false
 return
 
+GetHWNDFromPID(PID) {
+  Loop {
+    WinWait, ahk_pid %PID%
+    WinGet, CurrentHWND, ID, ahk_pid %PID%
+    WinGetTitle, Title, ahk_id %CurrentHWND%
+
+    if (Title != "") {
+        return CurrentHWND
+    }
+  }
+}
+
 ToggleTerminal(Key) {
     global
     
@@ -54,7 +67,7 @@ ToggleTerminal(Key) {
     
     ; Hide the other terminal if it exists and is not hidden
     if (OtherHWND && !OtherHidden) {
-        WinHide, ahk_id %OtherHWND%
+        WinMinimize, ahk_id %OtherHWND%
         if (Key = "M") {
             TerminalN_Hidden := true
         } else if (Key = "N") {
@@ -65,9 +78,14 @@ ToggleTerminal(Key) {
     ; Check if our terminal exists (either visible or hidden)
     if (!CurrentHWND) {
         ; Terminal doesn't exist - create new one
-        Run, %term%,,, NewPID  ; Get the PID of the newly launched wezterm
-        WinWait, ahk_pid %NewPID%   ; Wait for the window with that PID to appear
-        WinGet, NewHWND, ID, ahk_pid %NewPID%  ; Get the HWND of that window
+        if (key = "N") {
+          Run, %term%,,, NewPID  ; Get the PID of the newly launched wezterm
+        } else {
+          Run, %editor%,,, NewPID  ; Get the PID of the newly editor
+        }
+
+        NewHWND := GetHWNDFromPID(NewPID)
+        ; WinGet, NewHWND, ID, ahk_pid %NewPID%  ; Get the HWND of that window
         
         ; Store the new window handle
         if (Key = "M") {
@@ -80,7 +98,7 @@ ToggleTerminal(Key) {
         
     } else if (!CurrentHidden && WinActive("ahk_id " . CurrentHWND)) {
         ; Our terminal is active and visible - hide it
-        WinHide, ahk_id %CurrentHWND%
+        WinMinimize, ahk_id %CurrentHWND%
         if (Key = "M") {
             TerminalM_Hidden := true
         } else if (Key = "N") {
