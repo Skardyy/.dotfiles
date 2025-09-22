@@ -85,7 +85,6 @@ ToggleTerminal(Key) {
         }
 
         NewHWND := GetHWNDFromPID(NewPID)
-        ; WinGet, NewHWND, ID, ahk_pid %NewPID%  ; Get the HWND of that window
         
         ; Store the new window handle
         if (Key = "M") {
