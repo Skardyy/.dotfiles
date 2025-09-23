@@ -89,12 +89,14 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
       vim.schedule(function()
         vim.cmd('cd ~')
         vim.cmd('pwd')
+        local cwd = vim.fn.getcwd()
+        require("oil").open(cwd)
+      end)
+    elseif cmdline:match('^cd%s') then
+      vim.schedule(function()
+        local cwd = vim.fn.getcwd()
+        require("oil").open(cwd)
       end)
     end
-
-    vim.schedule(function()
-      local cwd = vim.fn.getcwd()
-      require("oil").open(cwd)
-    end)
   end
 })
