@@ -25,6 +25,7 @@ return {
         oil.close()
       else
         oil.open(vim.fn.getcwd())
+        require("aerial").close() -- make sure aerial isn't visible (it doesn't contain symbols anyways)
       end
     end
     vim.keymap.set("n", "<leader>e", open_oil_cwd, { desc = "Open oil" })
