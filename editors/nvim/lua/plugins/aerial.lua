@@ -18,5 +18,6 @@ return {
     show_guides = true,
     open_automatic = true,
     highlight_on_hover = true,
+    autojump = true,
   },
 }
