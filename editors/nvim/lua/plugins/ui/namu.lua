@@ -1,3 +1,4 @@
+-- zed like symbol fuzzy search
 return {
   "bassamsdata/namu.nvim",
   config = function()

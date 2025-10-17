@@ -14,4 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 require("options")
 require("keybinds")
 require("autocommands")
-require("lazy").setup("plugins")
+require("lazy").setup({
+  { import = "plugins.sugar" },
+  { import = "plugins.ui" },
+  { import = "plugins.lsp" },
+  { import = "plugins.git" },
+})

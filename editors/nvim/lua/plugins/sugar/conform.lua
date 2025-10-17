@@ -1,3 +1,4 @@
+-- used for preservation of the jump list when formatting
 return {
   'stevearc/conform.nvim',
   opts = {

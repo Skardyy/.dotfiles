@@ -1,3 +1,4 @@
+-- fuzzy finders
 return {
   {
     "nvim-telescope/telescope-ui-select.nvim",
