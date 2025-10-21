@@ -7,7 +7,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { 'nvim-lua/plenary.nvim' },
-    lazy = true,
     cmd = "Telescope",
     keys = {
       { "<leader>g", "<cmd>Telescope live_grep<cr>",  desc = "Live Grep" },

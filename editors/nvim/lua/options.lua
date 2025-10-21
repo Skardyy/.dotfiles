@@ -23,9 +23,10 @@ vim.opt.number = true       -- set numbered lines
 vim.opt.wrap = false        -- display lines as one long line
 vim.opt.list = true
 vim.opt.listchars = { tab = '· ', leadmultispace = '· ', trail = '⋅' }
-vim.deprecate = function() end
+vim.deprecate = function() end -- i don't want to hear about it..
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
+vim.opt.laststatus = 3
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 vim.opt.guicursor:append("a:blinkon0")
 

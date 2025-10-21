@@ -41,5 +41,8 @@ return {
         },
       },
     })
+
+    vim.api.nvim_set_keymap("n", "<leader>o", ":Namu symbols<CR>",
+      { noremap = false, silent = true, desc = "Find symbols" })
   end,
 }

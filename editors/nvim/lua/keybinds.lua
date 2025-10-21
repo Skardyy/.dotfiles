@@ -55,20 +55,15 @@ end
 -- Normal mode mappings
 ---------------------------------
 
-vim.api.nvim_set_keymap("n", "<leader>b", ":lua TelescopeGitDiff()<CR>",
-  { noremap = true, silent = true, desc = "Git Diff" })
 vim.keymap.set('n', 'zi', 'zc', { desc = 'Close fold' })
 vim.api.nvim_set_keymap("n", "<leader>1", "gg=G``",
   { noremap = true, silent = true, desc = "Format Buffer" })
 vim.api.nvim_set_keymap("n", "<leader>w", ":silent! w!<CR>", { noremap = true, silent = true, desc = "Save" })
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent = true, desc = "No highlight" })
-vim.api.nvim_set_keymap("n", "<leader>o", ":Namu symbols<CR>", { noremap = false, silent = true, desc = "Find symbols" })
 vim.api.nvim_set_keymap("n", "<leader>c", ":lua ExecuteCommand()<CR>",
   { noremap = false, silent = true, desc = "Run Command" })
 vim.api.nvim_set_keymap('n', '<leader>q', ':lua ToggleQuickfix()<CR>',
   { noremap = true, silent = true, desc = "Toggle quickfix" })
-vim.keymap.set('n', '<leader>t', '<CMD>lua require("FTerm").toggle()<CR>')
-vim.keymap.set('n', '<leader>s', '<CMD>lua require("FTerm").run("cd" .. " " .. vim.fn.getcwd())<CR>i')
 vim.keymap.set("n", "<leader>lq", function()
   local win = vim.api.nvim_get_current_win()
   vim.diagnostic.setqflist()

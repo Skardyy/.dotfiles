@@ -53,7 +53,7 @@ return {
       },
       formatting = {
         fields = { "menu", "abbr", "kind" },
-        format = function(entry, vim_item)
+        format = function(_, vim_item)
           local kind_hl_group = "CmpItemKind" .. vim_item.kind
           vim_item.menu = string.format(" %s ", icons[vim_item.kind])
           vim_item.menu_hl_group = kind_hl_group
@@ -94,17 +94,5 @@ return {
         { name = "buffer" },
       }),
     })
-
-    -- cmp.setup.cmdline(':', {
-    --   mapping = cmp.mapping.preset.cmdline(),
-    --   sources = cmp.config.sources({
-    --     { name = 'path' }
-    --   }, {
-    --     { name = 'cmdline' }
-    --   }),
-    --   completion = {
-    --     autocomplete = false
-    --   },
-    -- })
   end,
 }

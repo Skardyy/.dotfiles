@@ -1,7 +1,6 @@
 -- plugin for having a treeview of the symbols in the current file
 return {
   "stevearc/aerial.nvim",
-  lazy = false,
   opts = {
     layout = {
       default_direction = "prefer_left",
