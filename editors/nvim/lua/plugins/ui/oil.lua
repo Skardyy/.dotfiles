@@ -13,6 +13,9 @@ return {
       view_options = {
         show_hidden = true,
       },
+      confirmation = {
+        border = "single"
+      },
       cleanup_delay_ms = 0,
       keymaps = {
         ["l"] = "actions.select",

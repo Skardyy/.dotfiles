@@ -91,11 +91,13 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
         vim.cmd('pwd')
         local cwd = vim.fn.getcwd()
         require("oil").open(cwd)
+        require("aerial").close() -- make sure aerial isn't visible (it doesn't contain symbols anyways)
       end)
     elseif cmdline:match('^cd%s') then
       vim.schedule(function()
         local cwd = vim.fn.getcwd()
         require("oil").open(cwd)
+        require("aerial").close() -- make sure aerial isn't visible (it doesn't contain symbols anyways)
       end)
     end
   end

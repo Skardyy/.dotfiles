@@ -58,7 +58,6 @@ end
 vim.keymap.set('n', 'zi', 'zc', { desc = 'Close fold' })
 vim.api.nvim_set_keymap("n", "<leader>1", "gg=G``",
   { noremap = true, silent = true, desc = "Format Buffer" })
-vim.api.nvim_set_keymap("n", "<leader>w", ":silent! w!<CR>", { noremap = true, silent = true, desc = "Save" })
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent = true, desc = "No highlight" })
 vim.api.nvim_set_keymap("n", "<leader>c", ":lua ExecuteCommand()<CR>",
   { noremap = false, silent = true, desc = "Run Command" })
