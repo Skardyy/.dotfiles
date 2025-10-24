@@ -8,7 +8,8 @@ TerminalN_HWND := 0
 TerminalM_Hidden := false
 TerminalN_Hidden := false
 term := A_Desktop . "\wezterm\target\release\wezterm-gui.exe"
-editor := "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Neovide.lnk"
+; editor := "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Neovide.lnk"
+editor := term
 
 ; Win+M hotkey
 #m::
