@@ -10,7 +10,10 @@
 
 </div>
     
-![image](https://github.com/user-attachments/assets/966ffdd8-5662-4588-880d-46604bb48b73)
+| Desktop | Neovim |
+|---------|---------|
+| ![image](https://github.com/user-attachments/assets/b58e957a-22c8-44a0-b463-1a66519cf730) | ![image](https://github.com/user-attachments/assets/3a52e1f3-9ea8-4f1b-b249-2e43c16d6d29) |
+
 
 > [!Note]
 > 
@@ -20,7 +23,7 @@
 
 > [!Tip]
 >
-> the notch in the config is [Ax-shell](https://github.com/Axenide/Ax-Shell)
+> the dotfiles are based on [end4 dotfiles](https://github.com/end-4/dots-hyprland)
 
 # Install  
 ```sh
