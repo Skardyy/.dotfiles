@@ -60,6 +60,7 @@ sudo pacman -S --needed --noconfirm \
   zip unzip \
   fd \
   fzf \
+  fish \
   python-pipx
 
 echo -e "\n[2/6] Installing Hyprland utilities..."
@@ -68,16 +69,13 @@ sudo pacman -S --needed --noconfirm \
   hyprlock \
   wl-clipboard \
   hyprpicker \
-  satty \
-  grimblast
+  satty 
 
 echo -e "\n[3/6] Installing UI components..."
 sudo pacman -S --needed --noconfirm \
   waybar \
   swww \
-  wofi \
-  tela-icon-theme \
-  bibata-cursor-theme
+  wofi 
 
 echo -e "\n[4/6] Installing fonts..."
 sudo pacman -S --needed --noconfirm \
