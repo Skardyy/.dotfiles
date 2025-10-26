@@ -81,3 +81,4 @@ echo "  - Log in to GitHub CLI: gh auth login"
 echo "  - Set git credentials:"
 echo "      git config --global user.name 'Your Name'"
 echo "      git config --global user.email 'your@email.com'"
+echo "  - Setup displays: nwg-displays
