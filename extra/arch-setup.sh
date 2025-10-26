@@ -2,98 +2,54 @@
 
 set -e
 
-enable_service() {
-  local service="$1"
-  local user_service=false
-  local systemctl_cmd="systemctl"
-  
-  # Check if second parameter indicates user service
-  if [[ "$2" == "user" ]] || [[ "$2" == "--user" ]]; then
-    user_service=true
-    systemctl_cmd="systemctl --user"
-  fi
-  
-  # Set appropriate prefix for sudo if system service
-  local sudo_prefix=""
-  if [[ "$user_service" == false ]]; then
-    sudo_prefix="sudo "
-  fi
-  
-  # Check if service exists
-  if ! $systemctl_cmd list-unit-files | grep -q "^$service"; then
-    echo "⚠️  Warning: Service $service does not exist"
-    return 1
-  fi
-  
-  # Enable if not enabled
-  if ! $systemctl_cmd is-enabled --quiet "$service"; then
-    echo "Enabling $service..."
-    ${sudo_prefix}$systemctl_cmd enable "$service"
-  else
-    echo "✅ $service is already enabled"
-  fi
-  
-  # Start if not active
-  if ! $systemctl_cmd is-active --quiet "$service"; then
-    echo "Starting $service..."
-    ${sudo_prefix}$systemctl_cmd start "$service"
-  else
-    echo "✅ $service is already running"
-  fi
-  
-  # Verify status
-  if $systemctl_cmd is-active --quiet "$service"; then
-    echo "✓ Success: $service is now active"
-  else
-    echo "❌ Error: Failed to start $service"
-    $systemctl_cmd status "$service" --no-pager -l
-    return 1
-  fi
-}
+TEMP_DIR=$(mktemp -d)
 
-echo "=== Starting Hyprland Environment Setup ==="
-
-echo -e "\n[1/6] Installing core utilities..."
+echo -e "\n[1/7] Installing core utilities..."
 sudo pacman -S --needed --noconfirm \
   git \
+  github-cli \
   nvim \
-  zip unzip \
+  zip unzip tar \
   fd \
   fzf \
   fish \
-  python-pipx
+  ripgrep \
+  wget curl \
+  less \
+  difftastic
 
-echo -e "\n[2/6] Installing Hyprland utilities..."
+echo -e "\n[2/7] Installing development tools and compilers..."
 sudo pacman -S --needed --noconfirm \
-  hypridle \
-  hyprlock \
-  wl-clipboard \
-  hyprpicker \
-  satty 
+  base-devel \
+  python python-pip python-pipx \
+  nodejs npm \
+  go \
+  rust \
+  clang llvm \
+  gcc \
+  cmake ninja \
+  docker docker-compose
 
-echo -e "\n[3/6] Installing UI components..."
-sudo pacman -S --needed --noconfirm \
-  waybar \
-  swww \
-  wofi 
+echo -e "\n[3/7] Installing fonts..."
+mkdir -p "$HOME/.local/share/fonts"
+wget -q -O "$TEMP_DIR/CommitMono.tar.gz" "https://github.com/Skardyy/fonts/releases/download/1.0.0/CommitMono.tar.gz"
+wget -q -O "$TEMP_DIR/ZedMono.tar.gz" "https://github.com/Skardyy/fonts/releases/download/1.0.0/ZedMono.tar.gz"
+tar -xzf "$TEMP_DIR/CommitMono.tar.gz" -C "$TEMP_DIR"
+tar -xzf "$TEMP_DIR/ZedMono.tar.gz" -C "$TEMP_DIR"
+find "$TEMP_DIR" -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} "$HOME/.local/share/fonts" \;
+fc-cache -fv
 
-echo -e "\n[4/6] Installing fonts..."
-sudo pacman -S --needed --noconfirm \
-  noto-fonts \
-  noto-fonts-emoji \
-  ttf-font-awesome \
-  ttf-ubuntu-nerd \
-  ttf-cascadia-code-nerd
+echo -e "\n[4/7] Cloning assets repository..."
+if [ -d "$HOME/Pictures/assets" ]; then
+  echo "Assets already exist, pulling latest..."
+  git -C "$HOME/Pictures/assets" pull
+else
+  mkdir -p "$HOME/Pictures"
+  git clone --depth 1 https://github.com/Skardyy/assets "$HOME/Pictures/assets"
+fi
 
-echo -e "\n[5/6] Setting up adapters and audio..."
-sudo pacman -S --needed --noconfirm \
-  iwd \
-  nwg-look \
-  blueman bluez bluez-utils \
-  pavucontrol \
-  pipewire pipewire-pulse pipewire-alsa wireplumber
 
-echo -e "\n[6/6] Installing AUR packages..."
+echo -e "\n[5/7] Installing AUR packages..."
 if ! command -v yay &> /dev/null; then
   echo "Installing yay..."
   sudo pacman -S --needed --noconfirm git base-devel
@@ -104,15 +60,24 @@ if ! command -v yay &> /dev/null; then
   rm -rf yay
 fi
 
-yay -S --needed --noconfirm iwgtk
+echo -e "\n[5.5/7] Configuring git..."
+git config --global core.editor "nvim"
+git config --global diff.external "difft"
 
-# Service management
-echo -e "\n=== Configuring services ==="
-enable_service bluetooth
-enable_service iwd
-enable_service pipewire.service user
-enable_service pipewire-pulse.service user
-enable_service wireplumber.service user
+echo -e "\n[6/7] Installing AUR packages..."
+yay -S --needed --noconfirm \
+  zen-browser-bin
 
-echo -e "\n=== Setup complete! ==="
-echo "You may want to reboot to ensure all services start properly."
+echo -e "\n[7/7] Configuring fish shell..."
+chsh -s /usr/bin/fish
+fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
+fish -c "fisher install ilancosman/tide@v6"
+
+rm -rf "$TEMP_DIR"
+
+echo -e "\n✓ Setup complete!"
+echo "Remember to:"
+echo "  - Log in to GitHub CLI: gh auth login"
+echo "  - Set git credentials:"
+echo "      git config --global user.name 'Your Name'"
+echo "      git config --global user.email 'your@email.com'"
