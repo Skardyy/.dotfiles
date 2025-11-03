@@ -2,7 +2,7 @@
 
 set -e
 
-TEMP_DIR=$(mktemp -d)
+set TEMP_DIR $(mktemp -d)
 
 echo -e "\n[1/7] Installing core utilities..."
 sudo pacman -S --needed --noconfirm \
