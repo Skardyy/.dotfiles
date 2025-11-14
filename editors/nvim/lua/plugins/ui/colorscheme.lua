@@ -3,6 +3,9 @@ return {
   -- dir = "~/Desktop/makurai-nvim", -- for  testing
   lazy = false,
   config = function()
-    vim.cmd.colorscheme("makurai_dark")
+    require "makurai".setup({
+      transparent = true
+    })
+    vim.cmd.colorscheme("makurai_autumn")
   end,
 }
