@@ -10,5 +10,18 @@ return {
     presets = {
       bottom_search = true,
     },
+    views = {
+      hover = {
+        border = {
+          style = "rounded",
+        },
+      },
+    },
+    routes = {
+      {
+        filter = { kind = { "confirm", "input" } },
+        view = "cmdline",
+      },
+    },
   },
 }

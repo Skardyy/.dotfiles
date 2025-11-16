@@ -8,15 +8,15 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lspconfig = require("lspconfig")
       local mason_lspconfig = require("mason-lspconfig")
 
       mason_lspconfig.setup({
         handlers = {
           function(server_name)
-            lspconfig[server_name].setup({
-              capabilities = capabilities,
+            vim.lsp.config(server_name, {
+              capabilities = capabilities
             })
+            vim.lsp.enable(server_name)
           end,
         },
       })
