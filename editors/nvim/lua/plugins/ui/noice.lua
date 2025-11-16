@@ -21,6 +21,10 @@ return {
       {
         filter = { kind = { "confirm", "input" } },
         view = "cmdline",
+        opts = {
+          border = { style = "rounded" },
+          size = { width = vim.o.columns - 2 },
+        }
       },
     },
   },

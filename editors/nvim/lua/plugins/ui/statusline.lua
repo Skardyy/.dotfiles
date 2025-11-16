@@ -18,6 +18,7 @@ return {
             hl = { link = "@variable" } -- Use theme's foreground
           },
           lib.component.git_diff(),
+          lib.component.cmd_info(),
           lib.component.fill(),
           lib.component.diagnostics(),
           lib.component.treesitter(),
