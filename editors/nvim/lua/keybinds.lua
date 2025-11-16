@@ -1,4 +1,4 @@
-local opts = { noremap = true, silent = true }
+local opts = { silent = true }
 function ToggleAutoformat()
   vim.g.autoformat = not vim.g.autoformat
   print("Autoformat is " .. (vim.g.autoformat and "ON" or "OFF"))
@@ -55,31 +55,31 @@ end
 -- Normal mode mappings
 ---------------------------------
 
-vim.api.nvim_set_keymap("n", "<leader>1", "gg=G``",
-  { noremap = true, silent = true, desc = "Format Buffer" })
-vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent = true, desc = "No highlight" })
-vim.api.nvim_set_keymap("n", "<leader>c", ":lua ExecuteCommand()<CR>",
-  { noremap = false, silent = true, desc = "Run Command" })
-vim.api.nvim_set_keymap('n', '<leader>q', ':lua ToggleQuickfix()<CR>',
-  { noremap = true, silent = true, desc = "Toggle quickfix" })
+vim.keymap.set("n", "<leader>1", "gg=G``",
+  { silent = true, desc = "Format Buffer" })
+vim.keymap.set("n", "<leader>h", ":noh<CR>", { silent = true, desc = "No highlight" })
+vim.keymap.set("n", "<leader>c", ":lua ExecuteCommand()<CR>",
+  { silent = true, desc = "Run Command" })
+vim.keymap.set('n', '<leader>q', ':lua ToggleQuickfix()<CR>',
+  { silent = true, desc = "Toggle quickfix" })
 vim.keymap.set("n", "<leader>lq", function()
   local win = vim.api.nvim_get_current_win()
   vim.diagnostic.setqflist()
   vim.cmd("copen")
   vim.api.nvim_set_current_win(win)
-end, { noremap = false, silent = true, desc = "Quick lsp fix" })
-vim.api.nvim_set_keymap("n", "<C-n>", ":cn<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-p>", ":cp<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap(
+end, { silent = true, desc = "Quick lsp fix" })
+vim.keymap.set("n", "<C-n>", ":cn<CR>", opts)
+vim.keymap.set("n", "<C-p>", ":cp<CR>", opts)
+vim.keymap.set(
   "n",
   "<leader>F",
   ":lua ToggleAutoformat()<CR>",
-  { noremap = true, silent = true, desc = "Toggle autoformat" }
+  { silent = true, desc = "Toggle autoformat" }
 )
 
 ---------------------------------
 -- Visual mode mapping
 ---------------------------------
 
-vim.api.nvim_set_keymap("v", "<Tab>", ">gv", opts)
-vim.api.nvim_set_keymap("v", "<S-Tab>", "<gv", opts)
+vim.keymap.set("v", "<Tab>", ">gv", opts)
+vim.keymap.set("v", "<S-Tab>", "<gv", opts)

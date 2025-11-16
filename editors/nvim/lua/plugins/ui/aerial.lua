@@ -22,7 +22,10 @@ return {
   },
   config = function(_, opts)
     require("aerial").setup(opts)
-    vim.api.nvim_set_keymap("n", "<leader>o", ":Telescope aerial<CR>",
-      { noremap = false, silent = true, desc = "Find symbols" })
+    vim.keymap.set("n", "<leader>o", function()
+      require("telescope").extensions.aerial.aerial({
+        default_selection_index = 1,
+      })
+    end, { silent = true, desc = "Find symbols" })
   end
 }
