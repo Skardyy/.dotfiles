@@ -14,7 +14,7 @@ return {
         show_hidden = true,
       },
       confirmation = {
-        border = "single"
+        border = "rounded"
       },
       cleanup_delay_ms = 0,
       keymaps = {

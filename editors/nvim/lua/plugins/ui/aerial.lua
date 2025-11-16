@@ -20,4 +20,9 @@ return {
     highlight_on_hover = true,
     autojump = true,
   },
+  config = function(_, opts)
+    require("aerial").setup(opts)
+    vim.api.nvim_set_keymap("n", "<leader>o", ":Telescope aerial<CR>",
+      { noremap = false, silent = true, desc = "Find symbols" })
+  end
 }

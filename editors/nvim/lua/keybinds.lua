@@ -55,7 +55,6 @@ end
 -- Normal mode mappings
 ---------------------------------
 
-vim.keymap.set('n', 'zi', 'zc', { desc = 'Close fold' })
 vim.api.nvim_set_keymap("n", "<leader>1", "gg=G``",
   { noremap = true, silent = true, desc = "Format Buffer" })
 vim.api.nvim_set_keymap("n", "<leader>h", ":noh<CR>", { noremap = true, silent = true, desc = "No highlight" })
