@@ -1,5 +1,9 @@
 return {
   {
+    "williamboman/mason.nvim",
+    opts = {},
+  },
+  {
     "folke/lazydev.nvim",
     ft = "lua",
     opts = {}
@@ -8,18 +12,17 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local mason_lspconfig = require("mason-lspconfig")
+      local installed_lsps = require("mason-registry").get_installed_packages()
 
-      mason_lspconfig.setup({
-        handlers = {
-          function(server_name)
-            vim.lsp.config(server_name, {
-              capabilities = capabilities
-            })
-            vim.lsp.enable(server_name)
-          end,
-        },
-      })
+      for _, pkg in ipairs(installed_lsps) do
+        if pkg.spec.neovim then
+          local name = pkg.spec.neovim.lspconfig
+          vim.lsp.config(name, {
+            capabilities = capabilities
+          })
+          vim.lsp.enable(name)
+        end
+      end
 
       local signs = {
         Error = "",
