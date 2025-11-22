@@ -23,6 +23,7 @@ if status is-interactive
 
   alias v='nvim'
   alias o='mcat'
+  alias pine="PROTONPATH=GE-Proton umu-run"
   function e
       set -l target "."
       if test (count $argv) -gt 0
