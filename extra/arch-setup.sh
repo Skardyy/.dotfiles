@@ -24,6 +24,7 @@ sudo pacman -S --needed --noconfirm \
   python python-pip python-pipx \
   nodejs npm \
   go \
+  umu-launcher \
   rust \
   clang llvm \
   gcc \
