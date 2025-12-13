@@ -6,6 +6,7 @@ environment {
 }
 
 input {
+    focus-follows-mouse
     keyboard {
         xkb {
             layout "us,il"
