@@ -66,6 +66,11 @@ overview {
         off
     }
 }
+gestures {
+    hot-corners {
+        off
+    }
+}
 
 // Cursor
 cursor {
