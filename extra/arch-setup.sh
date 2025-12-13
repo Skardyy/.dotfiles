@@ -2,7 +2,7 @@
 
 set -e
 
-set TEMP_DIR $(mktemp -d)
+TEMP_DIR=$(mktemp -d)
 
 echo -e "\n[1/7] Installing core utilities..."
 sudo pacman -S --needed --noconfirm \
@@ -33,8 +33,8 @@ sudo pacman -S --needed --noconfirm \
 
 echo -e "\n[3/7] Installing fonts..."
 mkdir -p "$HOME/.local/share/fonts"
-wget -q -O "$TEMP_DIR/CommitMono.tar.gz" "https://github.com/Skardyy/fonts/releases/download/1.0.0/CommitMono.tar.gz"
-wget -q -O "$TEMP_DIR/ZedMono.tar.gz" "https://github.com/Skardyy/fonts/releases/download/1.0.0/ZedMono.tar.gz"
+wget -O "$TEMP_DIR/CommitMono.tar.gz" "https://github.com/Skardyy/fonts/releases/download/1.0.0/CommitMono.tar.gz"
+wget -O "$TEMP_DIR/ZedMono.tar.gz" "https://github.com/Skardyy/fonts/releases/download/1.0.0/ZedMono.tar.gz"
 tar -xzf "$TEMP_DIR/CommitMono.tar.gz" -C "$TEMP_DIR"
 tar -xzf "$TEMP_DIR/ZedMono.tar.gz" -C "$TEMP_DIR"
 find "$TEMP_DIR" -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} "$HOME/.local/share/fonts" \;
@@ -78,8 +78,9 @@ rm -rf "$TEMP_DIR"
 
 echo -e "\n✓ Setup complete!"
 echo "Remember to:"
+echo "  - Setup the prompt: tide configure"
 echo "  - Log in to GitHub CLI: gh auth login"
 echo "  - Set git credentials:"
 echo "      git config --global user.name 'Your Name'"
 echo "      git config --global user.email 'your@email.com'"
-echo "  - Setup displays: nwg-displays
+echo "  - Setup displays: nwg-displays"

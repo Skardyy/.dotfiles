@@ -1,0 +1,41 @@
+environment {
+    TERMINAL "kitty"
+    DMS_SCREENSHOT_EDITOR "satty"
+    XDG_CURRENT_DESKTOP "niri"
+}
+
+input {
+    keyboard {
+        xkb {
+            layout "us,il"
+            options "caps:swapescape,grp:alt_shift_toggle"
+        }
+        repeat-delay 250
+        repeat-rate 30
+    }
+
+    mouse {
+        accel-profile "flat"
+    }
+
+    touchpad {
+        accel-profile "flat"
+    }
+}
+
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+
+// Include modules
+include "modules/binds.kdl"
+include "modules/display.kdl"
+include "modules/look.kdl"
