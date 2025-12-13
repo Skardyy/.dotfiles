@@ -16,6 +16,7 @@ sudo pacman -S --needed --noconfirm \
   ripgrep \
   wget curl \
   less \
+  xdg-desktop-portal-gnome \
   difftastic
 
 echo -e "\n[2/7] Installing development tools and compilers..."

@@ -1,7 +1,8 @@
 environment {
     TERMINAL "kitty"
     DMS_SCREENSHOT_EDITOR "satty"
-    XDG_CURRENT_DESKTOP "niri"
+    XDG_CURRENT_DESKTOP "gnome"
+    XDG_SESSION_TYPE "wayland"
 }
 
 input {
