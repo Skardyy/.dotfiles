@@ -50,7 +50,7 @@ else
 fi
 
 
-echo -e "\n[5/7] Installing AUR packages..."
+echo -e "\n[5/7] Setting up yay..."
 if ! command -v yay &> /dev/null; then
   echo "Installing yay..."
   sudo pacman -S --needed --noconfirm git base-devel
@@ -67,7 +67,8 @@ git config --global diff.external "difft"
 
 echo -e "\n[6/7] Installing AUR packages..."
 yay -S --needed --noconfirm \
-  zen-browser-bin
+  zen-browser-bin \
+  bibata-cursor-theme-bin
 
 echo -e "\n[7/7] Configuring fish shell..."
 chsh -s /usr/bin/fish

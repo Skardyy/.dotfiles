@@ -67,5 +67,11 @@ overview {
     }
 }
 
+// Cursor
+cursor {
+    xcursor-theme "Bibata-Modern-Ice"
+    xcursor-size 24
+}
+
 // omit decorations, i love it
 prefer-no-csd
