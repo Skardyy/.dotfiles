@@ -4,7 +4,7 @@ binds {
         spawn "sh" "-c" "$TERMINAL"; 
     }
     Mod+S hotkey-overlay-title="Screenshot" {
-        spawn "dms" "ipc" "call" "niri" "screenshot"; 
+        spawn "dms" "screenshot"; 
     }
     Mod+Shift+C hotkey-overlay-title="Color Picker" {
         spawn "sh" "-c" "hyprpicker -a"; 
