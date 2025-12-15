@@ -13,6 +13,8 @@ sudo pacman -S --needed --noconfirm \
   fd \
   fzf \
   fish \
+  eza \
+  kitty \
   ripgrep \
   wget curl \
   less \
@@ -26,11 +28,15 @@ sudo pacman -S --needed --noconfirm \
   nodejs npm \
   go \
   umu-launcher \
-  rust \
+  rustup \
   clang llvm \
   gcc \
   cmake ninja \
   docker docker-compose
+
+rustup default stable
+pipx install dotbot
+pipx ensurepath
 
 echo -e "\n[3/7] Installing fonts..."
 mkdir -p "$HOME/.local/share/fonts"
@@ -69,6 +75,7 @@ git config --global diff.external "difft"
 echo -e "\n[6/7] Installing AUR packages..."
 yay -S --needed --noconfirm \
   zen-browser-bin \
+  quickshell \
   bibata-cursor-theme-bin
 
 echo -e "\n[7/7] Configuring fish shell..."
@@ -79,6 +86,8 @@ fish -c "fisher install ilancosman/tide@v6"
 rm -rf "$TEMP_DIR"
 
 echo -e "\n✓ Setup complete!"
+echo "run `dotbot -c linux.install.yaml`"
+echo "and then `fish`"
 echo "Remember to:"
 echo "  - Setup the prompt: tide configure"
 echo "  - Log in to GitHub CLI: gh auth login"
@@ -86,3 +95,4 @@ echo "  - Set git credentials:"
 echo "      git config --global user.name 'Your Name'"
 echo "      git config --global user.email 'your@email.com'"
 echo "  - Setup displays: nwg-displays"
+echo "  - Install DMS: curl -fsSL https://install.danklinux.com | sh"
