@@ -4,7 +4,7 @@ set -e
 
 TEMP_DIR=$(mktemp -d)
 
-echo -e "\n[1/7] Installing core utilities..."
+echo -e "\n[1/9] Installing core utilities..."
 sudo pacman -S --needed --noconfirm \
   git \
   github-cli \
@@ -19,9 +19,10 @@ sudo pacman -S --needed --noconfirm \
   wget curl \
   less \
   xdg-desktop-portal-gnome \
+  wl-clipboard \
   difftastic
 
-echo -e "\n[2/7] Installing development tools and compilers..."
+echo -e "\n[2/9] Installing development tools and compilers..."
 sudo pacman -S --needed --noconfirm \
   base-devel \
   python python-pip python-pipx \
@@ -37,8 +38,9 @@ sudo pacman -S --needed --noconfirm \
 rustup default stable
 pipx install dotbot
 pipx ensurepath
+source ~/.bashrc
 
-echo -e "\n[3/7] Installing fonts..."
+echo -e "\n[3/9] Installing fonts..."
 mkdir -p "$HOME/.local/share/fonts"
 wget -O "$TEMP_DIR/CommitMono.tar.gz" "https://github.com/Skardyy/fonts/releases/download/1.0.0/CommitMono.tar.gz"
 wget -O "$TEMP_DIR/ZedMono.tar.gz" "https://github.com/Skardyy/fonts/releases/download/1.0.0/ZedMono.tar.gz"
@@ -47,7 +49,7 @@ tar -xzf "$TEMP_DIR/ZedMono.tar.gz" -C "$TEMP_DIR"
 find "$TEMP_DIR" -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} "$HOME/.local/share/fonts" \;
 fc-cache -fv
 
-echo -e "\n[4/7] Cloning assets repository..."
+echo -e "\n[4/9] Cloning assets repository..."
 if [ -d "$HOME/Pictures/assets" ]; then
   echo "Assets already exist, pulling latest..."
   git -C "$HOME/Pictures/assets" pull
@@ -57,7 +59,7 @@ else
 fi
 
 
-echo -e "\n[5/7] Setting up yay..."
+echo -e "\n[5/9] Setting up yay..."
 if ! command -v yay &> /dev/null; then
   echo "Installing yay..."
   sudo pacman -S --needed --noconfirm git base-devel
@@ -68,20 +70,24 @@ if ! command -v yay &> /dev/null; then
   rm -rf yay
 fi
 
-echo -e "\n[5.5/7] Configuring git..."
+echo -e "\n[6/9] Configuring git..."
 git config --global core.editor "nvim"
 git config --global diff.external "difft"
 
-echo -e "\n[6/7] Installing AUR packages..."
+echo -e "\n[7/9] Installing AUR packages..."
 yay -S --needed --noconfirm \
   zen-browser-bin \
   quickshell \
   bibata-cursor-theme-bin
 
-echo -e "\n[7/7] Configuring fish shell..."
+echo -e "\n[8/9] Configuring fish shell..."
 chsh -s /usr/bin/fish
 fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
 fish -c "fisher install ilancosman/tide@v6"
+
+echo -e "\n[9/9] Setting up services..."
+sudo systemctl start bluetooth
+sudo systemctl enable bluetooth
 
 rm -rf "$TEMP_DIR"
 
