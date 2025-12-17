@@ -18,6 +18,8 @@ binds {
     Mod+V hotkey-overlay-title="Clipboard Manager" {
         spawn "dms" "ipc" "call" "clipboard" "toggle";
     }
+    Ctrl+Shift+Escape hotkey-overlay-title="Control Center" { spawn "missioncenter"; }
+    Mod+W hotkey-overlay-title="Browser" { spawn "zen-browser"; }
 
     // === Overview ===
     Mod+Tab repeat=false { toggle-overview; }

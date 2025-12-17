@@ -13,6 +13,8 @@ sudo pacman -S --needed --noconfirm \
   fd \
   fzf \
   fish \
+  nemo \
+  mission-center \
   eza \
   kitty \
   ripgrep \
