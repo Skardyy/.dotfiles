@@ -40,3 +40,4 @@ debug {
 include "modules/binds.kdl"
 include "modules/display.kdl"
 include "modules/look.kdl"
+include "modules/rules.kdl"

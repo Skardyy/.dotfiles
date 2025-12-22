@@ -27,7 +27,7 @@ binds {
 
     // === Window Management ===
     Mod+Q repeat=false { close-window; }
-    Mod+F { maximize-column; }
+    Mod+F { switch-preset-column-width; }
     Mod+Shift+F { fullscreen-window; }
     Mod+O { toggle-window-floating; }
 
@@ -101,7 +101,7 @@ binds {
     Mod+Period { expel-window-from-column; }
 
     // === Sizing & Layout ===
-    Mod+R { switch-preset-column-width; }
+    Mod+R { reset-window-height; }
     Mod+C { center-column; }
     Mod+Ctrl+C { center-visible-columns; }
 
