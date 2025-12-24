@@ -11,5 +11,4 @@
     ~/.config/kitty/kitty.conf: terminals/kitty.conf
     ~/.config/fish/config.fish: profiles/config.fish
     ~/.config/ghostty: terminals/ghostty
-    ~/.config/yabai/yabairc compositors/yabai/yabairc
-    ~/.config/skhd/skhdrc compositors/yabai/skhdrc
+    ~/.hammerspoon/init.lua: compositors/hammerspoon/init.lua
