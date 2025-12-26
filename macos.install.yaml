@@ -11,4 +11,4 @@
     ~/.config/kitty/kitty.conf: terminals/kitty.conf
     ~/.config/fish/config.fish: profiles/config.fish
     ~/.config/ghostty: terminals/ghostty
-    ~/.hammerspoon/init.lua: compositors/hammerspoon/init.lua
+    ~/.config/aerospace/aerospace.toml: compositors/aerospace/aerospace.toml
