@@ -7,6 +7,7 @@ if status is-interactive
   export CC=clang
   export CXX=clang++
   set -x ANDROID_HOME /home/meron/Android/Sdk/
+  # set -x ANDROID_HOME ~/Library/Android/sdk
   set -x PATH $ANDROID_HOME/tools $PATH
   set -x PATH $ANDROID_HOME/platform-tools $PATH
 
