@@ -8,11 +8,16 @@
 
 - link:
     ~/.config/nvim: editors/nvim
+
     ~/.config/kitty/kitty.conf: terminals/kitty.conf
+    ~/.config/ghostty: terminals/ghostty
+
     ~/.config/fish/config.fish: profiles/config.fish
-    ~/.config/hypr/custom/general.conf: compositors/hypr/custom/general.conf
+
+    ~/.config/hypr/hyprland.conf: compositors/hypr/hyprland.conf
+    ~/.config/hypr/modules: compositors/hypr/modules
     ~/.config/niri/config.kdl: compositors/niri/config.kdl
     ~/.config/niri/modules: compositors/niri/modules
-    ~/.config/ghostty: terminals/ghostty
+
     ~/.config/waybar: bars/waybar
     ~/.config/DankMaterialShell/settings.json: bars/dms/settings.json
