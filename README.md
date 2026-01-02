@@ -2,7 +2,7 @@
   
   # My dotfiles
 
-  minimal dotfiles for neovim and niri with ahk scripts for windows  
+  minimal dotfiles for neovim and niri/hyprland with ahk scripts for windows  
   
   [![Static Badge](https://img.shields.io/badge/Neovim-1C1F2E?style=for-the-badge&logo=neovim)](./editors/nvim)
   [![Static Badge](https://img.shields.io/badge/Makurai%20Theme-1C1F2E?style=for-the-badge&logo=codefactor)](https://github.com/Skardyy/makurai-theme)
