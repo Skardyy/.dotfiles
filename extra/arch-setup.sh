@@ -22,7 +22,8 @@ sudo pacman -S --needed --noconfirm \
   less \
   xdg-desktop-portal-gnome \
   wl-clipboard \
-  difftastic
+  difftastic \
+  nwg-displays
 
 echo -e "\n[2/9] Installing development tools and compilers..."
 sudo pacman -S --needed --noconfirm \
