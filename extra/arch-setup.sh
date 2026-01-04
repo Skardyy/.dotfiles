@@ -23,7 +23,8 @@ sudo pacman -S --needed --noconfirm \
   xdg-desktop-portal-gnome \
   wl-clipboard \
   difftastic \
-  nwg-displays
+  nwg-displays \
+  hyprpicker
 
 echo -e "\n[2/9] Installing development tools and compilers..."
 sudo pacman -S --needed --noconfirm \
