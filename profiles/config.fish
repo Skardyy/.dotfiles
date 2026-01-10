@@ -22,7 +22,7 @@ if status is-interactive
       end
 
       set target (realpath "$target")
-      niri msg action spawn -- nemo "$target"
+      hyprctl dispatch exec nemo "$target"
   end
   alias scb='wl-copy'
 end
