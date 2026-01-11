@@ -76,6 +76,10 @@ vim.keymap.set(
   ":lua ToggleAutoformat()<CR>",
   { silent = true, desc = "Toggle autoformat" }
 )
+vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true, desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { silent = true, desc = "Move to bottom window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { silent = true, desc = "Move to top window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true, desc = "Move to right window" })
 
 ---------------------------------
 -- Visual mode mapping
