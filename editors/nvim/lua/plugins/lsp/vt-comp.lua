@@ -6,6 +6,7 @@ return {
       virtual_text = {
         enabled = true,
         idle_delay = 0,
+        manual = false,
         key_bindings = {
           accept = "<C-l>"
         }
