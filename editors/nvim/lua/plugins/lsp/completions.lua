@@ -99,8 +99,16 @@ return {
           ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
           ["<C-K>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
           ["<C-J>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<C-P>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<C-N>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
           ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
-          ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+          ["<C-Space>"] = cmp.mapping(function()
+            if cmp.visible() then
+              cmp.close()
+            else
+              cmp.complete()
+            end
+          end, { "i", "c" }),
         },
         sources = cmp.config.sources({
           { name = "luasnip" },
