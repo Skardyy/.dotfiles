@@ -9,8 +9,10 @@ return {
       vim.keymap.set({ "i", "s" }, "<Tab>", function()
         if luasnip.jumpable(1) then
           luasnip.jump(1)
+        else
+          return "<Tab>"
         end
-      end)
+      end, { expr = true })
     end
   },
   {
