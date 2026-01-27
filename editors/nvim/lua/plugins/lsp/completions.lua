@@ -1,19 +1,68 @@
 return {
   {
     "L3MON4D3/LuaSnip",
-    version = "2.*",
-    dependencies = { "rafamadriz/friendly-snippets" },
+    version = "v2.*",
     config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
-      local luasnip = require("luasnip")
-      vim.keymap.set({ "i", "s" }, "<Tab>", function()
-        if luasnip.jumpable(1) then
-          luasnip.jump(1)
-        else
-          return "<Tab>"
-        end
-      end, { expr = true })
-    end
+      local ls = require("luasnip")
+      local postfix = require("luasnip.extras.postfix").postfix
+      local f = ls.function_node
+
+      local function wrap(before, after)
+        return f(function(_, parent)
+          return before .. parent.snippet.env.POSTFIX_MATCH .. after
+        end, {})
+      end
+
+      -- RUST
+      ls.add_snippets("rust", {
+        postfix(".rc", wrap("Rc::new(", ");")),
+        postfix(".arc", wrap("Arc::new(", ");")),
+        postfix(".mutex", wrap("Mutex::new(", ");")),
+        postfix(".rwlock", wrap("RwLock::new(", ");")),
+        postfix(".println", wrap('println!("{:?}", ', ");")),
+        postfix(".eprintln", wrap('eprintln!("{:?}", ', ");")),
+      })
+
+      -- MARKDOWN
+      ls.add_snippets("markdown", {
+        postfix(".bold", wrap("**", "**")),
+        postfix(".italic", wrap("*", "*")),
+        postfix(".code", wrap("`", "`")),
+        postfix(".strike", wrap("~~", "~~")),
+
+        postfix(".note", wrap("> [!NOTE]\n> ", "")),
+        postfix(".tip", wrap("> [!TIP]\n> ", "")),
+        postfix(".important", wrap("> [!IMPORTANT]\n> ", "")),
+        postfix(".warning", wrap("> [!WARNING]\n> ", "")),
+        postfix(".caution", wrap("> [!CAUTION]\n> ", "")),
+      })
+
+      -- 2. GITCOMMIT
+      ls.add_snippets("gitcommit", {
+        postfix(".feat", wrap("feat(", "): ")),
+        postfix(".fix", wrap("fix(", "): ")),
+        postfix(".chore", wrap("chore(", "): ")),
+        postfix(".doc", wrap("docs(", "): ")),
+        postfix(".refactor", wrap("refactor(", "): ")),
+      })
+      ls.filetype_extend("gitcommit", { "markdown" })
+
+      -- TYPESCRIPT AND FRIENDS
+      ls.add_snippets("javascript", {
+        postfix(".log", wrap("console.log(", ")")),
+        postfix(".await", wrap("await ", "")),
+        postfix(".json", wrap("JSON.stringify(", ", null, 2)")),
+      })
+      ls.filetype_extend("typescript", { "javascript" })
+      ls.filetype_extend("javascriptreact", { "javascript" })
+      ls.filetype_extend("typescriptreact", { "javascript", "javascriptreact" })
+
+      -- PYTHON
+      ls.add_snippets("python", {
+        postfix(".print", wrap("print(", ")")),
+        postfix(".len", wrap("len(", ")")),
+      })
+    end,
   },
   {
     "hrsh7th/nvim-cmp",
@@ -97,20 +146,23 @@ return {
           },
         },
         mapping = {
-          ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<C-K>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<C-J>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<C-P>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<C-N>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-          ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
-          ["<C-Space>"] = cmp.mapping(function()
+          ["<C-K>"] = cmp.mapping(function(_)
             if cmp.visible() then
-              cmp.close()
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
             else
               cmp.complete()
             end
           end, { "i", "c" }),
+
+          ["<C-J>"] = cmp.mapping(function(_)
+            if cmp.visible() then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            else
+              cmp.complete()
+            end
+          end, { "i", "c" }),
+
+          ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
         },
         sources = cmp.config.sources({
           { name = "luasnip" },
