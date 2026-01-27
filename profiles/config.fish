@@ -15,7 +15,9 @@ if status is-interactive
     alias v='nvim'
     alias o='mcat'
     alias pine="PROTONPATH=GE-Proton umu-run"
-    alias ls="eza"
+    alias ls="eza --icons --group-directories-first"
+    alias ll="eza --icons --group-directories-first -lh --git"
+    alias la="eza --icons --group-directories-first -lah --git"
     function e
         set -l target "."
         if test (count $argv) -gt 0
