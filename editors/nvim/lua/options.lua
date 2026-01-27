@@ -30,6 +30,56 @@ vim.opt.laststatus = 3
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 vim.opt.guicursor:append("a:blinkon0")
 
+-- LSP like in mason
+-- Formatter like in conform
+-- Linter like in nvim-lint
+vim.g.lang_maps = {
+  python = {
+    lsp = "basedpyright",
+    linter = "ruff",
+    formatter = "ruff_format",
+  },
+  typescript = {
+    lsp = "typescript-language-server",
+    linter = "eslint_d",
+    formatter = "prettierd",
+  },
+  typescriptreact = {
+    lsp = "typescript-language-server",
+    linter = "eslint_d",
+    formatter = "prettierd",
+  },
+  javascript = {
+    lsp = "typescript-language-server",
+    linter = "eslint_d",
+    formatter = "prettierd",
+  },
+  javascriptreact = {
+    lsp = "typescript-language-server",
+    linter = "eslint_d",
+    formatter = "prettierd",
+  },
+  lua = {
+    lsp = "lua-language-server",
+  },
+  rust = {
+    lsp = "rust-analyzer",
+  },
+  go = {
+    lsp = "gopls",
+  },
+  markdown = {
+    linter = "markdownlint",
+    formatter = "prettierd",
+  },
+  cpp = {
+    lsp = "clangd",
+  },
+  typst = {
+    lsp = "tinymist",
+  },
+}
+
 -- Make command work on windows, i hate windows..
 if vim.fn.has('win32') == 1 then
   vim.o.shell = 'pwsh'

@@ -12,15 +12,17 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local installed_lsps = require("mason-registry").get_installed_packages()
+      local registry = require("mason-registry")
 
-      for _, pkg in ipairs(installed_lsps) do
-        if pkg.spec.neovim then
-          local name = pkg.spec.neovim.lspconfig
-          vim.lsp.config(name, {
-            capabilities = capabilities
-          })
-          vim.lsp.enable(name)
+      for _, tools in pairs(vim.g.lang_maps) do
+        if tools.lsp and registry.is_installed(tools.lsp) then
+          local name = tools.lsp
+          local pkg = registry.get_package(name)
+          if pkg.spec.neovim then
+            name = pkg.spec.neovim.lspconfig
+            vim.lsp.config(name, { capabilities = capabilities })
+            vim.lsp.enable(name)
+          end
         end
       end
 
