@@ -41,7 +41,7 @@ return {
         aerial.close_all()
       else
         auto_open_enabled = true
-        aerial.open()
+        aerial.open({ focus = false })
       end
     end, { silent = true, desc = "Toggle aerial with auto-open" })
   end
