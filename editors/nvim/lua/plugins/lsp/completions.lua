@@ -9,7 +9,29 @@ return {
 
       local function wrap(before, after)
         return f(function(_, parent)
-          return before .. parent.snippet.env.POSTFIX_MATCH .. after
+          local match = parent.snippet.env.POSTFIX_MATCH
+          local result = before .. match .. after
+
+          if result:find("\n") then
+            local lines = {}
+            for line in result:gmatch("[^\n]+") do
+              table.insert(lines, line)
+            end
+            return lines
+          end
+
+          return result
+        end, {})
+      end
+
+      local function smart_wrap(pre, optional_pre, optional_post, post)
+        return f(function(_, parent)
+          local match = parent.snippet.env.POSTFIX_MATCH
+          if match == "" then
+            return pre .. post
+          else
+            return pre .. optional_pre .. match .. optional_post .. post
+          end
         end, {})
       end
 
@@ -30,20 +52,20 @@ return {
         postfix(".code", wrap("`", "`")),
         postfix(".strike", wrap("~~", "~~")),
 
-        postfix(".note", wrap("> [!NOTE]\n> ", "")),
-        postfix(".tip", wrap("> [!TIP]\n> ", "")),
-        postfix(".important", wrap("> [!IMPORTANT]\n> ", "")),
-        postfix(".warning", wrap("> [!WARNING]\n> ", "")),
-        postfix(".caution", wrap("> [!CAUTION]\n> ", "")),
+        postfix({ trig = ".note", match_pattern = ".*" }, wrap("> [!NOTE]\n> ", "")),
+        postfix({ trig = ".tip", match_pattern = ".*" }, wrap("> [!TIP]\n> ", "")),
+        postfix({ trig = ".important", match_pattern = ".*" }, wrap("> [!IMPORTANT]\n> ", "")),
+        postfix({ trig = ".warning", match_pattern = ".*" }, wrap("> [!WARNING]\n> ", "")),
+        postfix({ trig = ".caution", match_pattern = ".*" }, wrap("> [!CAUTION]\n> ", "")),
       })
 
       -- 2. GITCOMMIT
       ls.add_snippets("gitcommit", {
-        postfix(".feat", wrap("feat(", "): ")),
-        postfix(".fix", wrap("fix(", "): ")),
-        postfix(".chore", wrap("chore(", "): ")),
-        postfix(".doc", wrap("docs(", "): ")),
-        postfix(".refactor", wrap("refactor(", "): ")),
+        postfix({ trig = ".feat", match_pattern = ".*" }, smart_wrap("feat", "(", ")", ": ")),
+        postfix({ trig = ".fix", match_pattern = ".*" }, smart_wrap("fix", "(", ")", ": ")),
+        postfix({ trig = ".chore", match_pattern = ".*" }, smart_wrap("chore", "(", ")", ": ")),
+        postfix({ trig = ".doc", match_pattern = ".*" }, smart_wrap("docs", "(", ")", ": ")),
+        postfix({ trig = ".refactor", match_pattern = ".*" }, smart_wrap("refactor", "(", ")", ": ")),
       })
       ls.filetype_extend("gitcommit", { "markdown" })
 
