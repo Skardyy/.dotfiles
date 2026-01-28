@@ -63,10 +63,8 @@ vim.keymap.set("n", "<leader>c", ":lua ExecuteCommand()<CR>",
 vim.keymap.set('n', '<leader>q', ':lua ToggleQuickfix()<CR>',
   { silent = true, desc = "Toggle quickfix" })
 vim.keymap.set("n", "<leader>lq", function()
-  local win = vim.api.nvim_get_current_win()
-  vim.diagnostic.setqflist()
-  vim.cmd("copen")
-  vim.api.nvim_set_current_win(win)
+  vim.diagnostic.setqflist({ open = false })
+  vim.notify(#vim.fn.getqflist() .. " diagnostics found", vim.log.levels.INFO)
 end, { silent = true, desc = "Quick lsp fix" })
 vim.keymap.set("n", "<C-n>", ":cn<CR>", opts)
 vim.keymap.set("n", "<C-p>", ":cp<CR>", opts)

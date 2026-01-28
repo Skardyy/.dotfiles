@@ -6,7 +6,15 @@ return {
   },
   config = function()
     require("codediff").setup({
+      explorer = {
+        width = 25,
+        view_mode = "tree"
+      },
       keymaps = {
+        view = {
+          next_hunk = "]d",
+          prev_hunk = "[d",
+        },
         conflict = {
           accept_incoming = "<leader>d1",
           accept_current = "<leader>d2",
