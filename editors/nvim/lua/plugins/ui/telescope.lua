@@ -5,6 +5,11 @@ return {
     dependencies = "telescope.nvim",
   },
   {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
+    dependencies = "telescope.nvim",
+  },
+  {
     "nvim-telescope/telescope.nvim",
     dependencies = { 'nvim-lua/plenary.nvim' },
     cmd = "Telescope",
@@ -17,6 +22,14 @@ return {
       local telescope = require("telescope")
 
       telescope.setup({
+        defaults = {
+          mappings = {
+            i = {
+              ["<C-j>"] = "move_selection_next",
+              ["<C-k>"] = "move_selection_previous",
+            },
+          },
+        },
         extensions = {
           ["ui-select"] = {
             require("telescope.themes").get_cursor({}),
@@ -24,6 +37,7 @@ return {
         },
       })
       telescope.load_extension("ui-select")
+      telescope.load_extension("fzf")
     end,
   },
 }
