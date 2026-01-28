@@ -15,13 +15,17 @@ return {
       local registry = require("mason-registry")
 
       for _, tools in pairs(vim.g.lang_maps) do
-        if tools.lsp and registry.is_installed(tools.lsp) then
-          local name = tools.lsp
-          local pkg = registry.get_package(name)
-          if pkg.spec.neovim then
-            name = pkg.spec.neovim.lspconfig
-            vim.lsp.config(name, { capabilities = capabilities })
-            vim.lsp.enable(name)
+        local lsps = type(tools.lsp) == "table" and tools.lsp or (tools.lsp and { tools.lsp } or {})
+
+        for _, lsp_name in ipairs(lsps) do
+          if registry.is_installed(lsp_name) then
+            local pkg = registry.get_package(lsp_name)
+            if pkg.spec.neovim then
+              local name = pkg.spec.neovim.lspconfig
+              vim.lsp.config(name, { capabilities = capabilities })
+              vim.lsp.enable(name)
+              break
+            end
           end
         end
       end

@@ -35,7 +35,7 @@ vim.opt.guicursor:append("a:blinkon0")
 -- Linter like in nvim-lint
 vim.g.lang_maps = {
   python = {
-    lsp = "basedpyright",
+    lsp = { "ty", "basedpyright" },
     linter = "ruff",
     formatter = "ruff_format",
   },

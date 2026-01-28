@@ -7,7 +7,8 @@ return {
     local linters = {}
     for ft, tools in pairs(vim.g.lang_maps) do
       if tools.linter then
-        linters[ft] = { tools.linter }
+        local lint_list = type(tools.linter) == "table" and tools.linter or { tools.linter }
+        linters[ft] = lint_list
       end
     end
     lint.linters_by_ft = linters
