@@ -12,7 +12,7 @@
     ~/.config/kitty/kitty.conf: terminals/kitty.conf
     ~/.config/ghostty: terminals/ghostty
 
-    ~/.config/fish/config.fish: profiles/config.fish
+    ~/.config/fish/config.fish: shells/config.fish
 
     ~/.config/hypr/hyprland.conf: compositors/hypr/hyprland.conf
     ~/.config/hypr/modules: compositors/hypr/modules

@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "\n=== Personalization ==="
+echo -e "\n=== Assets ==="
 
 # Fonts
 TEMP_DIR=$(mktemp -d)
@@ -26,18 +26,3 @@ else
   mkdir -p "$HOME/Pictures"
   git clone --depth 1 -q https://github.com/Skardyy/assets "$HOME/Pictures/assets"
 fi
-
-# Apps and other
-if ! command -v yay &> /dev/null; then
-  TEMP_DIR=$(mktemp -d)
-  git clone --depth 1 -q https://aur.archlinux.org/yay.git "$TEMP_DIR/yay"
-  cd "$TEMP_DIR/yay"
-  makepkg -si --noconfirm
-  cd -
-  rm -rf "$TEMP_DIR"
-fi
-
-yay -S --needed --noconfirm \
-  zen-browser-bin \
-  quickshell \
-  bibata-cursor-theme-bin

@@ -13,7 +13,13 @@ sudo pacman -S --needed --noconfirm \
   difftastic \
   ripgrep \
   fd \
-  fzf
+  eza \
+  kitty \
+  fzf \
+  git wget curl \
+  zip unzip tar \
+  less \
+  wl-clipboard
 
 rustup default stable
 if ! command -v dotbot &> /dev/null; then

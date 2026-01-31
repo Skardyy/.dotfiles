@@ -8,11 +8,10 @@ echo "This will install and configure your system in stages."
 echo ""
 
 source "$SCRIPT_DIR/scripts/system.sh"
-source "$SCRIPT_DIR/scripts/desktop.sh"
 source "$SCRIPT_DIR/scripts/dev.sh"
 source "$SCRIPT_DIR/scripts/gaming.sh"
 source "$SCRIPT_DIR/scripts/shell.sh"
-source "$SCRIPT_DIR/scripts/personalization.sh"
+source "$SCRIPT_DIR/scripts/assets.sh"
 
 echo -e "\n✓ Setup complete!"
 echo ""

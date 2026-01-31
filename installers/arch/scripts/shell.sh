@@ -1,9 +1,6 @@
 #!/bin/bash
 echo -e "\n=== Shell Configuration ==="
-sudo pacman -S --needed --noconfirm \
-  fish \
-  kitty \
-  eza
+sudo pacman -S --needed --noconfirm fish
 
 if [ "$SHELL" != "/usr/bin/fish" ]; then
   chsh -s /usr/bin/fish

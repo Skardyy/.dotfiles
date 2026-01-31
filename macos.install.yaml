@@ -9,6 +9,6 @@
 - link:
     ~/.config/nvim: editors/nvim
     ~/.config/kitty/kitty.conf: terminals/kitty.conf
-    ~/.config/fish/config.fish: profiles/config.fish
+    ~/.config/fish/config.fish: shells/config.fish
     ~/.config/ghostty: terminals/ghostty
     ~/.config/aerospace/aerospace.toml: compositors/aerospace/aerospace.toml
