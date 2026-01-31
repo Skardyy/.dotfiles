@@ -14,14 +14,17 @@ fi
 sudo pacman -S --needed --noconfirm \
   xdg-desktop-portal-gnome \
   nwg-displays \
+  nwg-look \
   hyprpicker \
-  nemo \
+  nautilus \
+  qemu-desktop \
   mission-center
 
 yay -S --needed --noconfirm \
   quickshell \
   brave-bin \
-  whitesur-gtk-theme \
+  flat-remix-gtk \
+  quickemu \
   bibata-cursor-theme-bin
 
 echo "Enabling services..."

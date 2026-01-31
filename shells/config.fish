@@ -25,7 +25,7 @@ if status is-interactive
         end
 
         set target (realpath "$target")
-        hyprctl dispatch exec nemo "$target"
+        hyprctl dispatch exec nautilus "$target"
     end
     alias scb='wl-copy'
 end
