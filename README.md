@@ -8,7 +8,7 @@
     
 | Desktop | Neovim |
 |---------|---------|
-| ![image](https://github.com/user-attachments/assets/4a56c27f-2e76-4a42-b08b-a051b56f22fa) | ![image](https://github.com/user-attachments/assets/60e00134-8fba-49bb-98ac-27f8b020c381) |
+| ![image](https://github.com/user-attachments/assets/306bbc49-f3ca-40fe-992c-55282527bffa) | ![image](https://github.com/user-attachments/assets/60e00134-8fba-49bb-98ac-27f8b020c381) |
 
 </div>
 
