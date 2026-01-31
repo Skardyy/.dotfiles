@@ -69,7 +69,6 @@ vim.g.lang_maps = {
     lsp = "gopls",
   },
   markdown = {
-    linter = "markdownlint",
     formatter = "prettierd",
   },
   cpp = {
