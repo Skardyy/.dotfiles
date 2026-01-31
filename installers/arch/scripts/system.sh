@@ -16,6 +16,7 @@ sudo pacman -S --needed --noconfirm \
   nwg-displays \
   nwg-look \
   hyprpicker \
+  satty \
   nautilus \
   qemu-desktop \
   mission-center
