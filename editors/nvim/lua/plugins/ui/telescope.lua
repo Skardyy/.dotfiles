@@ -2,10 +2,12 @@
 return {
   {
     "nvim-telescope/telescope-ui-select.nvim",
+    lazy = true,
     dependencies = "telescope.nvim",
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
+    lazy = true,
     build = "make",
     dependencies = "telescope.nvim",
   },

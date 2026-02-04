@@ -1,6 +1,8 @@
 return {
   {
     "williamboman/mason.nvim",
+    cmd = "Mason",
+    lazy = true,
     opts = {},
   },
   {
@@ -10,6 +12,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    event = "VeryLazy",
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local registry = require("mason-registry")

@@ -2,6 +2,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
+    event = "InsertEnter",
     config = function()
       local ls = require("luasnip")
       local postfix = require("luasnip.extras.postfix").postfix
@@ -88,9 +89,8 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
-    event = { "InsertEnter", "CmdlineEnter" },
+    event = { "InsertEnter" },
     dependencies = {
-      'hrsh7th/cmp-cmdline',
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-buffer",
@@ -174,7 +174,7 @@ return {
             else
               cmp.complete()
             end
-          end, { "i", "c" }),
+          end, { "i" }),
 
           ["<C-J>"] = cmp.mapping(function(_)
             if cmp.visible() then
@@ -182,9 +182,9 @@ return {
             else
               cmp.complete()
             end
-          end, { "i", "c" }),
+          end, { "i" }),
 
-          ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
+          ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i" }),
         },
         sources = cmp.config.sources({
           { name = "luasnip" },

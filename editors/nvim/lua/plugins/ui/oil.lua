@@ -2,6 +2,7 @@
 return {
   {
     "SirZenith/oil-vcs-status",
+    event = "VeryLazy",
     dependencies = { "stevearc/oil.nvim" },
     config = function()
       local status_const = require "oil-vcs-status.constant.status"
@@ -38,7 +39,6 @@ return {
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy = false,
     config = function()
       local permission_hlgroups = {
         ["-"] = "NonText",

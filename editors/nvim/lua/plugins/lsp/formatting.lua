@@ -1,5 +1,6 @@
 return {
   'stevearc/conform.nvim',
+  event = "VeryLazy",
   config = function()
     local formatters = {}
     for ft, tools in pairs(vim.g.lang_maps) do

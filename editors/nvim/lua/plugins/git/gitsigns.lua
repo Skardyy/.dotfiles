@@ -1,7 +1,7 @@
 return {
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufReadPre",
+    event = "VeryLazy",
     opts = {
       signs = {
         add = { text = "▎" },
@@ -26,7 +26,7 @@ return {
       watch_gitdir = { interval = 1000, follow_files = true },
       sign_priority = 6,
       update_debounce = 200,
-      status_formatter = nil,   -- Use default
+      status_formatter = nil, -- Use default
     }
   }
 }
