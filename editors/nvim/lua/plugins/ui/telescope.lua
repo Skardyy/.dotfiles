@@ -17,7 +17,6 @@ return {
       { "<leader>g", "<cmd>Telescope live_grep<cr>",  desc = "Live Grep" },
       { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
     },
-    tag = "0.1.8",
     config = function()
       local telescope = require("telescope")
 

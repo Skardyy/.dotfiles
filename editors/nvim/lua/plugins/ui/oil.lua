@@ -1,24 +1,39 @@
 -- buffer like file explorer
 return {
   {
-    "refractalize/oil-git-status.nvim",
-    dependencies = {
-      "stevearc/oil.nvim",
-    },
-    config = true,
-  },
-  {
-    "JezerM/oil-lsp-diagnostics.nvim",
+    "SirZenith/oil-vcs-status",
     dependencies = { "stevearc/oil.nvim" },
-    opts = {
-      count = false,
-      diagnostic_symbols = {
-        error = "󰅙",
-        warn = "",
-        info = "",
-        hint = "",
-      },
-    },
+    config = function()
+      local status_const = require "oil-vcs-status.constant.status"
+      local StatusType = status_const.StatusType
+
+      require "oil-vcs-status".setup {
+        status_hl_group = {
+          [StatusType.Added]               = "String",
+          [StatusType.Copied]              = "String",
+          [StatusType.Deleted]             = "Error",
+          [StatusType.Ignored]             = "Comment",
+          [StatusType.Modified]            = "WarningMsg",
+          [StatusType.Renamed]             = "Directory",
+          [StatusType.TypeChanged]         = "Type",
+          [StatusType.Unmodified]          = "Normal",
+          [StatusType.Unmerged]            = "ErrorMsg",
+          [StatusType.Untracked]           = "Comment",
+          [StatusType.External]            = "Special",
+          [StatusType.UpstreamAdded]       = "String",
+          [StatusType.UpstreamCopied]      = "String",
+          [StatusType.UpstreamDeleted]     = "Error",
+          [StatusType.UpstreamIgnored]     = "Comment",
+          [StatusType.UpstreamModified]    = "WarningMsg",
+          [StatusType.UpstreamRenamed]     = "Directory",
+          [StatusType.UpstreamTypeChanged] = "Type",
+          [StatusType.UpstreamUnmodified]  = "Normal",
+          [StatusType.UpstreamUnmerged]    = "ErrorMsg",
+          [StatusType.UpstreamUntracked]   = "Comment",
+          [StatusType.UpstreamExternal]    = "Special",
+        },
+      }
+    end
   },
   {
     "stevearc/oil.nvim",
@@ -47,7 +62,7 @@ return {
               return hls
             end,
           },
-          { "size",  highlight = "Special" },
+          { "size",  highlight = "Special", align = "right" },
           { "mtime", highlight = "Number" },
           {
             "icon",
@@ -55,7 +70,7 @@ return {
           },
         },
         win_options = {
-          signcolumn = "yes:2",
+          signcolumn = "yes",
         },
         view_options = {
           show_hidden = true,

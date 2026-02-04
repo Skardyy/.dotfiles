@@ -7,7 +7,7 @@ return {
   config = function()
     require("codediff").setup({
       explorer = {
-        width = 25,
+        width = 30,
         view_mode = "tree"
       },
       keymaps = {
