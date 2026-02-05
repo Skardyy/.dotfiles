@@ -15,16 +15,6 @@ vim.api.nvim_create_autocmd("FileType", {
   command = 'setlocal conceallevel=0'
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = '*',
-  callback = function()
-    local ok = pcall(vim.treesitter.start)
-    if ok then
-      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    end
-  end,
-})
-
 -- clear jump list at start
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
