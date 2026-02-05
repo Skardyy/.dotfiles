@@ -15,6 +15,25 @@ vim.api.nvim_create_autocmd("FileType", {
   command = 'setlocal conceallevel=0'
 })
 
+-- enable treesitter highlight and indent
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = '*',
+  callback = function()
+    local ok = pcall(vim.treesitter.start)
+    if ok then
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+  end,
+})
+
+-- quit quickfix on q
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  callback = function()
+    vim.keymap.set('n', 'q', ':cclose<CR>', { buffer = true, silent = true })
+  end,
+})
+
 -- clear jump list at start
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()

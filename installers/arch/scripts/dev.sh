@@ -19,6 +19,7 @@ sudo pacman -S --needed --noconfirm \
   git wget curl \
   zip unzip tar \
   less \
+  tree-sitter-cli \
   wl-clipboard
 
 rustup default stable
