@@ -27,6 +27,10 @@ vim.deprecate = function() end -- i don't want to hear about it..
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.laststatus = 3
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldenable = false
+vim.opt.foldlevel = 99
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 vim.opt.guicursor:append("a:blinkon0")
 

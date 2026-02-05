@@ -55,6 +55,8 @@ end
 -- Normal mode mappings
 ---------------------------------
 
+vim.keymap.set("n", "zo", "za", { desc = "Toggle fold" })
+vim.keymap.set("n", "zO", "zR", { desc = "Open all folds" })
 vim.keymap.set("n", "<leader>1", "gg=G``",
   { silent = true, desc = "Format Buffer" })
 vim.keymap.set("n", "<leader>h", ":noh<CR>", { silent = true, desc = "No highlight" })
