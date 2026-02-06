@@ -1,19 +1,13 @@
 -- fuzzy finders
 return {
   {
-    "nvim-telescope/telescope-ui-select.nvim",
-    lazy = true,
-    dependencies = "telescope.nvim",
-  },
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    lazy = true,
-    build = "make",
-    dependencies = "telescope.nvim",
-  },
-  {
     "nvim-telescope/telescope.nvim",
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-fzf-native.nvim"
+    },
+    event = "VeryLazy",
     cmd = "Telescope",
     keys = {
       { "<leader>g", "<cmd>Telescope live_grep<cr>",  desc = "Live Grep" },
