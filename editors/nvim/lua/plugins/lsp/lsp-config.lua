@@ -65,6 +65,11 @@ return {
       vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Goto references" })
       vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "Code action" })
       vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, { desc = "Hover diagnostics" })
+      vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP rename" })
+      vim.keymap.set("n", "<leader>lq", function()
+        vim.diagnostic.setqflist({ open = false })
+        vim.notify(#vim.fn.getqflist() .. " diagnostics found", vim.log.levels.INFO)
+      end, { silent = true, desc = "Quick lsp fix" })
     end,
   }
 }

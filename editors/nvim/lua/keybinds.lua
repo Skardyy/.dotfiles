@@ -64,10 +64,6 @@ vim.keymap.set("n", "<leader>c", ":lua ExecuteCommand()<CR>",
   { silent = true, desc = "Run Command" })
 vim.keymap.set('n', '<leader>q', ':lua ToggleQuickfix()<CR>',
   { silent = true, desc = "Toggle quickfix" })
-vim.keymap.set("n", "<leader>lq", function()
-  vim.diagnostic.setqflist({ open = false })
-  vim.notify(#vim.fn.getqflist() .. " diagnostics found", vim.log.levels.INFO)
-end, { silent = true, desc = "Quick lsp fix" })
 vim.keymap.set("n", "<C-n>", ":cn<CR>", opts)
 vim.keymap.set("n", "<C-p>", ":cp<CR>", opts)
 vim.keymap.set(
@@ -76,10 +72,10 @@ vim.keymap.set(
   ":lua ToggleAutoformat()<CR>",
   { silent = true, desc = "Toggle autoformat" }
 )
-vim.keymap.set("n", "<A-h>", "<C-w>h", { silent = true, desc = "Move to left window" })
-vim.keymap.set("n", "<A-j>", "<C-w>j", { silent = true, desc = "Move to bottom window" })
-vim.keymap.set("n", "<A-k>", "<C-w>k", { silent = true, desc = "Move to top window" })
-vim.keymap.set("n", "<A-l>", "<C-w>l", { silent = true, desc = "Move to right window" })
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 ---------------------------------
 -- Visual mode mapping
