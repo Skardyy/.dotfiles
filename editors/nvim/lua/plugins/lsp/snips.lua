@@ -6,22 +6,39 @@ return {
     local ls = require("luasnip")
     local p = require("luasnip.extras.postfix").postfix
     local f = ls.function_node
+    local i = ls.insert_node
+
+    local function normalize(result)
+      if result:find("\n") then
+        local lines = {}
+        for line in result:gmatch("[^\n]+") do
+          table.insert(lines, line)
+        end
+        return lines
+      end
+      return result
+    end
 
     local function wrap(before, after)
-      return f(function(_, parent)
-        local match = parent.snippet.env.POSTFIX_MATCH
-        local result = before .. match .. after
-
-        if result:find("\n") then
-          local lines = {}
-          for line in result:gmatch("[^\n]+") do
-            table.insert(lines, line)
+      return {
+        f(function(_, parent)
+          local match = parent.snippet.env.POSTFIX_MATCH
+          if match == "" then
+            return normalize(before)
+          else
+            local result = before .. match .. after
+            return normalize(result)
           end
-          return lines
-        end
-
-        return result
-      end, {})
+        end, {}),
+        i(1),
+        f(function(_, parent)
+          local match = parent.snippet.env.POSTFIX_MATCH
+          if match == "" then
+            return normalize(after)
+          end
+          return ""
+        end, {}),
+      }
     end
 
     local function git_commit_wrap(pre, optional_pre, optional_post, post)
@@ -37,7 +54,7 @@ return {
 
 
     local function postfix(trig, nodes)
-      return p({ trig = trig, match_pattern = ".*" }, nodes)
+      return p({ trig = trig, match_pattern = [[[%w%.%_%-%"%']*$]] }, nodes)
     end
 
     -- RUST
