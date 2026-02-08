@@ -74,6 +74,8 @@ return {
       postfix(".italic", wrap("*", "*")),
       postfix(".code", wrap("`", "`")),
       postfix(".strike", wrap("~~", "~~")),
+      postfix(".todo", wrap("- [ ] ", "")),
+      postfix(".done", wrap("- [x] ", "")),
 
       postfix(".note", wrap("> [!NOTE]\n> ", "")),
       postfix(".tip", wrap("> [!TIP]\n> ", "")),
