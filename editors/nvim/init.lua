@@ -17,6 +17,6 @@ require("autocommands")
 require("lazy").setup({
   { import = "plugins.sugar" },
   { import = "plugins.ui" },
-  { import = "plugins.lsp" },
+  { import = "plugins.core" },
   { import = "plugins.git" },
 })
