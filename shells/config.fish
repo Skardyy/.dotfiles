@@ -16,6 +16,7 @@ if status is-interactive
     set -gx ANDROID_HOME /home/meron/Android/Sdk/
     set -gx GIT_EDITOR nvim
     set -gx GIT_EXTERNAL_DIFF difft
+    set -gx PULUMI_CONFIG_PASSPHRASE
 
     alias v="nvim"
     alias o="mcat"

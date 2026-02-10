@@ -46,6 +46,7 @@ return {
         ["w"] = "DiagnosticSignError",
         ["x"] = "DiagnosticSignOk",
       }
+      local oil_last_dir = nil
 
       local oil = require("oil")
       oil.setup({
@@ -83,15 +84,23 @@ return {
           ["l"] = "actions.select",
           ["<BS>"] = "actions.preview",
           ["h"] = "actions.parent",
-          ["<CR>"] = "actions.cd",
+          ["<CR>"] = function()
+            oil_last_dir = require("oil").get_current_dir()
+            vim.notify("Oil dir set: " .. oil_last_dir, vim.log.levels.INFO)
+          end,
+          ["<S-CR>"] = function()
+            oil_last_dir = nil
+            vim.notify("Oil dir cleared", vim.log.levels.INFO)
+            oil.open(vim.fn.getcwd())
+          end,
         },
       })
       local function open_oil_cwd()
         if oil.get_current_dir() then
           oil.close()
         else
-          oil.open(vim.fn.getcwd())
-          require("aerial").close() -- make sure aerial isn't visible (it doesn't contain symbols anyways)
+          oil.open(oil_last_dir or vim.fn.getcwd())
+          require("aerial").close()
         end
       end
       vim.keymap.set("n", "<leader>e", open_oil_cwd, { desc = "Open oil" })
