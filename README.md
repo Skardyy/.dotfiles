@@ -2,9 +2,7 @@
   
   # My dotfiles
 
-my dotfiles for neovim and niri/hyprland
-
-[![Static Badge](https://img.shields.io/badge/Makurai%20Theme-1C1F2E?style=for-the-badge&logo=codefactor)](https://github.com/Skardyy/makurai-theme)
+My dotfiles for Arch / MacOS
 
 | Desktop                                                                                   | Neovim                                                                                    |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -20,7 +18,7 @@ my dotfiles for neovim and niri/hyprland
 
 > [!Tip]
 >
-> the dotfiles uses [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell)
+> the dotfiles uses [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) for arch
 
 # Install
 
