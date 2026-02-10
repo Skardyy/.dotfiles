@@ -108,6 +108,17 @@ return {
     ls.add_snippets("python", {
       postfix(".print", wrap("print(", ")")),
       postfix(".len", wrap("len(", ")")),
+      postfix(".list", wrap("list(", ")")),
+      postfix(".tuple", wrap("tuple(", ")")),
+      postfix(".set", wrap("set(", ")")),
+      postfix(".str", wrap("str(", ")")),
+      postfix(".int", wrap("int(", ")")),
+      postfix(".float", wrap("float(", ")")),
+      postfix(".iter", wrap("iter(", ")")),
+      postfix(".next", wrap("next(", ")")),
+      postfix(".sorted", wrap("sorted(", ")")),
+      postfix(".reversed", wrap("reversed(", ")")),
+      postfix(".enumerate", wrap("enumerate(", ")")),
     })
   end,
 }
