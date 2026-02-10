@@ -30,7 +30,10 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'qf',
   callback = function()
-    vim.keymap.set('n', 'q', ':cclose<CR>', { buffer = true, silent = true })
+    vim.keymap.set('n', 'q', function()
+      vim.cmd('cclose')
+      vim.cmd('wincmd p')
+    end, { buffer = true, silent = true })
   end,
 })
 
