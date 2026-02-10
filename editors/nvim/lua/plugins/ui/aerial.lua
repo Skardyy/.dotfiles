@@ -28,6 +28,10 @@ return {
     end
 
     require("aerial").setup(opts)
+
+    vim.keymap.set("n", "]s", "<cmd>AerialNext<CR>", { desc = "Next symbol" })
+    vim.keymap.set("n", "[s", "<cmd>AerialPrev<CR>", { desc = "Previous symbol" })
+
     vim.keymap.set("n", "<leader>o", function()
       require("telescope").extensions.aerial.aerial({
         default_selection_index = 1,
