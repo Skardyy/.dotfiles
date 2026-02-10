@@ -25,6 +25,7 @@ yay -S --needed --noconfirm \
   quickshell \
   brave-bin \
   flat-remix-gtk \
+  dotbot \
   quickemu \
   bibata-cursor-theme-bin
 

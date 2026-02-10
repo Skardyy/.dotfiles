@@ -23,14 +23,6 @@ sudo pacman -S --needed --noconfirm \
   wl-clipboard
 
 rustup default stable
-if ! command -v dotbot &> /dev/null; then
-  pipx install dotbot
-  pipx ensurepath
-  source ~/.bashrc
-fi
-
-git config --global core.editor "nvim"
-git config --global diff.external "difft"
 
 sudo systemctl enable --now docker
 sudo usermod -aG docker $USER

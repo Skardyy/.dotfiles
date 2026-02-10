@@ -81,6 +81,12 @@ vim.g.lang_maps = {
   typst = {
     lsp = "tinymist",
   },
+  bash = {
+    lsp = "bash-language-server",
+  },
+  fish = {
+    lsp = "fish-lsp",
+  }
 }
 
 -- Make command work on windows, i hate windows..
