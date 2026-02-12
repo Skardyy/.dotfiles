@@ -27,6 +27,9 @@ return {
       }
     },
     markdown_inline = {
+      inline_codes = {
+        enable = false
+      },
       checkboxes = {
         checked = {
           text = " 󰱒 ",

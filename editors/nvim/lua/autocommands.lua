@@ -12,7 +12,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- cuz f conceal in markdown.
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { 'markdown', 'help' },
-  command = 'setlocal conceallevel=0'
+  callback = function()
+    vim.opt_local.conceallevel = 0
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+  end
 })
 
 -- enable treesitter highlight and indent

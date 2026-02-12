@@ -17,6 +17,7 @@ vim.deprecate = function() end -- i don't want to hear about it..
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.laststatus = 3
+vim.o.wrap = false;
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false
