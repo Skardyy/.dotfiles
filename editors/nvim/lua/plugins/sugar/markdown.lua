@@ -30,11 +30,9 @@ return {
       checkboxes = {
         checked = {
           text = " 󰱒 ",
-          hl = "DiagnosticOk",
         },
         unchecked = {
           text = " 󰄱 ",
-          hl = "DiagnosticError",
         }
       },
     }
