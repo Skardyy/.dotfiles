@@ -1,7 +1,7 @@
 #!/bin/bash
 echo -e "\n=== Development Tools ==="
 sudo pacman -S --needed --noconfirm \
-  python python-pip python-pipx \
+  python python-pip uv \
   nodejs npm \
   go \
   rustup \
