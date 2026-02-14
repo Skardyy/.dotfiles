@@ -1,40 +1,9 @@
 -- buffer like file explorer
 return {
   {
-    "SirZenith/oil-vcs-status",
+    "refractalize/oil-git-status.nvim",
     event = "VeryLazy",
-    dependencies = { "stevearc/oil.nvim" },
-    config = function()
-      local status_const = require "oil-vcs-status.constant.status"
-      local StatusType = status_const.StatusType
-
-      require "oil-vcs-status".setup {
-        status_hl_group = {
-          [StatusType.Added]               = "String",
-          [StatusType.Copied]              = "String",
-          [StatusType.Deleted]             = "Error",
-          [StatusType.Ignored]             = "Comment",
-          [StatusType.Modified]            = "WarningMsg",
-          [StatusType.Renamed]             = "Directory",
-          [StatusType.TypeChanged]         = "Type",
-          [StatusType.Unmodified]          = "Normal",
-          [StatusType.Unmerged]            = "ErrorMsg",
-          [StatusType.Untracked]           = "Comment",
-          [StatusType.External]            = "Special",
-          [StatusType.UpstreamAdded]       = "String",
-          [StatusType.UpstreamCopied]      = "String",
-          [StatusType.UpstreamDeleted]     = "Error",
-          [StatusType.UpstreamIgnored]     = "Comment",
-          [StatusType.UpstreamModified]    = "WarningMsg",
-          [StatusType.UpstreamRenamed]     = "Directory",
-          [StatusType.UpstreamTypeChanged] = "Type",
-          [StatusType.UpstreamUnmodified]  = "Normal",
-          [StatusType.UpstreamUnmerged]    = "ErrorMsg",
-          [StatusType.UpstreamUntracked]   = "Comment",
-          [StatusType.UpstreamExternal]    = "Special",
-        },
-      }
-    end
+    config = true
   },
   {
     "stevearc/oil.nvim",
@@ -71,7 +40,7 @@ return {
           },
         },
         win_options = {
-          signcolumn = "yes",
+          signcolumn = "yes:2",
         },
         view_options = {
           show_hidden = true,

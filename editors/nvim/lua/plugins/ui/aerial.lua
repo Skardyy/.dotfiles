@@ -1,6 +1,7 @@
 -- plugin for having a treeview of the symbols in the current file
 return {
   "stevearc/aerial.nvim",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {
     layout = {
       default_direction = "prefer_left",

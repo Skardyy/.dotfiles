@@ -11,7 +11,7 @@ function ExecuteCommand()
     completion = 'command'
   }, function(input)
     if input then
-      vim.cmd('terminal ' .. input)
+      vim.cmd('tabnew | terminal ' .. input)
     end
   end)
 end
