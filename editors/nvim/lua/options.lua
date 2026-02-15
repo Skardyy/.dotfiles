@@ -95,6 +95,7 @@ vim.opt.fillchars:append({
   stl = " ",
 })
 
-vim.g.neovide_padding_top = 10
-vim.g.neovide_padding_right = 10
-vim.g.neovide_padding_left = 10
+vim.g.neovide_padding_top = 12
+vim.g.neovide_padding_right = 12
+vim.g.neovide_padding_left = 12
+vim.g.neovide_floating_shadow = false

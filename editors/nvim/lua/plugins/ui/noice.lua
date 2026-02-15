@@ -7,29 +7,32 @@ return {
     },
     cmdline = {
       view = "cmdline",
-      format = {
-        input = { view = "cmdline_input" },
-      },
     },
     presets = {
       bottom_search = true,
     },
     views = {
-      cmdline_input = {
-        position = {
-          row = "99%",
-        },
-        size = {
-          width = "96%",
-        },
-        border = {
-          style = "rounded",
-        },
-      },
       hover = {
         border = {
           style = "rounded",
         },
+      },
+    },
+    routes = {
+      {
+        filter = { kind = { "confirm", "input" } },
+        view = "cmdline",
+        opts = {
+          border = { style = "rounded" },
+          position = {
+            row = -1,
+            col = 1,
+          },
+          relative = "editor",
+          size = {
+            width = "99%",
+          },
+        }
       },
     },
   },

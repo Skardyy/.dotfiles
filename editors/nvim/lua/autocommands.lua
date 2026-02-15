@@ -111,6 +111,10 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
   callback = function()
     local cmdline = vim.fn.getcmdline()
 
+    if vim.v.event.abort then
+      return
+    end
+
     if cmdline == 'cd' then
       vim.schedule(function()
         vim.cmd('cd ~')
