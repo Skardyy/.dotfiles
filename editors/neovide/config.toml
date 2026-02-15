@@ -1,0 +1,6 @@
+frame = "buttonless"
+title-hidden = true
+
+[font]
+normal = { family = "CommitMonoMn Nerd Font" }
+size = 18.0

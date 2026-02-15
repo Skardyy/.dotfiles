@@ -8,6 +8,7 @@
 
 - link:
     ~/.config/nvim: editors/nvim
+    ~/.config/neovide/config.toml: editors/neovide/config.toml
 
     ~/.config/kitty/kitty.conf: terminals/kitty.conf
     ~/.config/ghostty: terminals/ghostty

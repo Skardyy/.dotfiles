@@ -4,9 +4,11 @@ return {
   lazy = false,
   priority = 1000,
   config = function()
-    require "makurai".setup({
-      transparent = true
-    })
+    if not vim.g.neovide then
+      require "makurai".setup({
+        transparent = true
+      })
+    end
     vim.cmd.colorscheme("makurai_autumn")
   end,
 }

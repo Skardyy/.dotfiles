@@ -8,7 +8,11 @@
 
 - link:
     ~/.config/nvim: editors/nvim
+    ~/.config/neovide/config.toml: editors/neovide/config.toml
+
     ~/.config/kitty/kitty.conf: terminals/kitty.conf
-    ~/.config/fish/config.fish: shells/config.fish
     ~/.config/ghostty: terminals/ghostty
+
+    ~/.config/fish/config.fish: shells/config.fish
+
     ~/.config/aerospace/aerospace.toml: compositors/aerospace/aerospace.toml

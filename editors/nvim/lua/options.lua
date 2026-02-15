@@ -95,5 +95,6 @@ vim.opt.fillchars:append({
   stl = " ",
 })
 
-vim.o.guifont = "CommitMonoMn Nerd Font:h16"
-vim.g.neovide_refresh_rate = 170
+vim.g.neovide_padding_top = 10
+vim.g.neovide_padding_right = 10
+vim.g.neovide_padding_left = 10
