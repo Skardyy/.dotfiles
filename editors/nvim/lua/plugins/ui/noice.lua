@@ -7,25 +7,29 @@ return {
     },
     cmdline = {
       view = "cmdline",
+      format = {
+        input = { view = "cmdline_input" },
+      },
     },
     presets = {
       bottom_search = true,
     },
     views = {
-      hover = {
+      cmdline_input = {
+        position = {
+          row = "99%",
+        },
+        size = {
+          width = "96%",
+        },
         border = {
           style = "rounded",
         },
       },
-    },
-    routes = {
-      {
-        filter = { kind = { "confirm", "input" } },
-        view = "cmdline",
-        opts = {
-          border = { style = "rounded" },
-          size = { width = vim.o.columns - 2 },
-        }
+      hover = {
+        border = {
+          style = "rounded",
+        },
       },
     },
   },
