@@ -80,6 +80,11 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 vim.keymap.set('n', 'H', '<Nop>')
 vim.keymap.set('n', 'L', '<Nop>')
 
+-- paste
+vim.keymap.set('c', '<C-S-v>', '<C-r>+', { noremap = true })
+vim.keymap.set('i', '<C-S-v>', '<C-r>+', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<C-S-v>', '"+p', { noremap = true })
+
 ---------------------------------
 -- Visual mode mapping
 ---------------------------------

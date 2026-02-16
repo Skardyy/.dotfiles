@@ -1,5 +1,6 @@
 frame = "buttonless"
 title-hidden = true
+srgb = true
 
 [font]
 normal = { family = "CommitMonoMn Nerd Font" }

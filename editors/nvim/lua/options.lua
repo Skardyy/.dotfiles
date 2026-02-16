@@ -24,6 +24,7 @@ vim.opt.foldenable = false
 vim.opt.foldlevel = 99
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 vim.opt.guicursor:append("a:blinkon0")
+vim.opt.guicursor:append("a:Cursor/lCursor")
 
 -- LSP like in mason
 -- Formatter like in conform
