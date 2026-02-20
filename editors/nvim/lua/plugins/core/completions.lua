@@ -115,9 +115,6 @@ return {
         sorts = { 'exact', 'score', 'sort_text' },
         use_frecency = false,
         use_proximity = false,
-        max_typos = function()
-          return 0
-        end,
       },
     })
   end,
