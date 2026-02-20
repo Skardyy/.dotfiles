@@ -13,7 +13,7 @@ vim.opt.cursorline = true
 vim.opt.number = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '· ', leadmultispace = '· ', trail = '⋅' }
-vim.deprecate = function() end -- i don't want to hear about it..
+vim.deprecate = function() end
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.laststatus = 3
@@ -22,7 +22,10 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false
 vim.opt.foldlevel = 99
-vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
+vim.opt.signcolumn = "yes"
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.cmdheight = 0
 vim.opt.guicursor:append("a:blinkon0")
 vim.opt.guicursor:append("a:Cursor/lCursor")
 

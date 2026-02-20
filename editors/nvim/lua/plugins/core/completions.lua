@@ -1,10 +1,11 @@
 return {
   "hrsh7th/nvim-cmp",
-  event = { "InsertEnter" },
+  event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-cmdline",
     "saadparwaiz1/cmp_luasnip",
   },
   config = function()
@@ -103,6 +104,36 @@ return {
         { name = "path" },
       }, {
         { name = "buffer" },
+      }),
+    })
+
+    cmp.setup.cmdline(":", {
+      completion = {
+        autocomplete = false,
+        completeopt = "menu,menuone,noselect",
+      },
+      mapping = cmp.mapping.preset.cmdline({
+        ["<C-J>"] = { c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) },
+        ["<C-K>"] = { c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) },
+        ["<Tab>"] = {
+          c = function()
+            if cmp.visible() then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+            else
+              cmp.complete()
+              if #cmp.get_entries() == 1 then
+                cmp.confirm({ select = true })
+              else
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+              end
+            end
+          end
+        },
+      }),
+      sources = cmp.config.sources({
+        { name = "path" },
+      }, {
+        { name = "cmdline" },
       }),
     })
   end,
