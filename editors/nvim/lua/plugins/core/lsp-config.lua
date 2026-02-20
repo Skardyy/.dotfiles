@@ -14,7 +14,7 @@ return {
     "neovim/nvim-lspconfig",
     event = "VeryLazy",
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
       local registry = require("mason-registry")
 
       for _, tools in pairs(vim.g.lang_maps) do

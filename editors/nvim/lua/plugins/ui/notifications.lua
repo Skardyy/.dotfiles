@@ -1,16 +1,39 @@
 return {
-  "rcarriga/nvim-notify",
+  "folke/noice.nvim",
+  event = "VeryLazy",
   opts = {
-    render = "compact",
-    stages = "static",
-    top_down = false,
-    max_width = 40,
-    max_height = 3,
-    timeout = 3000,
+    lsp = {
+      progress = { enabled = false },
+    },
+    cmdline = {
+      view = "cmdline",
+    },
+    presets = {
+      bottom_search = true,
+    },
+    views = {
+      hover = {
+        border = {
+          style = "rounded",
+        },
+      },
+    },
+    routes = {
+      {
+        filter = { kind = { "confirm", "input" } },
+        view = "cmdline",
+        opts = {
+          border = { style = "rounded" },
+          position = {
+            row = -1,
+            col = 1,
+          },
+          relative = "editor",
+          size = {
+            width = "99%",
+          },
+        }
+      },
+    },
   },
-  config = function(_, opts)
-    require("notify").setup(opts)
-    vim.notify = require("notify")
-    print = require("notify")
-  end,
 }
