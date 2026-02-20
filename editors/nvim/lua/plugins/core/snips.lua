@@ -44,7 +44,7 @@ return {
     local function git_commit_wrap(pre, optional_pre, optional_post, post)
       return f(function(_, parent)
         local match = parent.snippet.env.POSTFIX_MATCH
-        if match == "" then
+        if match == "" or match == nil then
           return pre .. post
         else
           return pre .. optional_pre .. match .. optional_post .. post

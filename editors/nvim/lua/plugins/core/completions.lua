@@ -36,10 +36,10 @@ return {
       },
       keymap = {
         preset = "none",
-        ["<C-J>"] = { "select_next", "show" },
-        ["<C-K>"] = { "select_prev", "show" },
-        ["<C-Space>"] = { "show" },
-        ["<CR>"] = { "accept" },
+        ["<C-J>"] = { "select_next", "show", "fallback" },
+        ["<C-K>"] = { "select_prev", "show", "fallback" },
+        ["<C-Space>"] = { "show", "fallback" },
+        ["<CR>"] = { "accept", "fallback" },
       },
       completion = {
         list = {
@@ -50,8 +50,6 @@ return {
         menu = {
           border = "rounded",
           winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-          col_offset = -3,
-          side_padding = 0,
           max_height = 10,
           draw = {
             columns = {
