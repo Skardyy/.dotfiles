@@ -132,3 +132,13 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
     end
   end
 })
+
+-- sadly needed, alot of changes to files lsp isn't catching up.
+vim.api.nvim_create_user_command("Reset", function()
+  local current = vim.api.nvim_buf_get_name(0)
+  vim.cmd("bufdo bd")
+  if current ~= "" then
+    vim.cmd("edit " .. current)
+    vim.cmd("LspRestart")
+  end
+end, {})

@@ -34,7 +34,7 @@ persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 [mode.main.binding]
     # Custom
     cmd-q = "close --quit-if-last-window"
-    cmd-enter = "exec-and-forget kitty -d ~"
+    cmd-enter = "exec-and-forget open -na ghostty"
     cmd-shift-enter = "exec-and-forget neovide"
     cmd-w = "exec-and-forget open -na 'Brave browser'"
     cmd-s = "exec-and-forget screencapture -ic"
