@@ -4,6 +4,8 @@ return {
   opts = {
     lsp = {
       progress = { enabled = false },
+      signature = { enabled = false },
+      hover = { enabled = false }
     },
     cmdline = {
       view = "cmdline",

@@ -49,7 +49,6 @@ return {
         },
         menu = {
           border = "rounded",
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
           max_height = 10,
           draw = {
             columns = {
@@ -83,7 +82,6 @@ return {
           auto_show = true,
           window = {
             border = "rounded",
-            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
             max_width = 80,
             max_height = 10,
           },
@@ -101,6 +99,17 @@ return {
             },
           },
         },
+      },
+      signature = {
+        enabled = true,
+        window = {
+          show_documentation = true,
+          border = "rounded",
+        },
+        trigger = {
+          show_on_accept = true,
+          show_on_insert = true
+        }
       },
       sources = {
         default = { "lsp", "path", "buffer", "snippets" },

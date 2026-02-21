@@ -4,7 +4,8 @@ return {
   ---@type markview.config
   opts = {
     preview = {
-      enable = false
+      enable = false,
+      ignore_buftypes = {},
     },
     markdown = {
       list_items = {

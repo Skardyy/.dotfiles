@@ -15,6 +15,7 @@ sudo pacman -S --needed --noconfirm \
   fd \
   eza \
   kitty \
+  ghostty \
   fzf \
   git wget curl \
   zip unzip tar \
