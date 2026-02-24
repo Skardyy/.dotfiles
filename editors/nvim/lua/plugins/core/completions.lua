@@ -108,7 +108,8 @@ return {
         },
         trigger = {
           show_on_accept = true,
-          show_on_insert = true
+          show_on_insert = true,
+          show_on_keyword = true
         }
       },
       sources = {
