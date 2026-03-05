@@ -1,7 +1,0 @@
-frame = "buttonless"
-title-hidden = true
-srgb = true
-
-[font]
-normal = { family = "CommitMonoMn Nerd Font" }
-size = 18.0
