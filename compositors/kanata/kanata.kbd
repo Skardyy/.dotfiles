@@ -6,7 +6,7 @@
 )
 
 (defsrc
-  r u g h v n
+  r u v n
 )
 
 (defvar
@@ -15,11 +15,11 @@
 )
 
 (deflayer base
-  @r @u @g @h @v @n
+  @r @u @v @n
 )
 
 (deflayer nomods
-  r u g h v n
+  r u v n
 )
 
 (deffakekeys
@@ -31,10 +31,8 @@
     (layer-switch nomods)
     (on-idle-fakekey to-base tap 20)
   )
-  g (tap-hold-release-keys $tap-time $hold-time (multi g @tap) lsft (t e w f d r b v c))
-  h (tap-hold-release-keys $tap-time $hold-time (multi h @tap) rsft (y i o u n m , . /))
-  v (tap-hold-release-keys $tap-time $hold-time (multi v @tap) lctl (t e w f d r g b c))
-  n (tap-hold-release-keys $tap-time $hold-time (multi n @tap) rctl (y i o u h m , . /))
-  r (tap-hold-release-keys $tap-time $hold-time (multi r @tap) lmet (t e w f d g b v c))
-  u (tap-hold-release-keys $tap-time $hold-time (multi u @tap) rmet (y i o h n m , . /))
+  u (tap-hold-release-keys $tap-time $hold-time (multi u @tap) lctl (y i o h n m , . /))
+  r (tap-hold-release-keys $tap-time $hold-time (multi r @tap) rctl (t e w f d g b v c))
+  v (tap-hold-release-keys $tap-time $hold-time (multi v @tap) lmet (t e w f d r g b c))
+  n (tap-hold-release-keys $tap-time $hold-time (multi n @tap) rmet (y i o u h m , . /))
 )
