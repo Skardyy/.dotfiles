@@ -1,0 +1,40 @@
+;; Linux: sudo ln -s ~/.dotfiles/compositors/kanata/kanata.kbd /etc/kanata.kbd
+;; Mac: place in ~/.config/kanata/kanata.kbd and run via launchd
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defsrc
+  r u g h v n
+)
+
+(defvar
+  tap-time 200
+  hold-time 150
+)
+
+(deflayer base
+  @r @u @g @h @v @n
+)
+
+(deflayer nomods
+  r u g h v n
+)
+
+(deffakekeys
+  to-base (layer-switch base)
+)
+
+(defalias
+  tap (multi
+    (layer-switch nomods)
+    (on-idle-fakekey to-base tap 20)
+  )
+  g (tap-hold-release-keys $tap-time $hold-time (multi g @tap) lsft (t e w f d r b v c))
+  h (tap-hold-release-keys $tap-time $hold-time (multi h @tap) rsft (y i o u n m , . /))
+  v (tap-hold-release-keys $tap-time $hold-time (multi v @tap) lctl (t e w f d r g b c))
+  n (tap-hold-release-keys $tap-time $hold-time (multi n @tap) rctl (y i o u h m , . /))
+  r (tap-hold-release-keys $tap-time $hold-time (multi r @tap) lmet (t e w f d g b v c))
+  u (tap-hold-release-keys $tap-time $hold-time (multi u @tap) rmet (y i o h n m , . /))
+)
