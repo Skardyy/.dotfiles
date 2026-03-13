@@ -17,6 +17,7 @@ return {
           enable = true,
           set_jumps = true,
         },
+        ensure_installed = vim.tbl_keys(vim.g.lang_maps),
       })
       local select = require("nvim-treesitter-textobjects.select")
       local move = require("nvim-treesitter-textobjects.move")

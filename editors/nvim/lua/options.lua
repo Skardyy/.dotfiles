@@ -34,9 +34,9 @@ vim.opt.guicursor:append("a:Cursor/lCursor")
 -- Linter like in nvim-lint
 vim.g.lang_maps = {
   python = {
-    lsp = { "ty", "basedpyright" },
+    lsp = "basedpyright",
     linter = "ruff",
-    formatter = "ruff_format",
+    formatter = "ruff",
   },
   typescript = {
     lsp = "typescript-language-server",

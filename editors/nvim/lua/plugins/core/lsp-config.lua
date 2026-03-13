@@ -1,11 +1,5 @@
 return {
   {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    lazy = true,
-    opts = {},
-  },
-  {
     "folke/lazydev.nvim",
     ft = "lua",
     opts = {}
