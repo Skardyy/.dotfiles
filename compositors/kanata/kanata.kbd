@@ -6,20 +6,22 @@
 
 (defsrc
   caps lalt
-  i    j    k    l
+  i    o    p
+  h    j    k    l
 )
 
 (deflayer default
   esc  @alt_nav
-  i    j    k    l
+  i    o    p
+  h    j    k    l
 )
 
 (deflayer navigation
   _    _
-  up   left down rght
+  -    =    bspc
+  left down up   rght
 )
 
 (defalias
-  ;; Tap: Alt | Hold: Navigation Layer
-  alt_nav (tap-hold 200 200 lalt (layer-toggle navigation))
+  alt_nav (layer-while-held navigation)
 )
