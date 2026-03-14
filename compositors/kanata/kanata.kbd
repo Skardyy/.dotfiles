@@ -17,19 +17,19 @@
 )
 
 (deflayer navigation
-  _       _
-  @grv_  @min  @eql  @bs
-  @lft   @dwn  @up   @rgt
+  _          _
+  @grv_nav   @min_nav  @eql_nav  @bs_nav
+  @left_nav  @down_nav @up_nav   @rght_nav
 )
 
 (defalias
-  alt_nav (multi lalt (layer-while-held navigation))
-  lft  (multi (release-key lalt) left)
-  dwn  (multi (release-key lalt) down)
-  up   (multi (release-key lalt) up)
-  rgt  (multi (release-key lalt) rght)
-  grv_ (multi (release-key lalt) grv)
-  min  (multi (release-key lalt) -)
-  eql  (multi (release-key lalt) =)
-  bs   (multi (release-key lalt) bspc)
+  alt_nav  (multi lalt (layer-while-held navigation))
+  left_nav (multi (release-key lalt) left)
+  down_nav (multi (release-key lalt) down)
+  up_nav   (multi (release-key lalt) up)
+  rght_nav (multi (release-key lalt) rght)
+  grv_nav  (multi (release-key lalt) grv)
+  min_nav  (multi (release-key lalt) -)
+  eql_nav  (multi (release-key lalt) =)
+  bs_nav   (multi (release-key lalt) bspc)
 )
