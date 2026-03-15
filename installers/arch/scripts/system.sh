@@ -24,6 +24,7 @@ sudo pacman -S --needed --noconfirm \
 yay -S --needed --noconfirm \
   quickshell \
   brave-bin \
+  kanata \
   flat-remix-gtk \
   dotbot \
   quickemu \

@@ -1,7 +1,10 @@
 ;; sudo ln -sf ~/.dotfiles/compositors/kanata/kanata.kbd /etc/kanata.kbd
 
 (defcfg
-  process-unmapped-keys yes
+  process-unmapped-keys no
+  macos-dev-names-exclude (
+    "HP 435 Wireless Mouse"
+  )
 )
 
 (defsrc
