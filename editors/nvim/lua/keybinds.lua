@@ -4,18 +4,6 @@ function ToggleAutoformat()
   print("Autoformat is " .. (vim.g.autoformat and "ON" or "OFF"))
 end
 
-function ExecuteCommand()
-  vim.ui.input({
-    prompt = "Command:",
-    default = "",
-    completion = 'command'
-  }, function(input)
-    if input then
-      vim.cmd('tabnew | terminal ' .. input)
-    end
-  end)
-end
-
 function ToggleQuickfix()
   local qf_exists = false
   for _, win in pairs(vim.fn.getwininfo()) do
@@ -60,8 +48,6 @@ vim.keymap.set("n", "zO", "zR", { desc = "Open all folds" })
 vim.keymap.set("n", "<leader>1", "gg=G``",
   { silent = true, desc = "Format Buffer" })
 vim.keymap.set("n", "<leader>h", ":noh<CR>", { silent = true, desc = "No highlight" })
-vim.keymap.set("n", "<leader>c", ":lua ExecuteCommand()<CR>",
-  { silent = true, desc = "Run Command" })
 vim.keymap.set('n', '<leader>q', ':lua ToggleQuickfix()<CR>',
   { silent = true, desc = "Toggle quickfix" })
 vim.keymap.set("n", "<C-n>", ":cn<CR>", opts)
