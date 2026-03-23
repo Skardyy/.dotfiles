@@ -19,27 +19,21 @@ return {
     vim.api.nvim_set_hl(0, "CompileModeErrorLocus", { link = "DiagnosticUnderlineError" })
 
 
-    vim.keymap.set("n", "<leader>co", function()
+    vim.keymap.set("n", "<leader>c", function()
       vim.fn.feedkeys(":Compile ", "n")
     end, { desc = "Compile" })
-    vim.keymap.set("n", "<leader>ci", "<CMD>Recompile<CR>", { desc = "Recompile" })
 
-    vim.keymap.set("n", "<leader>cc", function()
-      local bufnr = vim.fn.bufnr("*compilation*")
-      if bufnr ~= -1 then
-        vim.cmd("bdelete " .. bufnr)
-      end
-    end, { desc = "Close compile buffer" })
-
-    vim.keymap.set("n", "<leader>cq", function()
-      require("compile-mode").send_to_qflist()
-      local bufnr = vim.fn.bufnr("*compilation*")
-      if bufnr ~= -1 then
-        vim.cmd("bdelete " .. bufnr)
-      end
-      local win = vim.api.nvim_get_current_win()
-      vim.cmd("copen")
-      vim.api.nvim_set_current_win(win)
-    end, { desc = "Compile errors to quickfix" })
+    vim.api.nvim_create_autocmd("BufEnter", {
+      pattern = "*compilation*",
+      callback = function(ev)
+        vim.keymap.set("n", "<C-q>", function()
+          require("compile-mode").send_to_qflist()
+          local compile_win = vim.api.nvim_get_current_win()
+          vim.api.nvim_win_close(compile_win, true)
+          vim.cmd("copen")
+          vim.api.nvim_set_current_win(get_main_win())
+        end, { buffer = ev.buf, desc = "Compile errors to quickfix" })
+      end,
+    })
   end
 }

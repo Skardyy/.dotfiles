@@ -5,38 +5,36 @@ function ToggleAutoformat()
 end
 
 function ToggleQuickfix()
-  local qf_exists = false
-  for _, win in pairs(vim.fn.getwininfo()) do
-    if win.quickfix == 1 then
-      qf_exists = true
+  local split_below = nil
+  local main_win = get_main_win()
+  local main_pos = vim.api.nvim_win_get_position(main_win)
+
+  for _, win in pairs(vim.api.nvim_list_wins()) do
+    if win ~= main_win then
+      local pos = vim.api.nvim_win_get_position(win)
+      local cfg = vim.api.nvim_win_get_config(win)
+      if pos[1] > main_pos[1] and pos[2] == main_pos[2] and cfg.relative == "" then
+        split_below = win
+        break
+      end
     end
   end
-  if qf_exists == true then
-    vim.cmd "cclose"
+
+  if split_below then
+    vim.api.nvim_win_close(split_below, false)
   else
-    local win = vim.api.nvim_get_current_win()
     vim.cmd "copen"
-    vim.api.nvim_set_current_win(win)
+    vim.api.nvim_set_current_win(main_win)
   end
 end
 
-function TelescopeGitDiff()
-  local builtin = require('telescope.builtin')
-  local actions = require('telescope.actions')
-  local action_state = require('telescope.actions.state')
-
-  builtin.git_commits({
-    attach_mappings = function(prompt_bufnr, _)
-      actions.select_default:replace(function()
-        local selection = action_state.get_selected_entry()
-        actions.close(prompt_bufnr)
-
-        vim.cmd('DiffviewOpen HEAD..' .. selection.value)
-      end)
-
-      return true
-    end,
-  })
+function _G.get_main_win()
+  for _, win in pairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.bo[buf].buftype == "" then
+      return win
+    end
+  end
 end
 
 ---------------------------------
