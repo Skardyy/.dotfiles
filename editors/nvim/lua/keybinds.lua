@@ -5,33 +5,44 @@ function ToggleAutoformat()
 end
 
 function ToggleQuickfix()
-  local split_below = nil
-  local main_win = get_main_win()
-  local main_pos = vim.api.nvim_win_get_position(main_win)
-
+  -- check if quickfix is already open and close it
   for _, win in pairs(vim.api.nvim_list_wins()) do
-    if win ~= main_win then
-      local pos = vim.api.nvim_win_get_position(win)
-      local cfg = vim.api.nvim_win_get_config(win)
-      if pos[1] > main_pos[1] and pos[2] == main_pos[2] and cfg.relative == "" then
-        split_below = win
-        break
-      end
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.bo[buf].buftype == "quickfix" then
+      vim.api.nvim_win_close(win, false)
+      return
     end
   end
 
-  if split_below then
-    vim.api.nvim_win_close(split_below, false)
-  else
-    vim.cmd "copen"
-    vim.api.nvim_set_current_win(main_win)
+  -- no quickfix found, check for any non floating split below main window
+  local main_win = get_main_win()
+  if not main_win then return end
+
+  vim.api.nvim_set_current_win(main_win)
+  local below_win = vim.fn.win_getid(vim.fn.winnr("j"))
+
+  if below_win and below_win ~= main_win then
+    local buf = vim.api.nvim_win_get_buf(below_win)
+    local cfg = vim.api.nvim_win_get_config(below_win)
+    if cfg.relative == "" and vim.bo[buf].buftype ~= "" then
+      vim.api.nvim_win_close(below_win, false)
+      return
+    end
   end
+
+  -- nothing below, open quickfix
+  vim.cmd "copen"
+  vim.api.nvim_set_current_win(main_win)
 end
 
 function _G.get_main_win()
+  local normal_types = { [""] = true, ["acwrite"] = true }
+
   for _, win in pairs(vim.api.nvim_list_wins()) do
     local buf = vim.api.nvim_win_get_buf(win)
-    if vim.bo[buf].buftype == "" then
+    local cfg = vim.api.nvim_win_get_config(win)
+    if normal_types[vim.bo[buf].buftype] and cfg.relative == ""
+    then
       return win
     end
   end
