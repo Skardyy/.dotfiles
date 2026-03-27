@@ -12,19 +12,32 @@ return {
       local registry = require("mason-registry")
 
       for _, tools in pairs(vim.g.lang_maps) do
-        local lsps = type(tools.lsp) == "table" and tools.lsp or (tools.lsp and { tools.lsp } or {})
+        local lsp = tools.lsp
+        if not lsp then
+          goto continue
+        end
 
-        for _, lsp_name in ipairs(lsps) do
-          if registry.is_installed(lsp_name) then
-            local pkg = registry.get_package(lsp_name)
-            if pkg.spec.neovim then
+        local conf = vim.tbl_deep_extend("force", {
+          capabilities = capabilities,
+        }, lsp.config or {})
+
+        if lsp.global then
+          vim.lsp.config(lsp.name, conf)
+          vim.lsp.enable(lsp.name)
+        else
+          local ok, pkg = pcall(registry.get_package, lsp.name)
+          if ok then
+            if pkg:is_installed() and pkg.spec.neovim then
               local name = pkg.spec.neovim.lspconfig
-              vim.lsp.config(name, { capabilities = capabilities })
+              vim.lsp.config(name, conf)
               vim.lsp.enable(name)
-              break
             end
+          else
+            print(string.format("[LSP] Mason package not found: %s", lsp.name))
           end
         end
+
+        ::continue::
       end
 
       local signs = {

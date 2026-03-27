@@ -4,7 +4,10 @@ return {
     config = function()
       local packages_map = {}
       for _, config in pairs(vim.g.lang_maps) do
-        for _, key in ipairs({ "lsp", "linter", "formatter" }) do
+        if config.lsp and not config.lsp.global then
+          packages_map[config.lsp.name] = true
+        end
+        for _, key in ipairs({ "linter", "formatter" }) do
           if config[key] then
             packages_map[config[key]] = true
           end

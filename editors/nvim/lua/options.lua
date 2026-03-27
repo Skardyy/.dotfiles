@@ -29,58 +29,85 @@ vim.opt.cmdheight = 0
 vim.opt.guicursor:append("a:blinkon0")
 vim.opt.guicursor:append("a:Cursor/lCursor")
 
--- LSP like in mason
--- Formatter like in conform
--- Linter like in nvim-lint
+---@class LspConfig
+---@field name string the name of the LSP (e.g., "rust-analyzer")
+---@field global? boolean if true, don't check Mason; use system binary
+---@field config? table configuration object for lspconfig (flags, settings, etc.)
+
+---@class LangConfig
+---@field lsp? LspConfig
+---@field linter? string
+---@field formatter? string
+
+---@param conf string
+---@return LspConfig
+local function lsp(conf)
+  return { name = conf, global = false, config = {} }
+end
+
+---@type table<string, LangConfig>
 vim.g.lang_maps = {
   python = {
-    lsp = "basedpyright",
+    lsp = lsp("basedpyright"),
     linter = "ruff",
     formatter = "ruff",
   },
   typescript = {
-    lsp = "typescript-language-server",
+    lsp = lsp("typescript-language-server"),
     linter = "eslint_d",
     formatter = "prettierd",
   },
   typescriptreact = {
-    lsp = "typescript-language-server",
+    lsp = lsp("typescript-language-server"),
     linter = "eslint_d",
     formatter = "prettierd",
   },
   javascript = {
-    lsp = "typescript-language-server",
+    lsp = lsp("typescript-language-server"),
     linter = "eslint_d",
     formatter = "prettierd",
   },
   javascriptreact = {
-    lsp = "typescript-language-server",
+    lsp = lsp("typescript-language-server"),
     linter = "eslint_d",
     formatter = "prettierd",
   },
   lua = {
-    lsp = "lua-language-server",
+    lsp = lsp("lua-language-server"),
   },
   rust = {
-    lsp = "rust-analyzer",
+    lsp = {
+      name = "rust_analyzer",
+      global = true,
+      config = {
+        settings = {
+          ["rust-analyzer"] = {
+            checkOnSave = {
+              command = "clippy",
+              extraArgs = { "--target-dir", "target/analyzer" },
+            },
+          }
+        }
+      }
+    },
   },
   go = {
-    lsp = "gopls",
+    lsp = lsp("gopls"),
   },
   markdown = {
     formatter = "prettierd",
   },
   cpp = {
-    lsp = "clangd",
+    lsp = lsp("clangd"),
   },
   typst = {
-    lsp = "tinymist",
+    lsp = lsp("tinymist"),
   },
   bash = {
-    lsp = "bash-language-server",
+    lsp = lsp("bash-language-server"),
   },
   fish = {
-    lsp = "fish-lsp",
+    lsp = lsp("fish-lsp"),
   }
 }
 
