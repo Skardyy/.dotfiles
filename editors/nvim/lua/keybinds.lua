@@ -84,5 +84,5 @@ vim.keymap.set({ 'n', 'v' }, '<C-S-v>', '"+p', { noremap = true })
 -- Visual mode mapping
 ---------------------------------
 
-vim.keymap.set("v", "<Tab>", ">gv", opts)
-vim.keymap.set("v", "<S-Tab>", "<gv", opts)
+vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
