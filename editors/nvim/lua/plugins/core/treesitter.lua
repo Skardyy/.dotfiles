@@ -2,7 +2,30 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    lazy = false
+    lazy = false,
+    config = function()
+      local ts = require("nvim-treesitter")
+      local installed = {}
+      for _, lang in ipairs(ts.get_installed()) do
+        installed[lang] = true
+      end
+
+      local available = {}
+      for _, lang in ipairs(ts.get_available()) do
+        available[lang] = true
+      end
+
+      local to_install = {}
+      for _, lang in ipairs(vim.tbl_keys(vim.g.lang_maps)) do
+        if available[lang] and not installed[lang] then
+          table.insert(to_install, lang)
+        end
+      end
+
+      if #to_install > 0 then
+        ts.install(to_install)
+      end
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -17,7 +40,6 @@ return {
           enable = true,
           set_jumps = true,
         },
-        ensure_installed = vim.tbl_keys(vim.g.lang_maps),
       })
       local select = require("nvim-treesitter-textobjects.select")
       local move = require("nvim-treesitter-textobjects.move")
