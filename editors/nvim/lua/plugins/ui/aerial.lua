@@ -9,6 +9,7 @@ return {
     },
     filter_kind = {
       "Class",
+      "Module",
       "Constructor",
       "Enum",
       "Function",
