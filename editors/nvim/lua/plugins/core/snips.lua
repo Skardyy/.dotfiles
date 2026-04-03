@@ -23,7 +23,7 @@ return {
       return {
         f(function(_, parent)
           local match = parent.snippet.env.POSTFIX_MATCH
-          if match == "" then
+          if match == "" or match == nil then
             return normalize(before)
           else
             local result = before .. match .. after
@@ -33,7 +33,7 @@ return {
         i(1),
         f(function(_, parent)
           local match = parent.snippet.env.POSTFIX_MATCH
-          if match == "" then
+          if match == "" or match == nil then
             return normalize(after)
           end
           return ""
