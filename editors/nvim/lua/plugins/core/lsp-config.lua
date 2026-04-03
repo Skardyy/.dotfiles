@@ -55,7 +55,7 @@ return {
           prefix = "●",
           spacing = 2,
         },
-        signs = true,
+        signs = false,
         underline = true,
         update_in_insert = false,
         severity_sort = true,

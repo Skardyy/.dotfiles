@@ -34,7 +34,7 @@ require("vim._core.ui2").enable {
   msg = {
     targets = "msg",
     msg = {
-      timeout = 4000,
+      timeout = 3000,
     },
   },
 }
