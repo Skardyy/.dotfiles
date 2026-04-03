@@ -28,6 +28,16 @@ vim.opt.splitright = true
 vim.opt.cmdheight = 0
 vim.opt.guicursor:append("a:blinkon0")
 vim.opt.guicursor:append("a:Cursor/lCursor")
+vim.opt.fillchars = vim.opt.fillchars + "eob: "
+
+require("vim._core.ui2").enable {
+  msg = {
+    targets = "msg",
+    msg = {
+      timeout = 4000,
+    },
+  },
+}
 
 ---@class LspConfig
 ---@field name string the name of the LSP (e.g., "rust-analyzer")
@@ -82,10 +92,11 @@ vim.g.lang_maps = {
       config = {
         settings = {
           ["rust-analyzer"] = {
-            checkOnSave = {
+            check = {
               command = "clippy",
               extraArgs = { "--target-dir", "target/analyzer" },
             },
+            checkOnSave = true,
           }
         }
       }
@@ -110,23 +121,3 @@ vim.g.lang_maps = {
     lsp = lsp("fish-lsp"),
   }
 }
-
--- Make command work on windows, i hate windows..
-if vim.fn.has('win32') == 1 then
-  vim.o.shell = 'pwsh'
-  vim.o.shellcmdflag = '-c'
-  vim.o.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-  vim.o.shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-  vim.o.shellquote = ''
-  vim.o.shellxquote = ''
-end
-
-vim.opt.fillchars = vim.opt.fillchars + "eob: "
-vim.opt.fillchars:append({
-  stl = " ",
-})
-
-vim.g.neovide_padding_top = 12
-vim.g.neovide_padding_right = 12
-vim.g.neovide_padding_left = 12
-vim.g.neovide_floating_shadow = false
