@@ -17,10 +17,12 @@ if status is-interactive
     set -gx GIT_EDITOR nvim
     set -gx GIT_EXTERNAL_DIFF difft
     set -gx PULUMI_CONFIG_PASSPHRASE
+    set -gx HOMEBREW_NO_AUTO_UPDATE 1
 
     alias v="nvim"
     alias o="mcat"
     alias pine="PROTONPATH=GE-Proton umu-run"
+    alias aerospace-restart='pkill AeroSpace; sleep 0.5; open -a AeroSpace'
     alias ls="eza --icons --group-directories-first"
     alias ll="eza --icons --group-directories-first -lh --git"
     alias la="eza --icons --group-directories-first -lah --git"

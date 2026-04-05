@@ -22,6 +22,10 @@ automatically-unhide-macos-hidden-apps = true
 
 persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+after-startup-command = [
+  "exec-and-forget /opt/homebrew/bin/autoraise -delay 0"
+]
+
 [gaps]
     inner.horizontal = 12
     inner.vertical =   12
