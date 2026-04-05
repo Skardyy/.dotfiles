@@ -420,7 +420,7 @@
   "activeDisplayProfile": {},
   "displayProfileAutoSelect": false,
   "displayShowDisconnected": false,
-  "displaySnapToEdge": true,
+  "displaySnapToEdge": false,
   "barConfigs": [
     {
       "id": "default",
