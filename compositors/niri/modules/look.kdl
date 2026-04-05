@@ -3,11 +3,11 @@ animations {
         spring damping-ratio=0.80 stiffness=523 epsilon=0.0001
     }
     window-open {
-        duration-ms 150
+        duration-ms 250
         curve "ease-out-expo"
     }
     window-close {
-        duration-ms 150
+        duration-ms 250
         curve "ease-out-quad"
     }
     horizontal-view-movement {
@@ -19,21 +19,11 @@ animations {
     window-resize {
         spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
     }
-    config-notification-open-close {
-        spring damping-ratio=0.65 stiffness=923 epsilon=0.001
-    }
-    screenshot-ui-open {
-        duration-ms 200
-        curve "ease-out-quad"
-    }
-    overview-open-close {
-        spring damping-ratio=0.85 stiffness=800 epsilon=0.0001
-    }
 }
 
 layout {
-    background-color "transparent"
-    gaps 4
+    gaps 8
+    default-column-width { proportion 1.0; }
 
     border {
         width 0
@@ -44,39 +34,14 @@ layout {
     }
 }
 
-// windows rules
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 10
     clip-to-geometry true
-    tiled-state true
-    draw-border-with-background false
-}
-window-rule {
-    match app-id=r#"org.quickshell$"#
-    open-floating true
 }
 
-// for overview
-layer-rule {
-    match namespace="^quickshell$"
-    place-within-backdrop true
-}
-overview {
-    workspace-shadow {
-        off
-    }
-}
-gestures {
-    hot-corners {
-        off
-    }
-}
-
-// Cursor
 cursor {
     xcursor-theme "Bibata-Modern-Ice"
     xcursor-size 24
 }
 
-// omit decorations, i love it
 prefer-no-csd

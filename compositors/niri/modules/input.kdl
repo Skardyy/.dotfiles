@@ -1,0 +1,101 @@
+input {
+    focus-follows-mouse
+
+    keyboard {
+        xkb {
+            layout "us,il"
+        }
+        repeat-delay 250
+        repeat-rate 30
+    }
+
+    mouse {
+        accel-profile "flat"
+    }
+
+    touchpad {
+        accel-profile "flat"
+        dwt
+        natural-scroll
+        tap
+    }
+}
+
+binds {
+    // === Apps ===
+    Mod+Return { spawn "sh" "-c" "$CONFIG_TERMINAL_APP"; }
+    Mod+Shift+Return { spawn "neovide"; }
+    Mod+S { spawn "sh" "-c" "$CONFIG_SCREENSHOT_APP"; }
+    Mod+Shift+S { spawn "sh" "-c" "$CONFIG_SCREENSHOT_EDIT_APP"; }
+    Mod+Shift+C { spawn "sh" "-c" "$CONIFG_COLOR_PICKER_APP"; }
+    Mod+Space { spawn "sh" "-c" "$CONFIG_APP_LAUNCHER"; }
+    Mod+W { spawn "sh" "-c" "$CONFIG_BROWSER_APP"; }
+    Mod+E { spawn "sh" "-c" "$CONFIG_FILE_MANAGER_APP"; }
+    Ctrl+Shift+Escape { spawn "sh" "-c" "$CONFIG_CONTROL_CENTER_APP"; }
+    Mod+V { spawn "sh" "-c" "$CONFIG_CLIPBOARD_HISTORY_APP"; }
+
+    // overview
+    Mod+Tab repeat=false { toggle-overview; }
+
+    // change lang
+    Alt+Space { switch-layout "next"; }
+
+    // === Window Management ===
+    Mod+Q repeat=false { close-window; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+F { toggle-window-floating; }
+    Mod+R { spawn-sh "niri msg action set-column-width 100% && niri msg action reset-window-height"; }
+
+    // === Focus Navigation ===
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+
+    // === Window Movement ===
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Down  { move-window-down; }
+    Mod+Shift+Up    { move-window-up; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+H     { move-column-left; }
+    Mod+Shift+J     { move-window-down; }
+    Mod+Shift+K     { move-window-up; }
+    Mod+Shift+L     { move-column-right; }
+
+    // === Monitor Navigation ===
+    Mod+Ctrl+Left  { focus-monitor-left; }
+    Mod+Ctrl+Right { focus-monitor-right; }
+    Mod+Ctrl+H     { focus-monitor-left; }
+    Mod+Ctrl+L     { focus-monitor-right; }
+
+    // === Numbered Workspaces ===
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    // === Move to Numbered Workspaces ===
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+
+    // === Manual Sizing ===
+    Mod+Minus { set-column-width "-100"; }
+    Mod+Equal { set-column-width "+100"; }
+
+}

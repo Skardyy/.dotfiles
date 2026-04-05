@@ -408,7 +408,9 @@
   "displayNameMode": "model",
   "screenPreferences": {},
   "showOnLastDisplay": {},
-  "niriOutputSettings": {},
+  "niriOutputSettings": {
+    "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 20530B005818": {}
+  },
   "hyprlandOutputSettings": {
     "desc:GIGA-BYTE TECHNOLOGY CO., LTD. M27Q": {
       "bitdepth": 10
