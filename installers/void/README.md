@@ -22,6 +22,12 @@ xbps-install -Su
 - quickshell
 - xtools
 - wl-clipboard
+- github-cli
+- nwg-look
+- gsettings-desktop-schemas 
+- dconf
+- xdg-desktop-portal
+- xdg-desktop-portal-gtk
 - tree-sitter-cli (cargo)
 
 **elogind**
