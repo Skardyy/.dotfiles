@@ -9,4 +9,5 @@ sudo pacman -S --needed --noconfirm \
   gamemode lib32-gamemode \
   umu-launcher
 
+sudo groupadd gamemode
 sudo usermod -aG gamemode $USER
