@@ -20,6 +20,8 @@ xbps-install -Su
 - eza
 - mesa-dri
 - quickshell
+- xtools
+- wl-clipboard
 - tree-sitter-cli (cargo)
 
 **elogind**
@@ -82,4 +84,29 @@ sudo install -m 644 completion/completion.fish /usr/share/fish/vendor_completion
 
 ```
 chsh -s /bin/fish
+```
+
+**Network**
+
+```
+xbps-install NetworkManager iwd
+ln -s /etc/sv/NetworkManager /var/service/
+ln -s /etc/sv/iwd /var/service/
+rm /var/service/dhcpcd
+rm /var/service/wpa_supplicant
+```
+
+**Sound**
+
+```
+xbps-install bluez pipewire wireplumber libspa-bluetooth
+ln -s /etc/sv/bluetoothd /var/service/
+```
+
+**Flatpak**
+
+```
+sudo xbps-install -S flatpak
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak install flathub com.brave.Browser
 ```

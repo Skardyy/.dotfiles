@@ -1,6 +1,6 @@
 environment {
     CONFIG_TERMINAL_APP "ghostty"
-    CONFIG_BROWSER_APP "brave --gtk-version=4"
+    CONFIG_BROWSER_APP "com.brave.Browser --gtk-version=4"
     CONIFG_COLOR_PICKER_APP "hyprpicker -a"
     CONFIG_SCREENSHOT_APP "dms screenshot --no-file"
     CONFIG_SCREENSHOT_EDIT_APP "dms screenshot --stdout | satty -f -"
@@ -24,6 +24,10 @@ hotkey-overlay {
 
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store"
 spawn-at-startup "dms" "restart"
+
+spawn-at-startup "pipewire"
+spawn-at-startup "wireplumber"
+spawn-at-startup "pipewire-pulse"
 
 include "modules/input.kdl"
 include "modules/look.kdl"

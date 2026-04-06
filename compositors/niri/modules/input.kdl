@@ -24,7 +24,6 @@ input {
 binds {
     // === Apps ===
     Mod+Return { spawn "sh" "-c" "$CONFIG_TERMINAL_APP"; }
-    Mod+Shift+Return { spawn "neovide"; }
     Mod+S { spawn "sh" "-c" "$CONFIG_SCREENSHOT_APP"; }
     Mod+Shift+S { spawn "sh" "-c" "$CONFIG_SCREENSHOT_EDIT_APP"; }
     Mod+Shift+C { spawn "sh" "-c" "$CONIFG_COLOR_PICKER_APP"; }
