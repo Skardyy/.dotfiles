@@ -7,7 +7,8 @@ sudo pacman -S --needed --noconfirm \
   satty \
   nautilus \
   adw-gtk3 \
-  qemu-desktop
+  qemu-desktop \
+  ttf-dejavu ttf-liberation noto-fonts noto-fonts-emoji
 
 paru -S --needed --noconfirm \
   quickshell \
