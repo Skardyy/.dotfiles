@@ -4,7 +4,6 @@ sudo pacman -S --needed --noconfirm \
   python python-pip uv \
   nodejs npm \
   go \
-  rustup \
   clang llvm gcc \
   cmake ninja \
   docker docker-compose \
@@ -22,8 +21,3 @@ sudo pacman -S --needed --noconfirm \
   less \
   tree-sitter-cli \
   wl-clipboard
-
-rustup default stable
-
-sudo systemctl enable --now docker
-sudo usermod -aG docker $USER

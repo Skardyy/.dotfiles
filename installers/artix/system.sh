@@ -17,3 +17,8 @@ paru -S --needed --noconfirm \
   dotbot \
   quickemu \
   bibata-cursor-theme-bin
+
+echo "  ================================================"
+echo "  Bar:"
+echo "      curl -fsSL https://install.danklinux.com | sh"
+echo "  ================================================"
