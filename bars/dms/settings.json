@@ -409,7 +409,10 @@
   "screenPreferences": {},
   "showOnLastDisplay": {},
   "niriOutputSettings": {
-    "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 20530B005818": {}
+    "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 20530B005818": {},
+    "ViewSonic Corporation XG2401 SERIES UG2171100304": {
+      "layout": null
+    }
   },
   "hyprlandOutputSettings": {
     "desc:GIGA-BYTE TECHNOLOGY CO., LTD. M27Q": {

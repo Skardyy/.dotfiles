@@ -9,7 +9,6 @@ if status is-interactive
     fish_add_path /opt/homebrew
     fish_add_path $ANDROID_HOME/tools
     fish_add_path $ANDROID_HOME/platform-tools
-    fish_add_path /var/lib/flatpak/exports/bin
 
     set -gx PROFILE "$HOME/.config/fish/config.fish"
     set -gx CC clang
@@ -19,13 +18,12 @@ if status is-interactive
     set -gx GIT_EXTERNAL_DIFF difft
     set -gx PULUMI_CONFIG_PASSPHRASE
     set -gx HOMEBREW_NO_AUTO_UPDATE 1
-    set -gx XDG_DATA_DIRS /var/lib/flatpak/exports/share:$XDG_DATA_DIRS
 
     alias v="nvim"
     alias o="mcat"
     alias pine="PROTONPATH=GE-Proton umu-run"
     alias aerospace-restart='pkill AeroSpace; sleep 0.5; open -a AeroSpace'
-    alias startw="dbus-run-session niri"
+    alias startw="dbus-run-session niri --session"
     alias ls="eza --icons --group-directories-first"
     alias ll="eza --icons --group-directories-first -lh --git"
     alias la="eza --icons --group-directories-first -lah --git"

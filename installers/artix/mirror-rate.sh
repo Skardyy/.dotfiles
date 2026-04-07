@@ -2,8 +2,6 @@
 
 set -e
 
-echo -e "\n=== Mirror List Setup ==="
-
 DATE=$(date +%d%m%Y_%H%M%S)
 
 sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak.$DATE

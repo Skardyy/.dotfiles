@@ -2,7 +2,6 @@
 
 set -e
 
-echo -e "\n=== Gaming Setup ==="
 sudo pacman -S --needed --noconfirm \
   steam \
   discord \

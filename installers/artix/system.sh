@@ -1,5 +1,4 @@
 #!/bin/bash
-echo -e "\n=== System Packages ==="
 
 sudo pacman -S --needed --noconfirm \
   xdg-desktop-portal-gnome \

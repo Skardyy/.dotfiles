@@ -1,5 +1,4 @@
 #!/bin/bash
-echo -e "\n=== Shell Configuration ==="
 sudo pacman -S --needed --noconfirm fish
 
 if [ "$SHELL" != "/usr/bin/fish" ]; then

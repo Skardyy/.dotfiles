@@ -1,5 +1,4 @@
 #!/bin/bash
-echo -e "\n=== Development Tools ==="
 sudo pacman -S --needed --noconfirm \
   python python-pip uv \
   nodejs npm \
@@ -13,7 +12,6 @@ sudo pacman -S --needed --noconfirm \
   ripgrep \
   fd \
   eza \
-  kitty \
   ghostty \
   fzf \
   git wget curl \

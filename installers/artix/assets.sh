@@ -1,5 +1,4 @@
 #!/bin/bash
-echo -e "\n=== Assets ==="
 
 # Fonts
 mkdir -p "$HOME/.local/share/fonts"
