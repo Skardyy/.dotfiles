@@ -13,7 +13,7 @@ vim.opt.cursorline = true
 vim.opt.number = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '· ', leadmultispace = '· ', trail = '⋅' }
-vim.deprecate = function() end
+-- vim.deprecate = function() end
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.laststatus = 3

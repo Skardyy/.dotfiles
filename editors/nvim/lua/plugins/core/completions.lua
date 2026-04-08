@@ -123,7 +123,9 @@ return {
       },
       fuzzy = {
         sorts = { 'exact', 'score', 'sort_text' },
-        use_frecency = false,
+        frecency = {
+          enabled = false
+        },
         use_proximity = false,
       },
     })
