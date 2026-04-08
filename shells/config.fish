@@ -46,7 +46,7 @@ if status is-interactive
             case Darwin
                 open "$target_path"
             case Linux
-                hyprctl dispatch exec nautilus "$target_path"
+                niri msg action spawn -- nautilus "$target_path"
         end
     end
 end

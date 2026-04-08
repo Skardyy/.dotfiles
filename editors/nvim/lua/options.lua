@@ -26,6 +26,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.cmdheight = 0
+vim.opt.undofile = true
 vim.opt.guicursor:append("a:blinkon0")
 vim.opt.guicursor:append("a:Cursor/lCursor")
 vim.opt.fillchars = vim.opt.fillchars + "eob: "
