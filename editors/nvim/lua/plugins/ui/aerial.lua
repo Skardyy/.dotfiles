@@ -26,7 +26,11 @@ return {
     local auto_open_enabled = true
 
     opts.open_automatic = function(bufnr)
-      return auto_open_enabled and not require("aerial.util").is_ignored_buf(bufnr)
+      local win_width = vim.api.nvim_win_get_width(0)
+      local is_full_width = win_width >= vim.o.columns - 2
+      return auto_open_enabled
+          and is_full_width
+          and not require("aerial.util").is_ignored_buf(bufnr)
     end
 
     require("aerial").setup(opts)
