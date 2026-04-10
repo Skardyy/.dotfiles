@@ -5,7 +5,7 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
@@ -16,7 +16,6 @@ require("keybinds")
 require("autocommands")
 require("lazy").setup({
   { import = "plugins.sugar" },
-  { import = "plugins.ui" },
   { import = "plugins.core" },
   { import = "plugins.git" },
 })

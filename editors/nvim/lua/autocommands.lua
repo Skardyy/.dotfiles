@@ -1,4 +1,4 @@
--- Auto-format on save
+-- auto format on save
 vim.g.autoformat = true
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
@@ -7,16 +7,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
       require('conform').format({ bufnr = args.buf })
     end
   end,
-})
-
--- cuz f conceal in markdown.
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { 'markdown', 'help' },
-  callback = function()
-    vim.opt_local.conceallevel = 0
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true
-  end
 })
 
 -- enable treesitter highlight and indent
@@ -32,11 +22,11 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- quit quickfix on q
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'qf',
+  pattern = { 'qf', 'help' },
   callback = function()
     vim.keymap.set('n', 'q', function()
-      vim.cmd('cclose')
-      vim.cmd('wincmd p')
+      vim.cmd('close')
+      -- vim.cmd('wincmd p')
     end, { buffer = true, silent = true })
   end,
 })
@@ -49,7 +39,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 -- go to last loc when opening a buffer
--- this mean that when you open a file, you will be at the last position
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
@@ -60,14 +49,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Highlight on yank
+-- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.hl.on_yank()
   end,
 })
 
--- Enable spell checking for certain file types
+-- enable spell checking for certain file types
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.txt", "*.md" },
   callback = function()
@@ -76,9 +65,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
--- Automatically reload the file if it is changed outside of Nvim, see https://unix.stackexchange.com/a/383044/221410.
--- It seems that `checktime` does not work in command line. We need to check if we are in command
--- line before executing this command, see also https://vi.stackexchange.com/a/20397/15292 .
+-- message when file changed from outside
 vim.api.nvim_create_augroup("auto_read", { clear = true })
 vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
   pattern = "*",
@@ -87,6 +74,8 @@ vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
     vim.notify("File changed on disk. Buffer reloaded!", vim.log.levels.WARN, { title = "nvim-config" })
   end,
 })
+
+-- check for changes on some events
 vim.api.nvim_create_autocmd({ "FocusGained", "CursorHold" }, {
   pattern = "*",
   group = "auto_read",
@@ -97,7 +86,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "CursorHold" }, {
   end,
 })
 
--- Set terminal keymaps
+-- set terminal keymaps
 function _G.set_terminal_keymaps()
   local opts = { noremap = true }
   vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
@@ -132,13 +121,3 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
     end
   end
 })
-
--- sadly needed, alot of changes to files lsp isn't catching up.
-vim.api.nvim_create_user_command("Reset", function()
-  local current = vim.api.nvim_buf_get_name(0)
-  vim.cmd("bufdo bd")
-  if current ~= "" then
-    vim.cmd("edit " .. current)
-    vim.cmd("LspRestart")
-  end
-end, {})

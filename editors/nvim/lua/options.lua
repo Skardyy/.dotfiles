@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-vim.g.localleader = " "
 
 vim.opt.clipboard = "unnamedplus"
 vim.opt.ignorecase = true
@@ -17,7 +16,7 @@ vim.deprecate = function() end
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.laststatus = 3
-vim.o.wrap = false;
+vim.opt.wrap = false;
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false
@@ -27,8 +26,6 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.cmdheight = 0
 vim.opt.undofile = true
-vim.opt.guicursor:append("a:blinkon0")
-vim.opt.guicursor:append("a:Cursor/lCursor")
 vim.opt.fillchars = vim.opt.fillchars + "eob: "
 
 require("vim._core.ui2").enable {

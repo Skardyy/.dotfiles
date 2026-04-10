@@ -63,8 +63,8 @@ local function git_diff()
 end
 
 local function treesitter()
-  local ok, parser = pcall(vim.treesitter.get_parser, 0)
-  return (ok and parser ~= nil) and "TS" or ""
+  local active = vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()]
+  return active and "TS" or ""
 end
 
 local function position()
