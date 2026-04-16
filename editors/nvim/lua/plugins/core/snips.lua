@@ -63,8 +63,8 @@ return {
       postfix(".arc", wrap("Arc::new(", ");")),
       postfix(".mutex", wrap("Mutex::new(", ");")),
       postfix(".rwlock", wrap("RwLock::new(", ");")),
-      postfix(".println", wrap('println!("{:?}", ', ");")),
-      postfix(".eprintln", wrap('eprintln!("{:?}", ', ");")),
+      postfix(".println", wrap('println!("{:#?}", ', ");")),
+      postfix(".eprintln", wrap('eprintln!("{:#?}", ', ");")),
       postfix(".format", wrap('format!("{}", ', ");")),
     })
 
