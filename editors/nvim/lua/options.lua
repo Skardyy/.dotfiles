@@ -106,6 +106,15 @@ vim.g.lang_maps = {
   markdown = {
     formatter = "prettierd",
   },
+  json = {
+    formatter = "prettierd",
+  },
+  yaml = {
+    formatter = "prettierd",
+  },
+  html = {
+    formatter = "prettierd",
+  },
   cpp = {
     lsp = lsp("clangd"),
   },
