@@ -11,10 +11,10 @@ if status is-interactive
     fish_add_path $ANDROID_HOME/platform-tools
 
     set -gx PROFILE "$HOME/.config/fish/config.fish"
-    set -gx CC clang
-    set -gx CXX clang++
     set -gx ANDROID_HOME /home/meron/Android/Sdk/
     set -gx GIT_EDITOR nvim
+    set -gx SUDO_EDITOR nvim
+    set -gx EDITOR nvim
     set -gx GIT_EXTERNAL_DIFF difft
     set -gx PULUMI_CONFIG_PASSPHRASE
     set -gx HOMEBREW_NO_AUTO_UPDATE 1
