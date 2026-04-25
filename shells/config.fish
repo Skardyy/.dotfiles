@@ -18,6 +18,7 @@ if status is-interactive
     set -gx GIT_EXTERNAL_DIFF difft
     set -gx PULUMI_CONFIG_PASSPHRASE
     set -gx HOMEBREW_NO_AUTO_UPDATE 1
+    set -gx MCAT_TIMEOUT 2
 
     alias v="nvim"
     alias o="mcat"

@@ -446,6 +446,10 @@
         {
           "id": "privacyIndicator",
           "enabled": true
+        },
+        {
+          "id": "screenRecorder",
+          "enabled": true
         }
       ],
       "centerWidgets": [
@@ -456,10 +460,6 @@
           "id": "cpuUsage",
           "enabled": true,
           "minimumWidth": false
-        },
-        {
-          "id": "battery",
-          "enabled": true
         },
         {
           "id": "controlCenterButton",
