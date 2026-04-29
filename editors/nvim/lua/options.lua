@@ -116,7 +116,22 @@ vim.g.lang_maps = {
     formatter = "prettierd",
   },
   cpp = {
-    lsp = lsp("clangd"),
+    lsp = {
+      name = "clangd",
+      config = {
+        init_options = {
+          fallbackFlags = {
+            "-I", "include",
+            "-I", "../include",
+            "-I", "inc",
+            "-I", "../inc",
+            "-I", "src",
+            "-I", "../src",
+            "-I", "../../include",
+          },
+        },
+      },
+    },
   },
   typst = {
     lsp = lsp("tinymist"),
