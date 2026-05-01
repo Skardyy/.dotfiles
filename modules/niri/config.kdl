@@ -1,0 +1,30 @@
+environment {
+    CONFIG_TERMINAL_APP "ghostty"
+    CONFIG_BROWSER_APP "brave --gtk-version=4 --ozone-platform=wayland"
+    CONIFG_COLOR_PICKER_APP "hyprpicker -a"
+    CONFIG_SCREENSHOT_APP "dms screenshot --no-file"
+    CONFIG_SCREENSHOT_EDIT_APP "dms screenshot --stdout | satty -f -"
+    CONFIG_APP_LAUNCHER "dms ipc call spotlight toggle"
+    CONFIG_CONTROL_CENTER_APP "missioncenter"
+    CONFIG_CLIPBOARD_HISTORY_APP "dms ipc call clipboard toggle"
+    CONFIG_FILE_MANAGER_APP "nautilus"
+    DMS_SCREENSHOT_EDITOR "satty"
+    XDG_CURRENT_DESKTOP "gnome"
+    XDG_SESSION_TYPE "wayland"
+    LIBVA_DRIVER_NAME "nvidia"
+    __GLX_VENDOR_LIBRARY_NAME "nvidia"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    NVD_BACKEND "direct"
+    GBM_BACKEND "nvidia-drm"
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store"
+spawn-at-startup "dms" "restart"
+
+include "modules/input.kdl"
+include "modules/look.kdl"
+include optional=true "dms/outputs.kdl"

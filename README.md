@@ -2,7 +2,7 @@
   
   # My dotfiles
 
-My dotfiles for Arch / MacOS
+My dotfiles for Nixos / MacOS
 
 | Desktop                                                                                   | Neovim                                                                                    |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -10,24 +10,6 @@ My dotfiles for Arch / MacOS
 
 </div>
 
-> [!Note]
->
-> I install the dotfiles using [dotbot](https://github.com/anishathalye/dotbot)  
-> but configuring it differently or using a different dotfiles manager should be rather easy -  
-> the [macos installer](./macos.install.yaml) and [linux installer](./linux.install.yaml) tell you everything on what should be where
-
 > [!Tip]
 >
-> the dotfiles uses [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) for arch
-
-# Install
-
-```sh
-pip install dotbot
-git clone https://github.com/Skardyy/.dotfiles ~/.dotfiles
-cd ~/.dotfiles
-
-dotbot -c macos.install.yaml
-or ~
-dotbot -c linux.install.yaml
-```
+> the dotfiles uses [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) for nixos
