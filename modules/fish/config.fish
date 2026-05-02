@@ -24,7 +24,6 @@ if status is-interactive
     alias o="mcat"
     alias pine="PROTONPATH=GE-Proton umu-run"
     alias aerospace-restart='pkill AeroSpace; sleep 0.5; open -a AeroSpace'
-    alias startw="dbus-run-session niri --session"
     alias ls="eza --icons --group-directories-first"
     alias ll="eza --icons --group-directories-first -lh --git"
     alias la="eza --icons --group-directories-first -lah --git"

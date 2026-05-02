@@ -5,6 +5,7 @@
     satty
     bibata-cursors
     adw-gtk3
+    gcr
   ];
 
   gtk = {
