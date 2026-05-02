@@ -3,4 +3,6 @@
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
+
+  services.accounts-daemon.enable = true;
 }

@@ -22,7 +22,6 @@ hotkey-overlay {
     skip-at-startup
 }
 
-spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store"
 spawn-at-startup "dms" "restart"
 
 include "modules/input.kdl"
