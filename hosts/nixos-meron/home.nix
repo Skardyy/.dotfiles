@@ -9,7 +9,6 @@
     ../../modules/desktop/home.nix
     ../../modules/gaming/home.nix
     ../../modules/virt/home.nix
-    ../../modules/kanata/home.nix
     ../../modules/kitty/home.nix
   ];
 

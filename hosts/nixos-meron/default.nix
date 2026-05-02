@@ -21,6 +21,11 @@ in
     ../../modules/nvidia/nixos.nix
   ];
 
+  
+  programs.dconf.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.login.enableGnomeKeyring = true;
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
