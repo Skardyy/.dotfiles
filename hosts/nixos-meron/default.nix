@@ -5,6 +5,8 @@ in
 {
   _module.args = { inherit user; };
 
+  home-manager.users.${user} = import ./home.nix;
+
   imports = [
     ../base
     ./hardware.nix

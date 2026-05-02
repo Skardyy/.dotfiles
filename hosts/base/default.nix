@@ -3,7 +3,6 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs user; };
-    users.${user} = import ../../home.nix;
   };
 
   programs.nh = {
