@@ -9,7 +9,7 @@ if [ -d "$DEST/.git" ]; then
   git -C "$DEST" pull
 else
   echo "cloning $REPO -> $DEST..."
-  git clone "$REPO" "$DEST"
+  git clone "$REPO" "$DEST" --depth 1
 fi
 
 echo "done"

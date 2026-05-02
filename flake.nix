@@ -17,15 +17,6 @@
 
   outputs = { self, nixpkgs, home-manager, dms, ... }@inputs: {
     nixosConfigurations = {
-      vm = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/vm
-          home-manager.nixosModules.home-manager
-        ];
-      };
-
       nixos-meron = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
