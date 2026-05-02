@@ -1,6 +1,6 @@
 environment {
     CONFIG_TERMINAL_APP "ghostty"
-    CONFIG_BROWSER_APP "brave --gtk-version=4 --ozone-platform=wayland"
+    CONFIG_BROWSER_APP "brave --gtk-version=4 --ozone-platform=wayland --enable-features=Vulkan,DefaultANGLEVulkan,VulkanFromANGLE"
     CONIFG_COLOR_PICKER_APP "hyprpicker -a"
     CONFIG_SCREENSHOT_APP "dms screenshot --no-file"
     CONFIG_SCREENSHOT_EDIT_APP "dms screenshot --stdout | satty -f -"

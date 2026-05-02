@@ -14,6 +14,7 @@ in
     ../../modules/fish/nixos.nix
     ../../modules/niri/nixos.nix
     ../../modules/pipewire/nixos.nix
+    ../../modules/bluetooth/nixos.nix
     ../../modules/desktop/nixos.nix
     ../../modules/gaming/nixos.nix
     ../../modules/virt/nixos.nix
