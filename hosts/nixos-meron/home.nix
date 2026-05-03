@@ -5,7 +5,7 @@
     ../../modules/ghostty/home.nix
     ../../modules/fish/home.nix
     ../../modules/neovim/home.nix
-    ../../modules/dev/home.nix
+    ../../modules/dev/nixos.nix
     ../../modules/desktop/home.nix
     ../../modules/gaming/home.nix
     ../../modules/virt/home.nix

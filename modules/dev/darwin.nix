@@ -1,0 +1,3 @@
+{ ... }: {
+  homebrew.casks = [ "claude-code" ];
+}

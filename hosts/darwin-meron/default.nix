@@ -13,6 +13,8 @@ in
     ../../modules/kanata/darwin.nix
     ../../modules/fonts.nix
     ../../modules/ghostty/darwin.nix
+    ../../modules/desktop/darwin.nix
+    ../../modules/dev/darwin.nix
   ];
 
   nix-homebrew = {
@@ -24,15 +26,6 @@ in
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
-    taps = [ "dimentium/autoraise" "nikitabobko/tap" ];
-    brews = [ "autoraise" ];
-    casks = [
-      "karabiner-elements"
-      "brave-browser"
-      "aerospace"
-      "claude-code"
-      "raycast"
-    ];
   };
 
   nix.enable = false;
@@ -42,24 +35,6 @@ in
   users.users.${user} = {
     home = "/Users/${user}";
     shell = pkgs.fish;
-  };
-
-  launchd.user.agents.autoraise = {
-    serviceConfig = {
-      Label = "com.sbmpost.autoraise";
-      ProgramArguments = [ "/opt/homebrew/bin/autoraise" ];
-      RunAtLoad = true;
-      KeepAlive = true;
-    };
-  };
-
-  launchd.user.agents.aerospace = {
-    serviceConfig = {
-      Label = "com.nikitabobko.aerospace";
-      ProgramArguments = [ "/Applications/AeroSpace.app/Contents/MacOS/AeroSpace" ];
-      RunAtLoad = true;
-      KeepAlive = false;
-    };
   };
 
   environment.variables = {

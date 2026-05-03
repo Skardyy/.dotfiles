@@ -25,8 +25,5 @@
     zip
     unzip
     less
-  ] ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [
-    wl-clipboard
-    brave
   ];
 }
