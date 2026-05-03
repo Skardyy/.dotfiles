@@ -5,6 +5,8 @@ in
 {
   environment.systemPackages = [ pkgs.kanata ];
 
+  homebrew.casks = [ "karabiner-elements" ];
+
   environment.etc."sudoers.d/kanata".text = ''
     meronbossin ALL=(ALL) NOPASSWD: ${pkgs.kanata}/bin/kanata
   '';
