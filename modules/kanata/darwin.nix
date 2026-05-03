@@ -1,13 +1,23 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  cfg = "/Users/meronbossin/.dotfiles/modules/kanata/kanata.kbd";
+in
+{
   environment.systemPackages = [ pkgs.kanata ];
 
-  launchd.daemons.kanata = {
+  environment.etc."sudoers.d/kanata".text = ''
+    meronbossin ALL=(ALL) NOPASSWD: ${pkgs.kanata}/bin/kanata
+  '';
+
+  launchd.user.agents.kanata = {
     serviceConfig = {
-      Label = "org.kanata.daemon";
+      Label = "org.kanata.agent";
       ProgramArguments = [
+        "/usr/bin/sudo"
+        "-n"
         "${pkgs.kanata}/bin/kanata"
         "--cfg"
-        "/Users/meronbossin/.dotfiles/modules/kanata/kanata.kbd"
+        cfg
       ];
       RunAtLoad = true;
       KeepAlive = true;

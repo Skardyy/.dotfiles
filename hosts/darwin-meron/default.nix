@@ -31,6 +31,7 @@ in
       "brave-browser"
       "aerospace"
       "claude-code"
+      "raycast"
     ];
   };
 
@@ -64,6 +65,8 @@ in
   environment.variables = {
     NH_FLAKE = "/Users/${user}/.dotfiles";
   };
+
+  networking.hostName = "darwin-meron";
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
