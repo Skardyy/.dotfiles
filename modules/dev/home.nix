@@ -22,10 +22,11 @@
     github-cli
     difftastic
     tree-sitter
-    wl-clipboard
     zip
     unzip
     less
+  ] ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [
+    wl-clipboard
     brave
   ];
 }

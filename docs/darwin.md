@@ -1,63 +1,37 @@
-# Darwin (macOS) migration notes
+# Darwin (macOS) setup
 
-Currently this config only supports NixOS via flakes. Darwin support is planned via [nix-darwin](https://github.com/LnL7/nix-darwin).
+## Prerequisites
 
-## What needs to happen
+### Nix
 
-- Add `nix-darwin` and `nix-homebrew` to `flake.nix` inputs.
-- Add a `darwinConfigurations.<hostname>` block parallel to `nixosConfigurations`.
-- Add a host file under `hosts/<mac-hostname>/default.nix` that imports the relevant modules' `darwin.nix` files.
-
-## Modules that need a `darwin.nix`
-
-- **`modules/aerospace/`** (new) — tiling WM for macOS, parallel to niri on Linux.
-  - System: `services.aerospace.enable = true;` (provided by nix-darwin)
-  - Home: symlink the `aerospace.toml` config file
-  - Source: see old `tmp/compositors/aerospace/aerospace.toml`
-
-- **`modules/kanata/darwin.nix`** — keyboard remapping on macOS.
-  - Use `launchd.daemons.kanata` to run kanata as root.
-  - Requires Karabiner-Elements VirtualHID (install via homebrew cask).
-  - Source: see old `tmp/compositors/kanata/kanata.plist`
-
-- **`modules/autoraise/`** (new) — focus-follows-mouse on macOS.
-  - Use `launchd.user.agents.autoraise`.
-  - Requires homebrew tap `dimentium/autoraise` and the `--with-dexperimental_focus_first` flag (which won't translate cleanly — likely needs to keep using brew).
-
-## Apps that must come from Homebrew (cask-only)
-
-These have no nixpkgs equivalent on macOS. nix-darwin has `homebrew.enable` to manage casks declaratively. Add to the darwin host:
-
-```nix
-homebrew = {
-  enable = true;
-  casks = [
-    "karabiner-elements"   # required for kanata
-    "raycast"              # launcher (referenced in aerospace config)
-    "brave-browser"        # if not via nixpkgs darwin build
-  ];
-  taps = [ "dimentium/autoraise" ];
-  brews = [ "autoraise" ];
-};
+```sh
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh
 ```
 
-## Modules that already work cross-platform
+### Apply
 
-- `modules/fish/` — `home.nix` is fine; `nixos.nix` becomes `darwin.nix` for the shell config
-- `modules/ghostty/` — `home.packages = [ pkgs.ghostty ]` works on darwin too
-- `modules/kitty/` — same
-- `modules/neovim/` — same
-- `modules/dev/` — most packages exist on darwin, may need to drop a few Linux-only ones (e.g. `wl-clipboard`)
+First time:
 
-## Modules to skip on Darwin
+```sh
+darwin-rebuild switch --flake .#darwin-meron
+```
 
-- `modules/niri/`, `modules/dms/`, `modules/pipewire/`, `modules/desktop/` (Linux Wayland stack)
-- `modules/gaming/` (steam works, but `gamescopeSession` etc. are Linux-only)
-- `modules/virt/` (libvirt is Linux-only; quickemu works on macOS via different invocation)
-- `modules/nvidia/` (no NVIDIA on modern macs)
+After that, use nh:
 
-## Open questions
+```sh
+nh darwin switch
+```
 
-- Where does `aerospace-restart` alias belong? (Already handled in fish config via `uname` switch.)
-- Kanata on macOS needs a different config path for the .plist — handle in darwin.nix.
-- Autoraise might be cleaner to keep as a brew install and just declare the cask.
+### Kanata
+
+Karabiner VirtualHID must be activated manually after install:
+
+```sh
+/Applications/.Karabiner-VirtualHIDDevice-Manager.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Manager activate
+```
+
+Then in System Settings:
+
+- General → Login Items & Extensions → Driver Extensions → enable Karabiner
+- Enable both the normal and privileged Karabiner daemons in Login Items
+- Privacy & Security → Input Monitoring → add `/opt/homebrew/bin/kanata`

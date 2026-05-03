@@ -1,0 +1,93 @@
+config-version = 2
+
+# Start AeroSpace at login
+start-at-login = true
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Possible values: tiles|accordion
+default-root-container-layout = 'tiles'
+
+# Possible values: horizontal|vertical|auto
+default-root-container-orientation = 'auto'
+
+# Mouse follows focus when focused monitor changes
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
+# Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
+automatically-unhide-macos-hidden-apps = true
+
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+after-startup-command = [
+  "exec-and-forget /opt/homebrew/bin/autoraise -delay 0"
+]
+
+[gaps]
+    inner.horizontal = 12
+    inner.vertical =   12
+    outer.left =       4
+    outer.bottom =     4
+    outer.top =        4
+    outer.right =      4
+
+# 'main' binding mode declaration
+[mode.main.binding]
+    # Custom
+    cmd-q = "close --quit-if-last-window"
+    cmd-enter = "exec-and-forget open -na ghostty"
+    cmd-w = "exec-and-forget open -na 'Brave browser'"
+    cmd-s = "exec-and-forget screencapture -ic"
+    cmd-shift-c = "exec-and-forget open -g raycast://extensions/thomas/color-picker/pick-color"
+    cmd-shift-v = "exec-and-forget open -g raycast://extensions/raycast/clipboard-history/clipboard-history"
+    cmd-space = "exec-and-forget open -g raycast://"
+
+    # Default
+    cmd-h = 'focus left'
+    cmd-j = 'focus down'
+    cmd-k = 'focus up'
+    cmd-l = 'focus right'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move
+    cmd-shift-h = 'move left  --boundaries all-monitors-outer-frame'
+    cmd-shift-j = 'move down  --boundaries all-monitors-outer-frame'
+    cmd-shift-k = 'move up    --boundaries all-monitors-outer-frame'
+    cmd-shift-l = 'move right --boundaries all-monitors-outer-frame'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#resize
+    cmd-shift-minus = 'resize smart -50'
+    cmd-shift-equal = 'resize smart +50'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+    cmd-1 = 'workspace 1'
+    cmd-2 = 'workspace 2'
+    cmd-3 = 'workspace 3'
+    cmd-4 = 'workspace 4'
+    cmd-5 = 'workspace 5'
+    cmd-6 = 'workspace 6'
+    cmd-7 = 'workspace 7'
+    cmd-8 = 'workspace 8'
+    cmd-9 = 'workspace 9'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+    cmd-shift-1 = 'move-node-to-workspace 1'
+    cmd-shift-2 = 'move-node-to-workspace 2'
+    cmd-shift-3 = 'move-node-to-workspace 3'
+    cmd-shift-4 = 'move-node-to-workspace 4'
+    cmd-shift-5 = 'move-node-to-workspace 5'
+    cmd-shift-6 = 'move-node-to-workspace 6'
+    cmd-shift-7 = 'move-node-to-workspace 7'
+    cmd-shift-8 = 'move-node-to-workspace 8'
+    cmd-shift-9 = 'move-node-to-workspace 9'
+
+    cmd-shift-semicolon = 'mode service'
+    cmd-o = ['layout accordion tiles', 'mode main']
+
+# 'service' binding mode declaration.
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main'] # reset layout

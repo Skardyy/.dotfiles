@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 let
   commitMono = pkgs.stdenvNoCC.mkDerivation {
     pname = "commit-mono-skardyy";
@@ -31,14 +31,19 @@ let
         -exec cp {} $out/share/fonts/truetype/ \;
     '';
   };
-in
-{
-  fonts.packages = with pkgs; [
+
+  fontPkgs = [
     commitMono
     zedMono
+  ] ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) (with pkgs; [
     noto-fonts
     noto-fonts-color-emoji
     dejavu_fonts
     liberation_ttf
-  ];
+  ]);
+in
+if pkgs.stdenv.isDarwin then {
+  home-manager.users.${user}.home.packages = fontPkgs;
+} else {
+  fonts.packages = fontPkgs;
 }
