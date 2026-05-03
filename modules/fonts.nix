@@ -1,4 +1,4 @@
-{ pkgs, user, ... }:
+{ config, lib, pkgs, ... }:
 let
   commitMono = pkgs.stdenvNoCC.mkDerivation {
     pname = "commit-mono-skardyy";
@@ -32,18 +32,24 @@ let
     '';
   };
 
+  isDarwin = pkgs.stdenv.isDarwin;
+
   fontPkgs = [
     commitMono
     zedMono
-  ] ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) (with pkgs; [
+  ] ++ lib.optionals (!isDarwin) (with pkgs; [
     noto-fonts
     noto-fonts-color-emoji
     dejavu_fonts
     liberation_ttf
   ]);
 in
-if pkgs.stdenv.isDarwin then {
-  home-manager.users.${user}.home.packages = fontPkgs;
-} else {
-  fonts.packages = fontPkgs;
+{
+  fonts = lib.mkIf (!isDarwin) {
+    packages = fontPkgs;
+  };
+
+  home-manager.sharedModules = lib.mkIf isDarwin [{
+    home.packages = fontPkgs;
+  }];
 }

@@ -5,7 +5,7 @@
 ### Nix
 
 ```sh
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
 ### Apply
@@ -13,7 +13,7 @@ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix 
 First time:
 
 ```sh
-darwin-rebuild switch --flake .#darwin-meron
+sudo nix run nix-darwin -- switch --flake ~/.dotfiles#darwin-meron
 ```
 
 After that, use nh:

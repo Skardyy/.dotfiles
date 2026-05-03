@@ -5,18 +5,6 @@
     extraSpecialArgs = { inherit inputs user; };
   };
 
-  programs.nh = {
-    enable = true;
-    flake =
-      if pkgs.stdenv.isDarwin
-      then "/Users/${user}/.dotfiles"
-      else "/home/${user}/.dotfiles";
-    clean = {
-      enable = true;
-      extraArgs = "--keep-since 7d --keep 5";
-    };
-  };
-
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
@@ -38,5 +26,4 @@
     nix-output-monitor
   ];
 
-  system.stateVersion = "26.05";
 }
