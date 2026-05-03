@@ -26,7 +26,11 @@ in
 
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";
+    onActivation = {
+      cleanup = "zap";
+      autoUpdate = false;
+      upgrade = false;
+    };
   };
 
   nix.enable = false;

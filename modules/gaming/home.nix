@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     discord
-    # stremio-linux-shell
+    stremio-linux-shell
     umu-launcher
   ];
 }

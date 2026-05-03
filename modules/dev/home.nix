@@ -25,5 +25,9 @@
     zip
     unzip
     less
+
+    # media
+    ffmpeg
+    mpv
   ];
 }

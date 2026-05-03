@@ -1,3 +1,9 @@
 { ... }: {
-  homebrew.casks = [ "claude-code" ];
+  homebrew = {
+    brews = [ "gstreamer" "mediamtx" ];
+    casks = [
+      "claude-code"
+      "docker"
+    ];
+  };
 }
