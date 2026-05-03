@@ -6,6 +6,7 @@
     nodejs
     go
     rustup
+    zig
 
     # compilers / build tools
     gcc

@@ -3,7 +3,7 @@
     brews = [ "gstreamer" "mediamtx" ];
     casks = [
       "claude-code"
-      "docker"
+      "orbstack"
     ];
   };
 }
