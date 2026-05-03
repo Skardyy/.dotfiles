@@ -9,7 +9,6 @@
     zig
 
     # compilers / build tools
-    gcc
     cmake
     ninja
     gnumake
@@ -30,5 +29,7 @@
     # media
     ffmpeg
     mpv
+  ] ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [
+    gcc
   ];
 }

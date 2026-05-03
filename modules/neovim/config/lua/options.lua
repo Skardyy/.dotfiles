@@ -45,7 +45,11 @@ require("vim._core.ui2").enable {
 ---@class LangConfig
 ---@field lsp? LspConfig
 ---@field linter? string
----@field formatter? string
+---@field formatter? FormatterConfig
+
+---@class FormatterConfig
+---@field mason string
+---@field conform string
 
 ---@param conf string
 ---@return LspConfig
@@ -53,32 +57,42 @@ local function lsp(conf)
   return { name = conf, global = false, config = {} }
 end
 
+---@param name string
+---@return FormatterConfig
+local function formatter(name)
+  return { mason = name, conform = name }
+end
+
 ---@type table<string, LangConfig>
 vim.g.lang_maps = {
   python = {
     lsp = lsp("basedpyright"),
     linter = "ruff",
-    formatter = "ruff",
+    formatter = formatter("ruff"),
   },
   typescript = {
     lsp = lsp("typescript-language-server"),
     linter = "eslint_d",
-    formatter = "prettierd",
+    formatter = formatter("prettierd"),
   },
   typescriptreact = {
     lsp = lsp("typescript-language-server"),
     linter = "eslint_d",
-    formatter = "prettierd",
+    formatter = formatter("prettierd"),
   },
   javascript = {
     lsp = lsp("typescript-language-server"),
     linter = "eslint_d",
-    formatter = "prettierd",
+    formatter = formatter("prettierd"),
   },
   javascriptreact = {
     lsp = lsp("typescript-language-server"),
     linter = "eslint_d",
-    formatter = "prettierd",
+    formatter = formatter("prettierd"),
+  },
+  nix = {
+    lsp = lsp("nil"),
+    formatter = { mason = "nixpkgs-fmt", conform = "nixpkgs_fmt" },
   },
   lua = {
     lsp = lsp("lua-language-server"),
@@ -104,16 +118,16 @@ vim.g.lang_maps = {
     lsp = lsp("gopls"),
   },
   markdown = {
-    formatter = "prettierd",
+    formatter = formatter("prettierd"),
   },
   json = {
-    formatter = "prettierd",
+    formatter = formatter("prettierd"),
   },
   yaml = {
-    formatter = "prettierd",
+    formatter = formatter("prettierd"),
   },
   html = {
-    formatter = "prettierd",
+    formatter = formatter("prettierd"),
   },
   cpp = {
     lsp = {
