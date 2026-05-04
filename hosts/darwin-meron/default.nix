@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, ... }:
 let
   user = "meronbossin";
 in
@@ -40,10 +40,6 @@ in
   users.users.${user} = {
     home = "/Users/${user}";
     shell = pkgs.fish;
-  };
-
-  environment.variables = {
-    NH_FLAKE = "/Users/${user}/.dotfiles";
   };
 
   networking.hostName = "darwin-meron";

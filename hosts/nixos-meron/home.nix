@@ -1,4 +1,4 @@
-{ pkgs, user, ... }: {
+{ user, ... }: {
   imports = [
     ../../modules/niri/home.nix
     ../../modules/dms/home.nix

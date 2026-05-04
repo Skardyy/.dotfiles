@@ -22,7 +22,6 @@
   environment.systemPackages = with pkgs; [
     git
     wget
-    nh
     nix-output-monitor
   ];
 
