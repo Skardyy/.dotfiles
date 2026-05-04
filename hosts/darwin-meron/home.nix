@@ -6,16 +6,15 @@
     ../../modules/fish/home.nix
     ../../modules/dev/home.nix
     ../../modules/aerospace/home.nix
+    ../../modules/git/home.nix
   ];
 
   home.username = user;
   home.homeDirectory = "/Users/${user}";
   home.stateVersion = "26.05";
 
-
   programs.nh = {
     enable = true;
-    flake = "/Users/${user}/.dotfiles";
     clean = {
       enable = true;
       extraArgs = "--keep-since 7d --keep 5";

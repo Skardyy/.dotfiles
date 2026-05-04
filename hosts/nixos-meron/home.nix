@@ -10,6 +10,7 @@
     ../../modules/gaming/home.nix
     ../../modules/virt/home.nix
     ../../modules/kitty/home.nix
+    ../../modules/git/home.nix
   ];
 
   home.username = user;

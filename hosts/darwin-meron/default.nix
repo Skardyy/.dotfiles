@@ -35,6 +35,10 @@ in
 
   nix.enable = false;
 
+  environment.variables = {
+    NH_FLAKE = "/Users/${user}/.dotfiles";
+  };
+
   system.primaryUser = user;
 
   users.users.${user} = {
