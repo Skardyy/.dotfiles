@@ -34,6 +34,13 @@ if status is-interactive
             alias scb='wl-copy'
     end
 
+    function nr
+        nix run "nixpkgs#$argv[1]" -- $argv[2..]
+    end
+    function ns
+        nix shell "nixpkgs#$argv[1]" $argv[2..]
+    end
+
     function e
         set -l target "."
         if test (count $argv) -gt 0
