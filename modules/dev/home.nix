@@ -26,6 +26,9 @@
     unzip
     less
 
+    # virt
+    devpod
+
     # media
     ffmpeg
     mpv

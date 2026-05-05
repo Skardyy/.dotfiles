@@ -9,7 +9,6 @@
       };
       alias = {
         s = "status -sb";
-        st = "status";
         b = "branch -vv";
         cb = "checkout -b";
         c = "commit";
