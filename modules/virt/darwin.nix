@@ -1,5 +1,3 @@
 { user, ... }: {
-  homebrew.casks = [ "ghostty" ];
-
   home-manager.users.${user}.imports = [ ./home.nix ];
 }

@@ -1,13 +1,7 @@
-{ config, pkgs, ... }:
-let
-  here = "${config.home.homeDirectory}/.dotfiles/modules/ghostty";
-in
-{
-  home.packages = pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [ pkgs.ghostty ];
-
+{ config, mod, ... }: {
   xdg.configFile."ghostty/config".source =
-    config.lib.file.mkOutOfStoreSymlink "${here}/config";
+    config.lib.file.mkOutOfStoreSymlink "${mod}/ghostty/config";
 
   xdg.configFile."ghostty/cursor_warp.glsl".source =
-    config.lib.file.mkOutOfStoreSymlink "${here}/cursor_warp.glsl";
+    config.lib.file.mkOutOfStoreSymlink "${mod}/ghostty/cursor_warp.glsl";
 }

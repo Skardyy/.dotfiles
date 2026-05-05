@@ -1,8 +1,8 @@
-{ pkgs, inputs, user, ... }: {
+{ pkgs, inputs, user, mod, ... }: {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs user; };
+    extraSpecialArgs = { inherit inputs user mod; };
   };
 
   nix.settings = {
@@ -24,5 +24,4 @@
     wget
     nix-output-monitor
   ];
-
 }

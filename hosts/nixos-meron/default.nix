@@ -1,18 +1,19 @@
 { pkgs, ... }:
 let
   user = "meron";
+  mod = "/home/${user}/.dotfiles/modules";
 in
 {
-  _module.args = { inherit user; };
-
-  home-manager.users.${user} = import ./home.nix;
+  _module.args = { inherit user mod; };
 
   imports = [
     ../base
     ./hardware.nix
-    ../../modules/fonts.nix
+    ../../modules/fonts
+    ../../modules/dev/nixos.nix
     ../../modules/fish/nixos.nix
     ../../modules/niri/nixos.nix
+    ../../modules/dms/nixos.nix
     ../../modules/pipewire/nixos.nix
     ../../modules/bluetooth/nixos.nix
     ../../modules/desktop/nixos.nix
@@ -20,7 +21,19 @@ in
     ../../modules/virt/nixos.nix
     ../../modules/kanata/nixos.nix
     ../../modules/nvidia/nixos.nix
+    ../../modules/ghostty/nixos.nix
+    ../../modules/git
+    ../../modules/kitty
+    ../../modules/neovim
   ];
+
+  home-manager.users.${user} = {
+    home.username = user;
+    home.homeDirectory = "/home/${user}";
+    home.stateVersion = "26.05";
+
+    programs.home-manager.enable = true;
+  };
 
   programs.nh = {
     enable = true;
@@ -46,7 +59,7 @@ in
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" "uinput" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
   };
 
   programs.nix-ld = {

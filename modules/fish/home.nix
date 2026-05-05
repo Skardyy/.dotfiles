@@ -1,12 +1,8 @@
-{ config, pkgs, ... }:
-let
-  here = "${config.home.homeDirectory}/.dotfiles/modules/fish";
-in
-{
+{ config, pkgs, mod, ... }: {
   home.packages = with pkgs; [
     fishPlugins.tide
   ];
 
   xdg.configFile."fish/config.fish".source =
-    config.lib.file.mkOutOfStoreSymlink "${here}/config.fish";
+    config.lib.file.mkOutOfStoreSymlink "${mod}/fish/config.fish";
 }

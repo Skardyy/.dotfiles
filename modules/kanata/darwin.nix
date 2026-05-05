@@ -1,14 +1,10 @@
-{ pkgs, ... }:
-let
-  cfg = "/Users/meronbossin/.dotfiles/modules/kanata/kanata.kbd";
-in
-{
+{ pkgs, user, ... }: {
   environment.systemPackages = [ pkgs.kanata ];
 
   homebrew.casks = [ "karabiner-elements" ];
 
   environment.etc."sudoers.d/kanata".text = ''
-    meronbossin ALL=(ALL) NOPASSWD: ${pkgs.kanata}/bin/kanata
+    ${user} ALL=(ALL) NOPASSWD: ${pkgs.kanata}/bin/kanata
   '';
 
   launchd.user.agents.kanata = {
@@ -19,7 +15,7 @@ in
         "-n"
         "${pkgs.kanata}/bin/kanata"
         "--cfg"
-        cfg
+        "${./kanata.kbd}"
       ];
       RunAtLoad = true;
       KeepAlive = true;

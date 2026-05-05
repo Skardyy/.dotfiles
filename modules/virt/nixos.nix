@@ -7,4 +7,6 @@
   environment.systemPackages = with pkgs; [
     qemu_full
   ];
+
+  home-manager.users.${user}.imports = [ ./home.nix ];
 }

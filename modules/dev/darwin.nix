@@ -1,4 +1,4 @@
-{ ... }: {
+{ user, ... }: {
   homebrew = {
     brews = [
       "gstreamer"
@@ -13,4 +13,6 @@
       "orbstack"
     ];
   };
+
+  home-manager.users.${user}.imports = [ ./home.nix ];
 }

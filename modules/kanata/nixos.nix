@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ user, ... }: {
   services.kanata = {
     enable = true;
     keyboards.default = {
@@ -7,4 +7,6 @@
       extraDefCfg = "process-unmapped-keys yes";
     };
   };
+
+  users.users.${user}.extraGroups = [ "uinput" ];
 }

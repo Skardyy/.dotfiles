@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, user, ... }:
 let
   commitMono = pkgs.stdenvNoCC.mkDerivation {
     pname = "commit-mono-skardyy";
@@ -49,7 +49,7 @@ in
     packages = fontPkgs;
   };
 
-  home-manager.sharedModules = lib.mkIf isDarwin [{
+  home-manager.users.${user} = lib.mkIf isDarwin {
     home.packages = fontPkgs;
-  }];
+  };
 }

@@ -1,21 +1,27 @@
-{ pkgs, ... }:
+{ ... }:
 let
   user = "meronbossin";
+  mod = "/Users/${user}/.dotfiles/modules";
 in
 {
-  _module.args = { inherit user; };
-
-  home-manager.users.${user} = import ./home.nix;
+  _module.args = { inherit user mod; };
+  environment.variables = {
+    NH_FLAKE = "/Users/${user}/.dotfiles";
+  };
 
   imports = [
     ../base
     ../../modules/fish/darwin.nix
     ../../modules/kanata/darwin.nix
-    ../../modules/fonts.nix
+    ../../modules/fonts
     ../../modules/ghostty/darwin.nix
     ../../modules/desktop/darwin.nix
     ../../modules/dev/darwin.nix
     ../../modules/aerospace/darwin.nix
+    ../../modules/git
+    ../../modules/kitty
+    ../../modules/neovim
+    ../../modules/virt/darwin.nix
   ];
 
   nix-homebrew = {
@@ -23,7 +29,6 @@ in
     user = user;
     autoMigrate = true;
   };
-
   homebrew = {
     enable = true;
     onActivation = {
@@ -32,22 +37,10 @@ in
       upgrade = false;
     };
   };
-
   nix.enable = false;
 
-  environment.variables = {
-    NH_FLAKE = "/Users/${user}/.dotfiles";
-  };
-
   system.primaryUser = user;
-
-  users.users.${user} = {
-    home = "/Users/${user}";
-    shell = pkgs.fish;
-  };
-
   networking.hostName = "darwin-meron";
-
   security.pam.services.sudo_local.touchIdAuth = true;
 
   system.defaults = {
@@ -65,6 +58,22 @@ in
       "com.apple.swipescrolldirection" = false;
     };
   };
-
   system.stateVersion = 6;
+
+
+  home-manager.users.${user} = {
+    home.username = user;
+    home.homeDirectory = "/Users/${user}";
+    home.stateVersion = "26.05";
+
+    programs.nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 7d --keep 5";
+      };
+    };
+
+    programs.home-manager.enable = true;
+  };
 }

@@ -14,4 +14,12 @@
   };
 
   users.users.${user}.extraGroups = [ "gamemode" ];
+
+  home-manager.users.${user} = {
+    home.packages = with pkgs; [
+      discord
+      stremio-linux-shell
+      umu-launcher
+    ];
+  };
 }
