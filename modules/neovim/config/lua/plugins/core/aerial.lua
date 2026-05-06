@@ -3,6 +3,8 @@ return {
   "stevearc/aerial.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {
+    disable_max_lines = 50000,
+    disable_max_size = 10 * 1024 * 1024,
     layout = {
       default_direction = "prefer_left",
       width = 0.2,
