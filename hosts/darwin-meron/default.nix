@@ -21,7 +21,6 @@ in
     ../../modules/git
     ../../modules/kitty
     ../../modules/neovim
-    ../../modules/virt/darwin.nix
   ];
 
   nix-homebrew = {
@@ -60,7 +59,9 @@ in
   };
   system.stateVersion = 6;
 
-
+  users.users.${user} = {
+    home = "/Users/${user}";
+  };
   home-manager.users.${user} = {
     home.username = user;
     home.homeDirectory = "/Users/${user}";

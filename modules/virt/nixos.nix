@@ -8,5 +8,7 @@
     qemu_full
   ];
 
-  home-manager.users.${user}.imports = [ ./home.nix ];
+  home-manager.users.${user} = {
+    home.packages = [ pkgs.quickemu ];
+  };
 }
