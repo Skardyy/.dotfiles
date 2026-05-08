@@ -65,6 +65,7 @@ return {
       postfix(".rwlock", wrap("RwLock::new(", ");")),
       postfix(".println", wrap('println!("{:#?}", ', ");")),
       postfix(".eprintln", wrap('eprintln!("{:#?}", ', ");")),
+      postfix(".dprintln", wrap('dbg!(', ");")),
       postfix(".format", wrap('format!("{}", ', ");")),
     })
 
