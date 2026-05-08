@@ -41,8 +41,7 @@ binds {
 
     // === Window Management ===
     Mod+Q repeat=false { close-window; }
-    Mod+Shift+F { fullscreen-window; }
-    Mod+F { toggle-window-floating; }
+    Mod+F { fullscreen-window; }
     Mod+R { spawn-sh "niri msg action set-column-width 100% && niri msg action reset-window-height"; }
 
     // === Focus Navigation ===
