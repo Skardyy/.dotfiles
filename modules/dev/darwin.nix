@@ -14,5 +14,13 @@
     ];
   };
 
+  launchd.user.agents.orbstack = {
+    serviceConfig = {
+      ProgramArguments = [ "/Applications/OrbStack.app/Contents/MacOS/xbin/orb" "start" ];
+      RunAtLoad = true;
+      KeepAlive = false;
+    };
+  };
+
   home-manager.users.${user}.imports = [ ./home.nix ];
 }

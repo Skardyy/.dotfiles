@@ -1,10 +1,9 @@
-{ pkgs, user, ... }: {
-  environment.systemPackages = [ pkgs.kanata ];
-
+{ user, ... }: {
+  homebrew.brews = [ "kanata" ];
   homebrew.casks = [ "karabiner-elements" ];
 
   environment.etc."sudoers.d/kanata".text = ''
-    ${user} ALL=(ALL) NOPASSWD: ${pkgs.kanata}/bin/kanata
+    ${user} ALL=(ALL) NOPASSWD: /opt/homebrew/bin/kanata
   '';
 
   launchd.user.agents.kanata = {
@@ -13,7 +12,7 @@
       ProgramArguments = [
         "/usr/bin/sudo"
         "-n"
-        "${pkgs.kanata}/bin/kanata"
+        "/opt/homebrew/bin/kanata"
         "--cfg"
         "${./kanata.kbd}"
       ];
