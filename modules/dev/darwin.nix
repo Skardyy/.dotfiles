@@ -7,6 +7,7 @@
       "gst-plugins-bad"
       "gst-libav"
       "mediamtx"
+      "awscli"
     ];
     casks = [
       "claude-code"
