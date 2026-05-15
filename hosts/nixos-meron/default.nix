@@ -4,7 +4,6 @@ let
   mod = "/home/${user}/.dotfiles/modules";
 in
 {
-  nix.package = pkgs.lixPackageSets.stable.lix;
   _module.args = { inherit user mod; };
 
   imports = [
@@ -27,22 +26,11 @@ in
     ../../modules/kitty
     ../../modules/neovim
   ];
-
   home-manager.users.${user} = {
     home.username = user;
     home.homeDirectory = "/home/${user}";
     home.stateVersion = "26.05";
-
     programs.home-manager.enable = true;
-  };
-
-  programs.nh = {
-    enable = true;
-    flake = "/home/${user}/.dotfiles";
-    clean = {
-      enable = true;
-      extraArgs = "--keep-since 7d --keep 5";
-    };
   };
 
   services.displayManager.ly = {
@@ -72,4 +60,14 @@ in
       icu
     ];
   };
+  programs.nh = {
+    enable = true;
+    flake = "/home/${user}/.dotfiles";
+    clean = {
+      enable = true;
+      extraArgs = "--keep-since 7d --keep 5";
+    };
+  };
+  nix.package = pkgs.lixPackageSets.stable.lix;
+  system.stateVersion = "26.05";
 }
