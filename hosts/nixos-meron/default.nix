@@ -4,6 +4,7 @@ let
   mod = "/home/${user}/.dotfiles/modules";
 in
 {
+  nix.package = pkgs.lixPackageSets.stable.lix;
   _module.args = { inherit user mod; };
 
   imports = [
