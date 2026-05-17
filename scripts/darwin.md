@@ -5,7 +5,7 @@
 ### Nix
 
 ```sh
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 ```
 
 ### Apply
@@ -34,4 +34,4 @@ Then in System Settings:
 
 - General → Login Items & Extensions → Driver Extensions → enable Karabiner
 - Enable both the normal and privileged Karabiner daemons in Login Items
-- Privacy & Security → Input Monitoring → add `/run/current-system/sw/bin/kanata`
+- Privacy & Security → Input Monitoring → add `/opt/homebrew/bin/kanata`
