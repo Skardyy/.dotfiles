@@ -8,6 +8,7 @@
       "gst-libav"
       "mediamtx"
       "awscli"
+      "pulumi"
     ];
     casks = [
       "claude-code"
