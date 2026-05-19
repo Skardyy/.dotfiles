@@ -24,8 +24,27 @@ return {
         },
       },
     })
+
     vim.api.nvim_create_user_command("Diff", function(o)
       vim.cmd("CodeDiff " .. table.concat(o.fargs, " "))
     end, { nargs = "*" })
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "CodeDiffOpen",
+      callback = function()
+        vim.keymap.set("n", "<C-CR>", function()
+          local path = vim.api.nvim_buf_get_name(0)
+          if vim.fn.filereadable(path) == 0 then return end
+          vim.cmd("tabclose")
+          vim.cmd("edit " .. vim.fn.fnameescape(path))
+        end, { desc = "Jump to real file from diff" })
+      end,
+    })
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "CodeDiffClose",
+      callback = function()
+        pcall(vim.keymap.del, "n", "<C-CR>")
+      end,
+    })
   end,
 }
