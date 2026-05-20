@@ -36,6 +36,9 @@ in
   services.displayManager.ly = {
     enable = true;
   };
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
+  services.automatic-timezoned.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -43,7 +46,6 @@ in
   networking.hostName = "nixos-meron";
   networking.networkmanager.enable = true;
 
-  services.automatic-timezoned.enable = true;
   location.provider = "geoclue2";
 
   users.users.${user} = {
