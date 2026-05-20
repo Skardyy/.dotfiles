@@ -28,5 +28,6 @@ palette = 15=#ffffff
 window-padding-x = 8
 window-padding-y = 8
 macos-titlebar-style = hidden
+confirm-close-surface = false
 
 custom-shader = ./cursor_warp.glsl
