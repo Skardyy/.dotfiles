@@ -2,9 +2,14 @@
   programs.dconf.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
+  services.accounts-daemon.enable = true;
+
   security.pam.services.login.enableGnomeKeyring = true;
 
-  services.accounts-daemon.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+  };
 
   home-manager.users.${user} = {
     home.packages = with pkgs; [
