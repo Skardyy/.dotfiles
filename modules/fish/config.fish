@@ -37,8 +37,11 @@ if status is-interactive
     function nr
         nix run "nixpkgs#$argv[1]" -- $argv[2..]
     end
-    function ns
+    function nsl
         nix shell "nixpkgs#$argv[1]" $argv[2..]
+    end
+    function ns
+        nix search "nixpkgs#" $argv
     end
 
     function e

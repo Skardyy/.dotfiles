@@ -7,7 +7,6 @@ return {
     if not vim.g.neovide then
       require "makurai".setup({
         transparent = true,
-        highlight_only_method_def = true
       })
     end
     vim.cmd.colorscheme("makurai_autumn")
