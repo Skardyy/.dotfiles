@@ -31,3 +31,5 @@ macos-titlebar-style = hidden
 confirm-close-surface = false
 
 custom-shader = ./cursor_warp.glsl
+
+keybind = ctrl+enter=unbind
