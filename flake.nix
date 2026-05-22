@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    mangowm = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +27,7 @@
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   };
 
-  outputs = { self, nixpkgs, home-manager, dms, nix-darwin, nix-homebrew, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, ... }@inputs: {
     nixosConfigurations = {
       nixos-meron = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

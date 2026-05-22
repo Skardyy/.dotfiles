@@ -13,6 +13,7 @@ in
     ../../modules/dev/nixos.nix
     ../../modules/fish/nixos.nix
     ../../modules/niri/nixos.nix
+    ../../modules/mangowm/nixos.nix
     ../../modules/dms/nixos.nix
     ../../modules/pipewire/nixos.nix
     ../../modules/bluetooth/nixos.nix
