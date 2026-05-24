@@ -1,29 +1,23 @@
 { user, mod, ... }: {
   homebrew = {
-    taps = [
-      "dimentium/autoraise"
-      "koekeishiya/formulae"
-    ];
+    taps = [ "koekeishiya/formulae" ];
     brews = [
-      "dimentium/autoraise/autoraise"
       "koekeishiya/formulae/yabai"
       "koekeishiya/formulae/skhd"
     ];
   };
 
-  launchd.user.agents.autoraise = {
-    serviceConfig = {
-      Label = "com.sbmpost.autoraise";
-      ProgramArguments = [ "/opt/homebrew/bin/autoraise" "-delay" "0" ];
-      RunAtLoad = true;
-      KeepAlive = true;
-    };
-  };
-
   launchd.user.agents.yabai = {
     serviceConfig = {
       Label = "org.nixos.yabai";
-      ProgramArguments = [ "/opt/homebrew/bin/yabai" ];
+      ProgramArguments = [
+        "/opt/homebrew/bin/yabai"
+        "-c" "/Users/${user}/.config/yabai/yabairc"
+      ];
+      EnvironmentVariables = {
+        HOME = "/Users/${user}";
+        PATH = "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+      };
       RunAtLoad = true;
       KeepAlive = true;
     };
@@ -32,7 +26,14 @@
   launchd.user.agents.skhd = {
     serviceConfig = {
       Label = "org.nixos.skhd";
-      ProgramArguments = [ "/opt/homebrew/bin/skhd" ];
+      ProgramArguments = [
+        "/opt/homebrew/bin/skhd"
+        "-c" "/Users/${user}/.config/skhd/skhdrc"
+      ];
+      EnvironmentVariables = {
+        HOME = "/Users/${user}";
+        PATH = "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+      };
       RunAtLoad = true;
       KeepAlive = true;
     };

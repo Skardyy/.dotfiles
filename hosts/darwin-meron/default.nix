@@ -17,7 +17,7 @@ in
     ../../modules/ghostty/darwin.nix
     ../../modules/desktop/darwin.nix
     ../../modules/dev/darwin.nix
-    ../../modules/aerospace/darwin.nix
+    ../../modules/yabai/darwin.nix
     ../../modules/autoraise/darwin.nix
     ../../modules/git
     ../../modules/kitty
@@ -56,6 +56,7 @@ in
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
       "com.apple.swipescrolldirection" = false;
+      AppleSpacesSwitchOnActivate = false;
     };
   };
   system.stateVersion = 6;

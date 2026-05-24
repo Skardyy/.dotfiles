@@ -16,15 +16,10 @@ cmd - k : yabai -m window --focus north || yabai -m display --focus north
 cmd - l : yabai -m window --focus east  || yabai -m display --focus east
 
 # === Move (swap within screen, hop to next display when at edge) ===
-cmd + shift - h : yabai -m window --swap west  || (yabai -m window --display west;  yabai -m display --focus west)
-cmd + shift - j : yabai -m window --swap south || (yabai -m window --display south; yabai -m display --focus south)
-cmd + shift - k : yabai -m window --swap north || (yabai -m window --display north; yabai -m display --focus north)
-cmd + shift - l : yabai -m window --swap east  || (yabai -m window --display east;  yabai -m display --focus east)
-
-# === Resize (BSP-aware) ===
-cmd + shift - minus : yabai -m window --resize right:-50:0 || yabai -m window --resize left:-50:0
-cmd + shift - 0x18  : yabai -m window --resize right:50:0  || yabai -m window --resize left:50:0
-# 0x18 = '=' key
+cmd + shift - h : yabai -m window --swap west  || yabai -m window --display west
+cmd + shift - j : yabai -m window --swap south || yabai -m window --display south
+cmd + shift - k : yabai -m window --swap north || yabai -m window --display north
+cmd + shift - l : yabai -m window --swap east  || yabai -m window --display east
 
 # === Workspaces (macOS Spaces, create 1-9 manually first) ===
 cmd - 1 : yabai -m space --focus 1
