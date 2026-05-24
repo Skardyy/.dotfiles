@@ -43,8 +43,5 @@ cmd + shift - 7 : yabai -m window --space 7
 cmd + shift - 8 : yabai -m window --space 8
 cmd + shift - 9 : yabai -m window --space 9
 
-# === Fullscreen toggle ===
-cmd - f : yabai -m window --toggle zoom-fullscreen
-
 # === Reload ===
 cmd + shift - r : launchctl kickstart -k "gui/$(id -u)/org.nixos.skhd"; yabai --restart-service
