@@ -12,7 +12,8 @@
       Label = "org.nixos.yabai";
       ProgramArguments = [
         "/opt/homebrew/bin/yabai"
-        "-c" "/Users/${user}/.config/yabai/yabairc"
+        "-c"
+        "/Users/${user}/.config/yabai/yabairc"
       ];
       EnvironmentVariables = {
         HOME = "/Users/${user}";
@@ -28,7 +29,8 @@
       Label = "org.nixos.skhd";
       ProgramArguments = [
         "/opt/homebrew/bin/skhd"
-        "-c" "/Users/${user}/.config/skhd/skhdrc"
+        "-c"
+        "/Users/${user}/.config/skhd/skhdrc"
       ];
       EnvironmentVariables = {
         HOME = "/Users/${user}";
