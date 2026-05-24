@@ -1,0 +1,55 @@
+# === Apps (mirrors aerospace) ===
+cmd - return : open -na ghostty
+cmd - w      : open -na "Brave browser"
+cmd - s      : screencapture -ic
+cmd + shift - c : open -g "raycast://extensions/thomas/color-picker/pick-color"
+cmd + shift - v : open -g "raycast://extensions/raycast/clipboard-history/clipboard-history"
+cmd - space  : open -g "raycast://"
+
+# === Close window ===
+cmd - q : yabai -m window --close
+
+# === Focus (h/j/k/l), fall through to display when at edge ===
+cmd - h : yabai -m window --focus west  || yabai -m display --focus west
+cmd - j : yabai -m window --focus south || yabai -m display --focus south
+cmd - k : yabai -m window --focus north || yabai -m display --focus north
+cmd - l : yabai -m window --focus east  || yabai -m display --focus east
+
+# === Move (swap within screen, hop to next display when at edge) ===
+cmd + shift - h : yabai -m window --swap west  || (yabai -m window --display west;  yabai -m display --focus west)
+cmd + shift - j : yabai -m window --swap south || (yabai -m window --display south; yabai -m display --focus south)
+cmd + shift - k : yabai -m window --swap north || (yabai -m window --display north; yabai -m display --focus north)
+cmd + shift - l : yabai -m window --swap east  || (yabai -m window --display east;  yabai -m display --focus east)
+
+# === Resize (BSP-aware) ===
+cmd + shift - minus : yabai -m window --resize right:-50:0 || yabai -m window --resize left:-50:0
+cmd + shift - 0x18  : yabai -m window --resize right:50:0  || yabai -m window --resize left:50:0
+# 0x18 = '=' key
+
+# === Workspaces (macOS Spaces, create 1-9 manually first) ===
+cmd - 1 : yabai -m space --focus 1
+cmd - 2 : yabai -m space --focus 2
+cmd - 3 : yabai -m space --focus 3
+cmd - 4 : yabai -m space --focus 4
+cmd - 5 : yabai -m space --focus 5
+cmd - 6 : yabai -m space --focus 6
+cmd - 7 : yabai -m space --focus 7
+cmd - 8 : yabai -m space --focus 8
+cmd - 9 : yabai -m space --focus 9
+
+# === Move window to space ===
+cmd + shift - 1 : yabai -m window --space 1
+cmd + shift - 2 : yabai -m window --space 2
+cmd + shift - 3 : yabai -m window --space 3
+cmd + shift - 4 : yabai -m window --space 4
+cmd + shift - 5 : yabai -m window --space 5
+cmd + shift - 6 : yabai -m window --space 6
+cmd + shift - 7 : yabai -m window --space 7
+cmd + shift - 8 : yabai -m window --space 8
+cmd + shift - 9 : yabai -m window --space 9
+
+# === Fullscreen toggle ===
+cmd - f : yabai -m window --toggle zoom-fullscreen
+
+# === Reload ===
+cmd + shift - r : launchctl kickstart -k "gui/$(id -u)/org.nixos.skhd"; yabai --restart-service
