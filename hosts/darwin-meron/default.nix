@@ -18,6 +18,7 @@ in
     ../../modules/desktop/darwin.nix
     ../../modules/dev/darwin.nix
     ../../modules/aerospace/darwin.nix
+    ../../modules/autoraise/darwin.nix
     ../../modules/git
     ../../modules/kitty
     ../../modules/neovim

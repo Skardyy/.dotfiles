@@ -1,9 +1,6 @@
 { user, mod, ... }: {
   homebrew = {
-    taps = [ "nikitabobko/tap" "dimentium/autoraise" ];
-    brews = [
-      { name = "autoraise"; args = [ "with-dexperimental_focus_first" ]; }
-    ];
+    taps = [ "nikitabobko/tap" ];
     casks = [ "aerospace" ];
   };
 
