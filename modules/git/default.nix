@@ -27,6 +27,7 @@
           t = "tag";
           td = "tag -d";
           tdr = "push origin -d";
+          tm = ''!sh -c 'test -n "$1" || { echo "usage: git tm <tag>" >&2; exit 1; }; git push origin -d "$1" 2>/dev/null; git tag -d "$1" 2>/dev/null; git tag "$1" && git push origin "$1"' --'';
           co = ''
             !f() {
               if [ -z "$1" ]; then

@@ -90,6 +90,7 @@ vim.g.lang_maps = {
     linter = "eslint_d",
     formatter = formatter("prettierd"),
   },
+  make = {},
   nix = {
     lsp = lsp("nil"),
     formatter = { mason = "nixpkgs-fmt", conform = "nixpkgs_fmt" },
