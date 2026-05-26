@@ -20,7 +20,6 @@
         "/Users/${user}/.config/yabai/yabairc"
       ];
       EnvironmentVariables = {
-        HOME = "/Users/${user}";
         PATH = "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin";
       };
       RunAtLoad = true;
@@ -37,7 +36,6 @@
         "/Users/${user}/.config/skhd/skhdrc"
       ];
       EnvironmentVariables = {
-        HOME = "/Users/${user}";
         PATH = "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin";
       };
       RunAtLoad = true;
