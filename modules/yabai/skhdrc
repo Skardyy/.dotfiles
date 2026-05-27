@@ -6,9 +6,6 @@ cmd + shift - c : open -g "raycast://extensions/thomas/color-picker/pick-color"
 cmd + shift - v : open -g "raycast://extensions/raycast/clipboard-history/clipboard-history"
 cmd - space  : open -g "raycast://"
 
-# === Close window ===
-cmd - q : yabai -m window --close
-
 # === Focus (h/j/k/l), fall through to display when at edge ===
 cmd - h : yabai -m window --focus west  || yabai -m display --focus west
 cmd - j : yabai -m window --focus south || yabai -m display --focus south
