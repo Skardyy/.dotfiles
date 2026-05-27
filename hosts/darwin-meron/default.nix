@@ -58,6 +58,9 @@ in
       "com.apple.swipescrolldirection" = false;
       AppleSpacesSwitchOnActivate = false;
     };
+    universalaccess = {
+      reduceMotion = true;
+    };
   };
   system.stateVersion = 6;
 
