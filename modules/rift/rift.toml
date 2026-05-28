@@ -1,0 +1,109 @@
+[settings]
+animate = true
+animation_duration = 0.2
+animation_fps = 60
+mouse_follows_focus = true
+focus_follows_mouse = false
+mouse_hides_on_focus = false
+hot_reload = true
+default_disable = false
+
+[settings.gestures]
+enabled = true
+fingers = 3
+invert_horizontal_swipe = true
+skip_empty = false
+haptics_enabled = false
+
+[settings.layout]
+mode = "master_stack"
+
+[settings.layout.master_stack]
+master_ratio = 0.6
+master_count = 1
+master_side = "left"
+new_window_placement = "stack"
+
+[settings.layout.gaps.outer]
+top = 4
+bottom = 4
+left = 4
+right = 4
+
+[settings.layout.gaps.inner]
+horizontal = 12
+vertical = 12
+
+[settings.ui.menu_bar]
+enabled = true
+show_empty = false
+mode = "all"
+display_style = "label"
+active_label = "index"
+
+[virtual_workspaces]
+enabled = true
+default_workspace_count = 9
+preserve_focus_per_workspace = true
+workspace_auto_back_and_forth = false
+
+# === Float rules ===
+# Catch-all for dialog/sheet style windows
+app_rules = [
+  { ax_subrole = "AXDialog",         floating = true },
+  { ax_subrole = "AXSystemDialog",   floating = true },
+  { ax_subrole = "AXFloatingWindow", floating = true },
+
+  # Specific apps that aren't dialogs but should float
+  { app_name = "System Settings",    floating = true },
+  { app_name = "Raycast",            floating = true },
+  { app_name = "Calculator",         floating = true },
+  { app_name = "Archive Utility",    floating = true },
+  { app_name = "Activity Monitor",   floating = true },
+
+  # Finder file ops
+  { app_name = "Finder", title_substring = "Copy", floating = true },
+  { app_name = "Finder", title_substring = "Move", floating = true },
+]
+
+# === Focus (h/j/k/l) ===
+[keys]
+"Meta + H" = { move_focus = "left" }
+"Meta + J" = { move_focus = "down" }
+"Meta + K" = { move_focus = "up" }
+"Meta + L" = { move_focus = "right" }
+
+# === Move (h/j/k/l) ===
+"Meta + Shift + H" = { move_node = "left" }
+"Meta + Shift + J" = { move_node = "down" }
+"Meta + Shift + K" = { move_node = "up" }
+"Meta + Shift + L" = { move_node = "right" }
+
+# === Workspaces ===
+"Meta + 1" = { switch_to_workspace = 0 }
+"Meta + 2" = { switch_to_workspace = 1 }
+"Meta + 3" = { switch_to_workspace = 2 }
+"Meta + 4" = { switch_to_workspace = 3 }
+"Meta + 5" = { switch_to_workspace = 4 }
+"Meta + 6" = { switch_to_workspace = 5 }
+"Meta + 7" = { switch_to_workspace = 6 }
+"Meta + 8" = { switch_to_workspace = 7 }
+"Meta + 9" = { switch_to_workspace = 8 }
+
+# === Move window to workspace ===
+"Meta + Shift + 1" = { move_window_to_workspace = 0 }
+"Meta + Shift + 2" = { move_window_to_workspace = 1 }
+"Meta + Shift + 3" = { move_window_to_workspace = 2 }
+"Meta + Shift + 4" = { move_window_to_workspace = 3 }
+"Meta + Shift + 5" = { move_window_to_workspace = 4 }
+"Meta + Shift + 6" = { move_window_to_workspace = 5 }
+"Meta + Shift + 7" = { move_window_to_workspace = 6 }
+"Meta + Shift + 8" = { move_window_to_workspace = 7 }
+"Meta + Shift + 9" = { move_window_to_workspace = 8 }
+
+# === Apps ===
+"Meta + Return" = { exec = ["/usr/bin/open", "-na", "Ghostty"] }
+"Meta + W" = { exec = ["/usr/bin/open", "-a", "Brave Browser"] }
+"Meta + S" = { exec = ["/usr/sbin/screencapture", "-ic"] }
+"Meta + Shift + C" = { exec = ["/usr/bin/open", "-g", "raycast://extensions/thomas/color-picker/pick-color"] }
+"Meta + Shift + V" = { exec = ["/usr/bin/open", "-g", "raycast://extensions/raycast/clipboard-history/clipboard-history"] }

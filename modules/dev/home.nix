@@ -12,6 +12,7 @@
     cmake
     ninja
     gnumake
+    clang-tools
 
     # cli utils
     curl
