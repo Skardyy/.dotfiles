@@ -18,6 +18,7 @@ in
     ../../modules/desktop/darwin.nix
     ../../modules/dev/darwin.nix
     ../../modules/yabai/darwin.nix
+    ../../modules/hammerspoon/darwin.nix
     ../../modules/autoraise/darwin.nix
     ../../modules/git
     ../../modules/kitty
