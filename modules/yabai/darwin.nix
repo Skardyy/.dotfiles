@@ -1,11 +1,7 @@
 { user, mod, ... }: {
   homebrew = {
-    taps = [
-      "koekeishiya/formulae"
-      "gechr/tap"
-    ];
+    taps = [ "koekeishiya/formulae" ];
     brews = [ "koekeishiya/formulae/yabai" ];
-    casks = [ "gechr/tap/whichspace" ];
   };
 
   launchd.user.agents.yabai = {

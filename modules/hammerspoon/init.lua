@@ -1,4 +1,8 @@
 hs.autoLaunch(false)
+hs.menuIcon(false)
+
+require("cpu")
+require("macos_spaces")
 
 local cmd = { "cmd" }
 local cmdShift = { "cmd", "shift" }
@@ -82,8 +86,10 @@ end
 -- Reload
 -- ====================
 hs.hotkey.bind(cmdShift, "r", function()
-  hs.task.new(YABAI, nil, { "--restart-service" }):start()
-  hs.reload()
+  local uid = hs.execute("id -u"):gsub("%s+$", "")
+  hs.task.new("/bin/launchctl", function()
+    hs.reload()
+  end, { "kickstart", "-k", "gui/" .. uid .. "/org.nixos.yabai" }):start()
 end)
 
 hs.alert.show("Hammerspoon loaded")
