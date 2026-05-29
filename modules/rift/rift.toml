@@ -41,11 +41,17 @@ mode = "all"
 display_style = "label"
 active_label = "index"
 
+[settings.ui.mission_control]
+enabled = true
+fade_enabled = true
+fade_duration_ms = 180.0
+
 [virtual_workspaces]
 enabled = true
 default_workspace_count = 9
 preserve_focus_per_workspace = true
 workspace_auto_back_and_forth = false
+workspace_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 # === Float rules ===
 # Catch-all for dialog/sheet style windows
@@ -100,6 +106,9 @@ app_rules = [
 "Meta + Shift + 7" = { move_window_to_workspace = 6 }
 "Meta + Shift + 8" = { move_window_to_workspace = 7 }
 "Meta + Shift + 9" = { move_window_to_workspace = 8 }
+
+# === Mission Control overview ===
+"Meta + Tab" = "show_mission_control_all"
 
 # === Apps ===
 "Meta + Return" = { exec = ["/usr/bin/open", "-na", "Ghostty"] }
