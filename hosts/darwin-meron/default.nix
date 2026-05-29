@@ -37,7 +37,6 @@ in
       upgrade = false;
     };
   };
-  nix.enable = false;
 
   system.primaryUser = user;
   networking.hostName = "darwin-meron";

@@ -71,6 +71,6 @@ in
       extraArgs = "--keep-since 7d --keep 5";
     };
   };
-  nix.package = pkgs.lixPackageSets.stable.lix;
+
   system.stateVersion = "26.05";
 }

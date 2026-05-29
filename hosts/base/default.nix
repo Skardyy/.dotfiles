@@ -5,8 +5,11 @@
     extraSpecialArgs = { inherit inputs user mod; };
   };
 
+  nix.package = pkgs.lix;
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
+    keep-derivations = true;
+    keep-outputs = true;
     substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
