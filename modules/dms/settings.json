@@ -128,20 +128,20 @@
   "showWorkspaceName": false,
   "showWorkspacePadding": false,
   "workspaceScrolling": false,
-  "showWorkspaceApps": false,
+  "showWorkspaceApps": true,
   "workspaceDragReorder": true,
-  "maxWorkspaceIcons": 3,
-  "workspaceAppIconSizeOffset": 0,
-  "groupWorkspaceApps": true,
+  "maxWorkspaceIcons": 5,
+  "workspaceAppIconSizeOffset": 7,
+  "groupWorkspaceApps": false,
   "workspaceFollowFocus": false,
-  "showOccupiedWorkspacesOnly": false,
+  "showOccupiedWorkspacesOnly": true,
   "reverseScrolling": false,
   "dwlShowAllTags": false,
-  "workspaceColorMode": "default",
+  "workspaceColorMode": "none",
   "workspaceOccupiedColorMode": "none",
-  "workspaceUnfocusedColorMode": "default",
+  "workspaceUnfocusedColorMode": "s",
   "workspaceUrgentColorMode": "default",
-  "workspaceFocusedBorderEnabled": false,
+  "workspaceFocusedBorderEnabled": true,
   "workspaceFocusedBorderColor": "primary",
   "workspaceFocusedBorderThickness": 2,
   "workspaceNameIcons": {},
@@ -327,7 +327,7 @@
   "dockSpacing": 4,
   "dockBottomGap": 0,
   "dockMargin": 0,
-  "dockIconSize": 40,
+  "dockIconSize": 48,
   "dockIndicatorStyle": "circle",
   "dockBorderEnabled": false,
   "dockBorderColor": "surfaceText",
@@ -449,20 +449,19 @@
           "enabled": true
         },
         {
-          "id": "workspaceSwitcher",
-          "enabled": true
-        },
-        {
           "id": "privacyIndicator",
           "enabled": true
         },
         {
-          "id": "screenRecorder",
+          "id": "clock",
           "enabled": true
         }
       ],
       "centerWidgets": [
-        "clock"
+        {
+          "id": "workspaceSwitcher",
+          "enabled": true
+        }
       ],
       "rightWidgets": [
         {
