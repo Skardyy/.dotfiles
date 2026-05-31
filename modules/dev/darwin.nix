@@ -13,6 +13,7 @@
     casks = [
       "claude-code"
       "orbstack"
+      "wireshark-app"
     ];
   };
 
