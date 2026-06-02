@@ -18,7 +18,6 @@
       satty
       bibata-cursors
       adw-gtk3
-      brave
       wl-clipboard
     ];
 

@@ -1,7 +1,8 @@
 { ... }: {
-  homebrew.casks = [
-    "brave-browser"
-    "raycast"
-    "betterdisplay"
-  ];
+  homebrew = {
+    casks = [
+      "raycast"
+      "betterdisplay"
+    ];
+  };
 }

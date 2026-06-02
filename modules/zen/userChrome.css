@@ -1,0 +1,44 @@
+:root[zen-single-toolbar='true']:not([customizing]):has(#PersonalToolbar:not([collapsed])) {
+  &:not([inDOMFullscreen='true']) {
+    &[inFullscreen]:not([macOSNativeFullscreen]) :is(#zen-appcontent-navbar-wrapper, #zen-appcontent-navbar-container) {
+      visibility: visible !important;
+    }
+
+    & :is(#zen-appcontent-navbar-wrapper, #zen-appcontent-navbar-container) {
+      display: flex !important;
+      min-height: var(--zen-toolbar-height, 34px) !important;
+      height: var(--zen-toolbar-height, 34px) !important;
+      max-height: var(--zen-toolbar-height, 34px) !important;
+      pointer-events: auto !important;
+    }
+
+    & #zen-appcontent-navbar-wrapper {
+      z-index: 1 !important;
+      opacity: 1 !important;
+      overflow: visible !important;
+      transition: none !important;
+
+      & .titlebar-buttonbox-container {
+        max-height: 100% !important;
+        overflow: visible !important;
+        transition: none !important;
+      }
+
+      & .titlebar-button {
+        padding-block: revert !important;
+      }
+    }
+  }
+
+  & #tabbrowser-tabpanels[has-toolbar-hovered] .browserSidebarContainer:is(.deck-selected, [zen-split='true']) .browserContainer {
+    margin-top: 0 !important;
+    transition: none !important;
+  }
+}
+
+#PersonalToolbar { justify-content: center !important; }
+#PersonalToolbar > #personal-bookmarks { flex: 0 1 auto !important; margin-left: auto !important; margin-right: auto !important; }
+#PersonalToolbar > #personal-bookmarks > .bookmarks-toolbar-customize-placeholder { display: none !important; }
+
+.zen-current-workspace-indicator,
+vbox.zen-workspace-tabs-section.zen-current-workspace-indicator { display: none !important; }

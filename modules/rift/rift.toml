@@ -24,6 +24,11 @@ master_count = 1
 master_side = "left"
 new_window_placement = "stack"
 
+[settings.layout.scrolling]
+column_width_ratio = 1.0
+min_column_width_ratio = 1.0
+max_column_width_ratio = 1.0
+
 [settings.layout.gaps.outer]
 top = 4
 bottom = 4
@@ -110,9 +115,12 @@ app_rules = [
 # === Mission Control overview ===
 "Meta + Tab" = "show_mission_control_all"
 
+# === Toggle layout between master_stack <-> scrolling ===
+"Meta + O" = { exec = ["/Users/meronbossin/.dotfiles/modules/rift/toggle-layout.sh"] }
+
 # === Apps ===
 "Meta + Return" = { exec = ["/usr/bin/open", "-na", "Ghostty"] }
-"Meta + W" = { exec = ["/usr/bin/open", "-a", "Brave Browser"] }
+"Meta + W" = { exec = ["/usr/bin/open", "-a", "Zen Browser (Beta)"] }
 "Meta + S" = { exec = ["/usr/sbin/screencapture", "-ic"] }
 "Meta + Shift + C" = { exec = ["/usr/bin/open", "-g", "raycast://extensions/thomas/color-picker/pick-color"] }
 "Meta + Shift + V" = { exec = ["/usr/bin/open", "-g", "raycast://extensions/raycast/clipboard-history/clipboard-history"] }

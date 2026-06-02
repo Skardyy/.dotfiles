@@ -26,6 +26,7 @@ in
     ../../modules/git
     ../../modules/kitty
     ../../modules/neovim
+    ../../modules/zen
   ];
   home-manager.users.${user} = {
     home.username = user;

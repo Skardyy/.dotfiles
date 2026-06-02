@@ -22,6 +22,7 @@ in
     ../../modules/git
     ../../modules/kitty
     ../../modules/neovim
+    ../../modules/zen
   ];
 
   nix-homebrew = {
