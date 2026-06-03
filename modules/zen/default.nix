@@ -16,6 +16,7 @@
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "browser.toolbars.bookmarks.visibility" = "always";
           "zen.tabs.vertical.right-side" = true;
+          "zen.view.grey-out-inactive-windows" = false;
         };
       };
     };
