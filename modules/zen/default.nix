@@ -17,6 +17,7 @@
           "browser.toolbars.bookmarks.visibility" = "always";
           "zen.tabs.vertical.right-side" = true;
           "zen.view.grey-out-inactive-windows" = false;
+          "zen.widget.linux.transparency" = true;
         };
       };
     };

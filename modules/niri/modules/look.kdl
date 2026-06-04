@@ -17,9 +17,24 @@ gestures {
     }
 }
 
+blur {
+    passes 5
+    offset 9
+    noise 0.02
+    saturation 0.7
+}
+
 window-rule {
     geometry-corner-radius 10
     clip-to-geometry true
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="zen-beta"
+    background-effect {
+        blur true
+    }
 }
 
 cursor {
