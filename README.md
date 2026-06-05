@@ -4,9 +4,9 @@
 
 My dotfiles for NixOs / MacOS
 
-| Desktop                                                                                   | Neovim                                                                                    |
+| Browser                                                                                   | Neovim                                                                                    |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| ![image](https://github.com/user-attachments/assets/306bbc49-f3ca-40fe-992c-55282527bffa) | ![image](https://github.com/user-attachments/assets/60e00134-8fba-49bb-98ac-27f8b020c381) |
+| ![image](https://github.com/user-attachments/assets/29358ca2-4856-4d47-a3cf-df7d80b9402b) | ![image](https://github.com/user-attachments/assets/366c0045-340e-4f3e-bc04-75eb8c6e5235) |
 
 </div>
 
