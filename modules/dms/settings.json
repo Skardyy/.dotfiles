@@ -8,7 +8,7 @@
   "matugenTargetMonitor": "",
   "popupTransparency": 0.7,
   "dockTransparency": 1,
-  "widgetBackgroundColor": "sc",
+  "widgetBackgroundColor": "sth",
   "widgetColorMode": "default",
   "controlCenterTileColorMode": "primary",
   "buttonColorMode": "primary",
@@ -438,7 +438,7 @@
       "id": "default",
       "name": "Main Bar",
       "enabled": true,
-      "position": 1,
+      "position": 0,
       "screenPreferences": [
         "all"
       ],
@@ -477,8 +477,8 @@
       "spacing": 0,
       "innerPadding": 4,
       "bottomGap": 0,
-      "transparency": 1,
-      "widgetTransparency": 1,
+      "transparency": 0.5,
+      "widgetTransparency": 0,
       "squareCorners": true,
       "noBackground": false,
       "gothCornersEnabled": true,
@@ -499,7 +499,11 @@
       "visible": true,
       "popupGapsAuto": true,
       "popupGapsManual": 4,
-      "maximizeDetection": true
+      "maximizeDetection": true,
+      "iconScale": 1,
+      "maximizeWidgetIcons": false,
+      "maximizeWidgetText": false,
+      "removeWidgetPadding": false
     }
   ],
   "desktopClockEnabled": false,
