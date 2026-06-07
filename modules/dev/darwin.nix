@@ -8,6 +8,7 @@
       "gst-libav"
       "mediamtx"
       "awscli"
+      "azure-cli"
       "pulumi"
     ];
     casks = [
