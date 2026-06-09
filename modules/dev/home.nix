@@ -1,4 +1,9 @@
 { pkgs, ... }: {
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
+  };
+
   home.packages = with pkgs; [
     # languages
     python3
@@ -20,7 +25,6 @@
     fd
     eza
     fzf
-    github-cli
     difftastic
     tree-sitter
     zip

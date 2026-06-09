@@ -3,6 +3,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs user mod; };
+    backupFileExtension = "bak";
   };
 
   nix.package = pkgs.lix;
