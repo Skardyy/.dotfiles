@@ -29,6 +29,7 @@ binds {
     Mod+Shift+C { spawn "sh" "-c" "$CONIFG_COLOR_PICKER_APP"; }
     Mod+Space { spawn "sh" "-c" "$CONFIG_APP_LAUNCHER"; }
     Mod+W { spawn "sh" "-c" "$CONFIG_BROWSER_APP"; }
+    Mod+Shift+W { spawn "sh" "-c" "$CONFIG_WALLPAPER_SWITCHER_APP"; }
     Mod+E { spawn "sh" "-c" "$CONFIG_FILE_MANAGER_APP"; }
     Ctrl+Shift+Escape { spawn "sh" "-c" "$CONFIG_CONTROL_CENTER_APP"; }
     Mod+V { spawn "sh" "-c" "$CONFIG_CLIPBOARD_HISTORY_APP"; }

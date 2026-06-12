@@ -2,12 +2,13 @@ environment {
     CONFIG_TERMINAL_APP "ghostty"
     CONFIG_BROWSER_APP "zen-beta"
     CONIFG_COLOR_PICKER_APP "hyprpicker -a"
-    CONFIG_SCREENSHOT_APP "dms screenshot --no-file"
-    CONFIG_SCREENSHOT_EDIT_APP "dms screenshot --stdout | satty -f -"
-    CONFIG_APP_LAUNCHER "dms ipc call spotlight toggle"
+    CONFIG_SCREENSHOT_APP "grim -g \"$(slurp)\" - | wl-copy"
+    CONFIG_SCREENSHOT_EDIT_APP "grim -g \"$(slurp)\" - | satty -f -"
+    CONFIG_APP_LAUNCHER "noctalia-shell ipc call launcher toggle"
     CONFIG_CONTROL_CENTER_APP "missioncenter"
-    CONFIG_CLIPBOARD_HISTORY_APP "dms ipc call clipboard toggle"
+    CONFIG_CLIPBOARD_HISTORY_APP "noctalia-shell ipc call launcher clipboard"
     CONFIG_FILE_MANAGER_APP "nautilus"
+    CONFIG_WALLPAPER_SWITCHER_APP "noctalia-shell ipc call wallpaper toggle"
 
     DMS_SCREENSHOT_EDITOR "satty"
 
@@ -27,7 +28,7 @@ hotkey-overlay {
     skip-at-startup
 }
 
-spawn-at-startup "dms" "restart"
+spawn-at-startup "noctalia-shell"
 
 include "modules/input.kdl"
 include "modules/look.kdl"

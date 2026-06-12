@@ -16,6 +16,8 @@
       nautilus
       hyprpicker
       satty
+      grim
+      slurp
       bibata-cursors
       adw-gtk3
       wl-clipboard
