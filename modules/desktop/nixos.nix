@@ -21,6 +21,7 @@
       bibata-cursors
       adw-gtk3
       wl-clipboard
+      nwg-displays
     ];
 
     gtk = {

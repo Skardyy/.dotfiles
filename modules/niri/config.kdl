@@ -19,4 +19,4 @@ spawn-at-startup "noctalia-shell"
 
 include "modules/input.kdl"
 include "modules/look.kdl"
-include optional=true "dms/outputs.kdl"
+include optional=true "monitor.kdl" // include "monitor.kdl" - keep this comment so nwg-displays sees its string and won't append
