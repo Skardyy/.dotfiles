@@ -23,16 +23,16 @@ input {
 
 binds {
     // === Apps ===
-    Mod+Return { spawn "sh" "-c" "$CONFIG_TERMINAL_APP"; }
-    Mod+S { spawn "sh" "-c" "$CONFIG_SCREENSHOT_APP"; }
-    Mod+Shift+S { spawn "sh" "-c" "$CONFIG_SCREENSHOT_EDIT_APP"; }
-    Mod+Shift+C { spawn "sh" "-c" "$CONIFG_COLOR_PICKER_APP"; }
-    Mod+Space { spawn "sh" "-c" "$CONFIG_APP_LAUNCHER"; }
-    Mod+W { spawn "sh" "-c" "$CONFIG_BROWSER_APP"; }
-    Mod+Shift+W { spawn "sh" "-c" "$CONFIG_WALLPAPER_SWITCHER_APP"; }
-    Mod+E { spawn "sh" "-c" "$CONFIG_FILE_MANAGER_APP"; }
-    Ctrl+Shift+Escape { spawn "sh" "-c" "$CONFIG_CONTROL_CENTER_APP"; }
-    Mod+V { spawn "sh" "-c" "$CONFIG_CLIPBOARD_HISTORY_APP"; }
+    Mod+Return { spawn "sh" "-c" "ghostty"; }
+    Mod+S { spawn "sh" "-c" "screenshot"; }
+    Mod+Shift+S { spawn "sh" "-c" "screenshot edit"; }
+    Mod+Shift+C { spawn "sh" "-c" "hyprpicker -a"; }
+    Mod+Space { spawn "sh" "-c" "noctalia-shell ipc call launcher toggle"; }
+    Mod+W { spawn "sh" "-c" "zen-beta"; }
+    Mod+Shift+W { spawn "sh" "-c" "noctalia-shell ipc call wallpaper toggle"; }
+    Mod+E { spawn "sh" "-c" "nautilus"; }
+    Ctrl+Shift+Escape { spawn "sh" "-c" "missioncenter"; }
+    Mod+V { spawn "sh" "-c" "noctalia-shell ipc call launcher clipboard"; }
 
     // overview
     Mod+Tab repeat=false { toggle-overview; }

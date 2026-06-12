@@ -1,4 +1,4 @@
-{ pkgs, user, ... }: {
+{ pkgs, user, mod, ... }: {
   programs.dconf.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
@@ -11,7 +11,7 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
   };
 
-  home-manager.users.${user} = {
+  home-manager.users.${user} = { config, ... }: {
     home.packages = with pkgs; [
       nautilus
       hyprpicker
@@ -47,5 +47,8 @@
         gtk-theme = "adw-gtk3-dark";
       };
     };
+
+    home.file.".local/bin/screenshot".source =
+      config.lib.file.mkOutOfStoreSymlink "${mod}/desktop/screenshot.sh";
   };
 }
