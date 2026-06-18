@@ -27,6 +27,7 @@ in
     ../../modules/kitty
     ../../modules/neovim
     ../../modules/zen
+    ../../modules/ssh-forwarder
   ];
   home-manager.users.${user} = {
     home.username = user;
