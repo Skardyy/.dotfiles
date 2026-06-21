@@ -17,7 +17,8 @@ in
     ../../modules/ghostty/darwin.nix
     ../../modules/desktop/darwin.nix
     ../../modules/dev/darwin.nix
-    ../../modules/rift/darwin.nix
+    ../../modules/yabai/darwin.nix
+    ../../modules/hammerspoon/darwin.nix
     ../../modules/autoraise/darwin.nix
     ../../modules/git
     ../../modules/kitty
@@ -61,6 +62,7 @@ in
     universalaccess = {
       reduceMotion = true;
     };
+    spaces.spans-displays = false;
   };
   system.stateVersion = 6;
 

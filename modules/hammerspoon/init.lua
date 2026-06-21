@@ -25,7 +25,7 @@ hs.hotkey.bind(cmd, "return", function()
 end)
 
 hs.hotkey.bind(cmd, "w", function()
-  hs.application.launchOrFocus("Brave Browser")
+  hs.application.launchOrFocus("Zen Browser (Beta)")
 end)
 
 hs.hotkey.bind(cmd, "s", function()
@@ -63,15 +63,6 @@ hs.hotkey.bind(cmdShift, "k",
   function() yabai({ "-m", "window", "--swap", "north" }, { "-m", "window", "--display", "north" }) end)
 hs.hotkey.bind(cmdShift, "l",
   function() yabai({ "-m", "window", "--swap", "east" }, { "-m", "window", "--display", "east" }) end)
-
--- ====================
--- Workspaces — fire native macOS shortcut (ctrl+N) for animation
--- ====================
-for i = 1, 9 do
-  hs.hotkey.bind(cmd, tostring(i), function()
-    hs.eventtap.keyStroke({ "ctrl" }, tostring(i), 0)
-  end)
-end
 
 -- ====================
 -- Move window to space
