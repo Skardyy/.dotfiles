@@ -65,6 +65,15 @@ hs.hotkey.bind(cmdShift, "l",
   function() yabai({ "-m", "window", "--swap", "east" }, { "-m", "window", "--display", "east" }) end)
 
 -- ====================
+-- Switch to space
+-- ====================
+for i = 1, 9 do
+  hs.hotkey.bind(cmd, tostring(i), function()
+    yabai({ "-m", "space", "--focus", tostring(i) })
+  end)
+end
+
+-- ====================
 -- Move window to space
 -- ====================
 for i = 1, 9 do
