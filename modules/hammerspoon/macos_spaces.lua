@@ -107,6 +107,7 @@ local function buildElements(cells, focused, totalW)
       frame = { x = 0.5, y = 0.5, w = totalW - 1, h = BAR_HEIGHT - 1 },
     },
   }
+  local hitZones = {}
 
   local x = CONTAINER_PAD_X
   for i, cell in ipairs(cells) do
@@ -150,11 +151,15 @@ local function buildElements(cells, focused, totalW)
       if j < #cell.bundles then iconX = iconX + ICON_GAP end
     end
 
+    local zoneStart = (i == 1) and 0 or (x - CELL_PAD / 2)
+    local zoneEnd = (i == #cells) and totalW or (x + w + CELL_PAD / 2)
+    hitZones[#hitZones + 1] = { from = zoneStart, to = zoneEnd, index = cell.index }
+
     x = x + w
     if i < #cells then x = x + CELL_PAD end
   end
 
-  return elements
+  return elements, hitZones
 end
 
 local function cellsSignature(cells, focused)
@@ -169,12 +174,33 @@ end
 
 M.canvases = {}
 M.signatures = {}
+M.hitZones = {}
 
 local function destroyCanvas(uuid)
   local canvas = M.canvases[uuid]
   if canvas then canvas:delete() end
   M.canvases[uuid] = nil
   M.signatures[uuid] = nil
+  M.hitZones[uuid] = nil
+end
+
+local YABAI = "/opt/homebrew/bin/yabai"
+
+local function focusSpaceOnScreen(screenUUID, n)
+  hs.task.new(YABAI, function(_, stdout)
+    if not stdout or stdout == "" then return end
+    local ok, displays = pcall(hs.json.decode, stdout)
+    if not ok then return end
+    for _, d in ipairs(displays) do
+      if d.uuid == screenUUID then
+        local sid = d.spaces and d.spaces[n]
+        if sid then
+          hs.task.new(YABAI, nil, { "-m", "space", "--focus", tostring(sid) }):start()
+        end
+        return
+      end
+    end
+  end, { "-m", "query", "--displays" }):start()
 end
 
 local function renderScreen(screen)
@@ -200,13 +226,24 @@ local function renderScreen(screen)
     x = full.x + (full.w - totalW) / 2
   end
 
-  local elements = buildElements(cells, focused, totalW)
+  local elements, hitZones = buildElements(cells, focused, totalW)
+  M.hitZones[uuid] = hitZones
 
   local canvas = M.canvases[uuid]
   if not canvas then
     canvas = hs.canvas.new({ x = x, y = y, w = totalW, h = BAR_HEIGHT })
     canvas:level(hs.canvas.windowLevels.mainMenu + 1)
     canvas:behavior({ hs.canvas.windowBehaviors.canJoinAllSpaces, hs.canvas.windowBehaviors.stationary })
+    canvas:canvasMouseEvents(false, true, false, false)
+    canvas:mouseCallback(function(_, event, _, clickX)
+      if event ~= "mouseUp" then return end
+      for _, z in ipairs(M.hitZones[uuid] or {}) do
+        if clickX >= z.from and clickX < z.to then
+          focusSpaceOnScreen(uuid, z.index)
+          return
+        end
+      end
+    end)
     M.canvases[uuid] = canvas
   else
     canvas:frame({ x = x, y = y, w = totalW, h = BAR_HEIGHT })
