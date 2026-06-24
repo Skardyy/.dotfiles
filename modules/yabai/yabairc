@@ -22,39 +22,4 @@ yabai -m config mouse_drop_action           swap
 
 yabai -m config mouse_follows_focus         off
 
-# === Float + always-on-top for utility/system apps ===
-yabai -m rule --add app="^System Settings$"        manage=off layer=above sticky=on
-yabai -m rule --add app="^System Information$"     manage=off layer=above sticky=on
-yabai -m rule --add app="^System Preferences$"     manage=off layer=above sticky=on
-yabai -m rule --add app="^Activity Monitor$"       manage=off layer=above sticky=on
-yabai -m rule --add app="^Calculator$"             manage=off layer=above sticky=on
-yabai -m rule --add app="^Disk Utility$"           manage=off layer=above sticky=on
-yabai -m rule --add app="^Console$"                manage=off layer=above sticky=on
-yabai -m rule --add app="^Keychain Access$"        manage=off layer=above sticky=on
-yabai -m rule --add app="^Font Book$"              manage=off layer=above sticky=on
-yabai -m rule --add app="^ColorSync Utility$"      manage=off layer=above sticky=on
-
-# Float-only (no always-on-top)
-yabai -m rule --add app="^Finder$" title="Copy"    manage=off
-yabai -m rule --add app="^Finder$" title="Move"    manage=off
-yabai -m rule --add app="^Finder$" subrole="AXDialog" manage=off
-yabai -m rule --add app="^Raycast$"                manage=off
-yabai -m rule --add app="^Archive Utility$"        manage=off
-
-# Permission / authentication / system popups
-yabai -m rule --add app="^Installer$"              manage=off
-yabai -m rule --add app="^Software Update$"        manage=off
-yabai -m rule --add app="^UserNotificationCenter$" manage=off
-yabai -m rule --add app="^SecurityAgent$"          manage=off
-yabai -m rule --add app="^Security & Privacy$"     manage=off
-yabai -m rule --add app="^Bluetooth File Exchange$" manage=off
-yabai -m rule --add app="^Stickies$"               manage=off
-yabai -m rule --add app="^Photo Booth$"            manage=off
-yabai -m rule --add app="^Migration Assistant$"    manage=off
-
-# Any AXDialog/AXSheet — catches most "Allow access?" style popups
-yabai -m rule --add subrole="AXDialog"             manage=off
-yabai -m rule --add subrole="AXSystemDialog"       manage=off
-yabai -m rule --add subrole="AXFloatingWindow"     manage=off
-
 echo "yabai configuration loaded.."
