@@ -60,6 +60,12 @@ in
       AppleSpacesSwitchOnActivate = false;
     };
     spaces.spans-displays = false;
+    CustomUserPreferences = {
+      "com.apple.desktopservices" = {
+        DSDontWriteNetworkStores = true;
+        DSDontWriteUSBStores = true;
+      };
+    };
   };
   system.stateVersion = 6;
 
