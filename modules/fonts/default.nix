@@ -16,6 +16,22 @@ let
     '';
   };
 
+  caskaydiaCove = pkgs.stdenvNoCC.mkDerivation {
+    pname = "caskaydia-cove-mn-skardyy";
+    version = "1.0.0";
+    src = pkgs.fetchzip {
+      url = "https://github.com/Skardyy/fonts/releases/download/1.0.0/CaskaydiaCoveMn.tar.gz";
+      hash = "sha256-WbtOPJ8stwaPHgGGorRnC2GcYuGWbjq4BTe6glGxrBw=";
+      stripRoot = false;
+    };
+    dontBuild = true;
+    installPhase = ''
+      mkdir -p $out/share/fonts/truetype
+      find . -type f \( -name "*.ttf" -o -name "*.otf" \) \
+        -exec cp {} $out/share/fonts/truetype/ \;
+    '';
+  };
+
   zedMono = pkgs.stdenvNoCC.mkDerivation {
     pname = "zed-mono-skardyy";
     version = "1.0.0";
@@ -36,6 +52,7 @@ let
 
   fontPkgs = [
     commitMono
+    caskaydiaCove
     zedMono
   ] ++ lib.optionals (!isDarwin) (with pkgs; [
     noto-fonts
