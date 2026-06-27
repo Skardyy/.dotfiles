@@ -2,9 +2,9 @@
 let
   commitMono = pkgs.stdenvNoCC.mkDerivation {
     pname = "commit-mono-skardyy";
-    version = "1.0.0";
+    version = "0.1.0";
     src = pkgs.fetchzip {
-      url = "https://github.com/Skardyy/fonts/releases/download/1.0.0/CommitMono.tar.gz";
+      url = "https://github.com/Skardyy/fonts/releases/download/v0.1.0/CommitMonoMn.tar.gz";
       hash = "sha256-QYI5CFIZCEWCv95ytjJOvRnEa8Kghv10PfSbSSOmKUw=";
       stripRoot = false;
     };
@@ -18,10 +18,10 @@ let
 
   caskaydiaCove = pkgs.stdenvNoCC.mkDerivation {
     pname = "caskaydia-cove-mn-skardyy";
-    version = "1.0.0";
+    version = "0.1.0";
     src = pkgs.fetchzip {
-      url = "https://github.com/Skardyy/fonts/releases/download/1.0.0/CaskaydiaCoveMn.tar.gz";
-      hash = "sha256-WbtOPJ8stwaPHgGGorRnC2GcYuGWbjq4BTe6glGxrBw=";
+      url = "https://github.com/Skardyy/fonts/releases/download/v0.1.0/CaskaydiaCoveMn.tar.gz";
+      hash = "sha256-S5q8IaE5BrwGwpI/8PIws72QqwHEzYGQYxjkmhycAPI=";
       stripRoot = false;
     };
     dontBuild = true;
@@ -34,10 +34,10 @@ let
 
   zedMono = pkgs.stdenvNoCC.mkDerivation {
     pname = "zed-mono-skardyy";
-    version = "1.0.0";
+    version = "0.1.0";
     src = pkgs.fetchzip {
-      url = "https://github.com/Skardyy/fonts/releases/download/1.0.0/ZedMono.tar.gz";
-      hash = "sha256-dtMy9VLyY+inub1caaxk72zSnLUYUFKDevyRRjXx51M=";
+      url = "https://github.com/Skardyy/fonts/releases/download/v0.1.0/ZedMonoMn.tar.gz";
+      hash = "sha256-oTx+qk3O3ioA6g9aLLaA/YypXkmp79j146VXRDcD3p0=";
       stripRoot = false;
     };
     dontBuild = true;
