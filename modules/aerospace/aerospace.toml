@@ -13,8 +13,12 @@ default-root-container-layout = 'tiles'
 # Possible values: horizontal|vertical|auto
 default-root-container-orientation = 'auto'
 
-# Mouse follows focus when focused monitor changes
+# Mouse follows focus on monitor and window changes.
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
+
+# Trigger the hammerspoon workspace bar to re-render on workspace switch.
+exec-on-workspace-change = ['/bin/zsh', '-c', '/usr/bin/open -g hammerspoon://refreshBar']
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
@@ -36,27 +40,23 @@ persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     # Custom
     cmd-q = "close --quit-if-last-window"
     cmd-enter = "exec-and-forget open -na ghostty"
-    cmd-w = "exec-and-forget open -na 'Brave browser'"
+    cmd-w = "exec-and-forget open -na 'Zen Browser (Beta)'"
     cmd-s = "exec-and-forget screencapture -ic"
     cmd-shift-c = "exec-and-forget open -g raycast://extensions/thomas/color-picker/pick-color"
     cmd-shift-v = "exec-and-forget open -g raycast://extensions/raycast/clipboard-history/clipboard-history"
     cmd-space = "exec-and-forget open -g raycast://"
 
     # Default
-    cmd-h = 'focus left'
-    cmd-j = 'focus down'
-    cmd-k = 'focus up'
-    cmd-l = 'focus right'
+    cmd-h = 'focus left  --boundaries all-monitors-outer-frame'
+    cmd-j = 'focus down  --boundaries all-monitors-outer-frame'
+    cmd-k = 'focus up    --boundaries all-monitors-outer-frame'
+    cmd-l = 'focus right --boundaries all-monitors-outer-frame'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
     cmd-shift-h = 'move left  --boundaries all-monitors-outer-frame'
     cmd-shift-j = 'move down  --boundaries all-monitors-outer-frame'
     cmd-shift-k = 'move up    --boundaries all-monitors-outer-frame'
     cmd-shift-l = 'move right --boundaries all-monitors-outer-frame'
-
-    # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-    cmd-shift-minus = 'resize smart -50'
-    cmd-shift-equal = 'resize smart +50'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
     cmd-1 = 'workspace 1'

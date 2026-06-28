@@ -17,7 +17,7 @@ in
     ../../modules/ghostty/darwin.nix
     ../../modules/desktop/darwin.nix
     ../../modules/dev/darwin.nix
-    ../../modules/yabai/darwin.nix
+    ../../modules/aerospace/darwin.nix
     ../../modules/hammerspoon/darwin.nix
     ../../modules/autoraise/darwin.nix
     ../../modules/git
@@ -59,7 +59,7 @@ in
       "com.apple.swipescrolldirection" = false;
       AppleSpacesSwitchOnActivate = false;
     };
-    spaces.spans-displays = false;
+    spaces.spans-displays = true;
     CustomUserPreferences = {
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;

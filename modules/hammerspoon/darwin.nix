@@ -13,8 +13,8 @@
   home-manager.users.${user} = { config, ... }: {
     home.file.".hammerspoon/init.lua".source =
       config.lib.file.mkOutOfStoreSymlink "${mod}/hammerspoon/init.lua";
-    home.file.".hammerspoon/macos_spaces.lua".source =
-      config.lib.file.mkOutOfStoreSymlink "${mod}/hammerspoon/macos_spaces.lua";
+    home.file.".hammerspoon/aerospace_bar.lua".source =
+      config.lib.file.mkOutOfStoreSymlink "${mod}/hammerspoon/aerospace_bar.lua";
     home.file.".hammerspoon/cpu.lua".source =
       config.lib.file.mkOutOfStoreSymlink "${mod}/hammerspoon/cpu.lua";
   };

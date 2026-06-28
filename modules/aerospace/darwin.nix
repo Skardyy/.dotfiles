@@ -9,7 +9,7 @@
       Label = "com.nikitabobko.aerospace";
       ProgramArguments = [ "/Applications/AeroSpace.app/Contents/MacOS/AeroSpace" ];
       RunAtLoad = true;
-      KeepAlive = false;
+      KeepAlive = true;
     };
   };
 

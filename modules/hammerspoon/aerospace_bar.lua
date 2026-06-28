@@ -1,4 +1,4 @@
-local M                  = {}
+local M = {}
 
 local BAR_HEIGHT         = 26
 local NUMBER_W           = 14
@@ -18,9 +18,18 @@ local ACTIVE_CELL_STROKE = { red = 0.60, green = 0.75, blue = 0.95, alpha = 0.60
 local NOTCH_THRESHOLD    = 32
 local NOTCH_HALF_WIDTH   = 110
 
-local iconCache          = {}
+local AEROSPACE = "/opt/homebrew/bin/aerospace"
+
+local LABEL_OVERRIDES = { ["10"] = "~" }
+
+local function labelFor(ws)
+  return LABEL_OVERRIDES[tostring(ws)] or tostring(ws)
+end
+
+local iconCache = {}
 
 local function iconFor(bundle)
+  if not bundle then return nil end
   local cached = iconCache[bundle]
   if cached ~= nil then return cached or nil end
   local icon = hs.image.imageFromAppBundle(bundle)
@@ -36,51 +45,108 @@ local function hasNotch(screen)
   return menubarHeight(screen) > NOTCH_THRESHOLD
 end
 
-local function buildCells(screen)
-  local uuid = screen:getUUID()
-  local ordered = hs.spaces.allSpaces()[uuid] or {}
-  local focused = (hs.spaces.activeSpaces() or {})[uuid]
-  local isMain = uuid == hs.screen.primaryScreen():getUUID()
-
-  local screenSpaceSet = {}
-  for _, sid in ipairs(ordered) do screenSpaceSet[sid] = true end
-
-  local entriesPerSpace = {}
-  for _, win in ipairs(hs.window.filter.default:getWindows()) do
-    local app = win:application()
-    local bundle = app and app:bundleID()
-    if bundle then
-      local sids = hs.spaces.windowSpaces(win:id()) or {}
-      local name = app:name() or ""
-      for _, sid in ipairs(sids) do
-        if screenSpaceSet[sid] then
-          local list = entriesPerSpace[sid] or {}
-          list[#list + 1] = { bundle = bundle, name = name }
-          entriesPerSpace[sid] = list
-        end
-      end
+-- Fire an async aerospace command. onResult receives the parsed JSON (or nil).
+local function aerospace(args, onResult)
+  hs.task.new(AEROSPACE, function(_, stdout)
+    if not stdout or stdout == "" then
+      if onResult then onResult(nil) end
+      return
     end
-  end
-
-  local cells = {}
-  for i, sid in ipairs(ordered) do
-    local label = isMain and tostring(i) or "~"
-    local entries = entriesPerSpace[sid]
-    if entries then
-      table.sort(entries, function(a, b)
-        if a.name == b.name then return a.bundle < b.bundle end
-        return a.name < b.name
-      end)
-      local bundles = {}
-      for j, e in ipairs(entries) do bundles[j] = e.bundle end
-      cells[#cells + 1] = { index = i, label = label, id = sid, bundles = bundles }
-    elseif sid == focused then
-      cells[#cells + 1] = { index = i, label = label, id = sid, bundles = {} }
-    end
-  end
-
-  return cells, focused
+    local ok, decoded = pcall(hs.json.decode, stdout)
+    if onResult then onResult(ok and decoded or nil) end
+  end, args):start()
 end
+
+-- Run several aerospace queries concurrently and call onDone with the merged results.
+local function aerospaceBatch(specs, onDone)
+  local pending = 0
+  for _ in pairs(specs) do pending = pending + 1 end
+  local results = {}
+  local function finish(key, value)
+    results[key] = value
+    pending = pending - 1
+    if pending == 0 then onDone(results) end
+  end
+  for key, args in pairs(specs) do
+    aerospace(args, function(d) finish(key, d) end)
+  end
+end
+
+-- === Data model ===
+
+-- Returns { [screenUUID] = { cells = {...}, focused = "<workspace name>" }, ... }
+local function buildScreens(monitors, workspaces, windows)
+  local screensByName, screensByIndex = {}, {}
+  for i, screen in ipairs(hs.screen.allScreens()) do
+    screensByIndex[i] = screen
+    screensByName[screen:name() or ""] = screen
+  end
+
+  local screenByMonitorId = {}
+  for _, m in ipairs(monitors or {}) do
+    local mid = m["monitor-id"]
+    local mname = m["monitor-name"]
+    local screen = screensByName[mname] or screensByIndex[mid]
+    if screen then screenByMonitorId[mid] = screen end
+  end
+
+  local visibleByMonitor = {}
+  for _, w in ipairs(workspaces or {}) do
+    if w["workspace-is-visible"] then
+      visibleByMonitor[w["monitor-id"]] = w["workspace"]
+    end
+  end
+
+  local windowsByWorkspace = {}
+  local monitorByWorkspace = {}
+  for _, win in ipairs(windows or {}) do
+    local ws = win["workspace"]
+    local mid = win["monitor-id"]
+    local bundle = win["app-bundle-id"]
+    local name = win["app-name"] or ""
+    if ws and bundle then
+      windowsByWorkspace[ws] = windowsByWorkspace[ws] or {}
+      table.insert(windowsByWorkspace[ws], { bundle = bundle, name = name })
+    end
+    if ws and mid and not monitorByWorkspace[ws] then
+      monitorByWorkspace[ws] = mid
+    end
+  end
+
+  for mid, ws in pairs(visibleByMonitor) do
+    if not monitorByWorkspace[ws] then monitorByWorkspace[ws] = mid end
+  end
+
+  local cellsByMonitor = {}
+  for ws, mid in pairs(monitorByWorkspace) do
+    local entries = windowsByWorkspace[ws] or {}
+    table.sort(entries, function(a, b)
+      if a.name == b.name then return a.bundle < b.bundle end
+      return a.name < b.name
+    end)
+    local bundles = {}
+    for i, e in ipairs(entries) do bundles[i] = e.bundle end
+
+    local isVisible = visibleByMonitor[mid] == ws
+    if #bundles > 0 or isVisible then
+      cellsByMonitor[mid] = cellsByMonitor[mid] or {}
+      table.insert(cellsByMonitor[mid], { id = ws, bundles = bundles })
+    end
+  end
+
+  local result = {}
+  for mid, screen in pairs(screenByMonitorId) do
+    local cells = cellsByMonitor[mid] or {}
+    table.sort(cells, function(a, b) return tostring(a.id) < tostring(b.id) end)
+    result[screen:getUUID()] = {
+      cells = cells,
+      focused = visibleByMonitor[mid],
+    }
+  end
+  return result
+end
+
+-- === Rendering ===
 
 local function cellWidth(cell)
   local n = #cell.bundles
@@ -131,7 +197,7 @@ local function buildElements(cells, focused, totalW)
 
     elements[#elements + 1] = {
       type = "text",
-      text = cell.label,
+      text = labelFor(cell.id),
       frame = { x = x, y = (BAR_HEIGHT - FONT_SIZE) / 2 - 2, w = NUMBER_W, h = FONT_SIZE + 6 },
       textColor = { white = 1.0, alpha = alpha },
       textSize = FONT_SIZE,
@@ -155,7 +221,7 @@ local function buildElements(cells, focused, totalW)
 
     local zoneStart = (i == 1) and 0 or (x - CELL_PAD / 2)
     local zoneEnd = (i == #cells) and totalW or (x + w + CELL_PAD / 2)
-    hitZones[#hitZones + 1] = { from = zoneStart, to = zoneEnd, index = cell.index }
+    hitZones[#hitZones + 1] = { from = zoneStart, to = zoneEnd, workspace = cell.id }
 
     x = x + w
     if i < #cells then x = x + CELL_PAD end
@@ -165,10 +231,9 @@ local function buildElements(cells, focused, totalW)
 end
 
 local function cellsSignature(cells, focused)
-  local parts = { focused }
+  local parts = { tostring(focused) }
   for _, c in ipairs(cells) do
-    parts[#parts + 1] = c.id
-    parts[#parts + 1] = c.index
+    parts[#parts + 1] = tostring(c.id)
     parts[#parts + 1] = table.concat(c.bundles, ",")
   end
   return table.concat(parts, "|")
@@ -186,28 +251,12 @@ local function destroyCanvas(uuid)
   M.hitZones[uuid] = nil
 end
 
-local YABAI = "/opt/homebrew/bin/yabai"
-
-local function focusSpaceOnScreen(screenUUID, n)
-  hs.task.new(YABAI, function(_, stdout)
-    if not stdout or stdout == "" then return end
-    local ok, displays = pcall(hs.json.decode, stdout)
-    if not ok then return end
-    for _, d in ipairs(displays) do
-      if d.uuid == screenUUID then
-        local sid = d.spaces and d.spaces[n]
-        if sid then
-          hs.task.new(YABAI, nil, { "-m", "space", "--focus", tostring(sid) }):start()
-        end
-        return
-      end
-    end
-  end, { "-m", "query", "--displays" }):start()
+local function switchWorkspace(name)
+  hs.task.new(AEROSPACE, nil, { "workspace", tostring(name) }):start()
 end
 
-local function renderScreen(screen)
+local function renderScreen(screen, cells, focused)
   local uuid = screen:getUUID()
-  local cells, focused = buildCells(screen)
 
   if #cells == 0 then
     destroyCanvas(uuid)
@@ -241,7 +290,7 @@ local function renderScreen(screen)
       if event ~= "mouseUp" then return end
       for _, z in ipairs(M.hitZones[uuid] or {}) do
         if clickX >= z.from and clickX < z.to then
-          focusSpaceOnScreen(uuid, z.index)
+          switchWorkspace(z.workspace)
           return
         end
       end
@@ -256,18 +305,32 @@ local function renderScreen(screen)
 end
 
 local function render()
-  local active = {}
-  for _, screen in ipairs(hs.screen.allScreens()) do
-    active[screen:getUUID()] = true
-    renderScreen(screen)
-  end
-  for uuid in pairs(M.canvases) do
-    if not active[uuid] then destroyCanvas(uuid) end
-  end
-end
+  aerospaceBatch({
+    monitors = { "list-monitors", "--json",
+      "--format", "%{monitor-id}%{monitor-name}" },
+    workspaces = { "list-workspaces", "--all", "--json",
+      "--format", "%{workspace}%{monitor-id}%{workspace-is-visible}" },
+    windows = { "list-windows", "--all", "--json",
+      "--format", "%{window-id}%{app-name}%{app-bundle-id}%{workspace}%{monitor-id}" },
+  }, function(r)
+    local screens = buildScreens(r.monitors, r.workspaces, r.windows)
 
-M.spacesWatcher = hs.spaces.watcher.new(render)
-M.spacesWatcher:start()
+    local active = {}
+    for _, screen in ipairs(hs.screen.allScreens()) do
+      local uuid = screen:getUUID()
+      active[uuid] = true
+      local data = screens[uuid]
+      if data then
+        renderScreen(screen, data.cells, data.focused)
+      else
+        destroyCanvas(uuid)
+      end
+    end
+    for uuid in pairs(M.canvases) do
+      if not active[uuid] then destroyCanvas(uuid) end
+    end
+  end)
+end
 
 M.screenWatcher = hs.screen.watcher.new(function()
   for uuid in pairs(M.canvases) do destroyCanvas(uuid) end
@@ -281,7 +344,10 @@ M.winFilter:subscribe({
   hs.window.filter.windowDestroyed,
   hs.window.filter.windowMoved,
   hs.window.filter.windowFocused,
+  hs.window.filter.windowUnfocused,
 }, render)
+
+hs.urlevent.bind("refreshbar", render)
 
 render()
 
