@@ -1,4 +1,4 @@
-local M = {}
+local M                  = {}
 
 local BAR_HEIGHT         = 26
 local NUMBER_W           = 14
@@ -18,9 +18,9 @@ local ACTIVE_CELL_STROKE = { red = 0.60, green = 0.75, blue = 0.95, alpha = 0.60
 local NOTCH_THRESHOLD    = 32
 local NOTCH_HALF_WIDTH   = 110
 
-local AEROSPACE = "/opt/homebrew/bin/aerospace"
+local AEROSPACE          = "/opt/homebrew/bin/aerospace"
 
-local LABEL_OVERRIDES = { ["10"] = "~" }
+local LABEL_OVERRIDES    = { ["10"] = "~" }
 
 local function labelFor(ws)
   return LABEL_OVERRIDES[tostring(ws)] or tostring(ws)
@@ -104,9 +104,10 @@ local function buildScreens(monitors, workspaces, windows)
     local mid = win["monitor-id"]
     local bundle = win["app-bundle-id"]
     local name = win["app-name"] or ""
+    local wid = win["window-id"]
     if ws and bundle then
       windowsByWorkspace[ws] = windowsByWorkspace[ws] or {}
-      table.insert(windowsByWorkspace[ws], { bundle = bundle, name = name })
+      table.insert(windowsByWorkspace[ws], { id = wid, bundle = bundle, name = name })
     end
     if ws and mid and not monitorByWorkspace[ws] then
       monitorByWorkspace[ws] = mid
@@ -117,20 +118,33 @@ local function buildScreens(monitors, workspaces, windows)
     if not monitorByWorkspace[ws] then monitorByWorkspace[ws] = mid end
   end
 
+  local hsWins = {}
+  for _, w in ipairs(hs.window.allWindows()) do
+    hsWins[w:id()] = w
+  end
+
+  local function entryX(entry)
+    local hw = hsWins[entry.id]
+    if hw then
+      local f = hw:frame()
+      if f then return f.x end
+    end
+    return math.huge
+  end
+
   local cellsByMonitor = {}
   for ws, mid in pairs(monitorByWorkspace) do
     local entries = windowsByWorkspace[ws] or {}
     table.sort(entries, function(a, b)
-      if a.name == b.name then return a.bundle < b.bundle end
-      return a.name < b.name
+      local ax, bx = entryX(a), entryX(b)
+      if ax ~= bx then return ax < bx end
+      return tostring(a.id) < tostring(b.id)
     end)
-    local bundles = {}
-    for i, e in ipairs(entries) do bundles[i] = e.bundle end
 
     local isVisible = visibleByMonitor[mid] == ws
-    if #bundles > 0 or isVisible then
+    if #entries > 0 or isVisible then
       cellsByMonitor[mid] = cellsByMonitor[mid] or {}
-      table.insert(cellsByMonitor[mid], { id = ws, bundles = bundles })
+      table.insert(cellsByMonitor[mid], { id = ws, entries = entries })
     end
   end
 
@@ -149,7 +163,7 @@ end
 -- === Rendering ===
 
 local function cellWidth(cell)
-  local n = #cell.bundles
+  local n = #cell.entries
   if n == 0 then return NUMBER_W end
   return NUMBER_W + (n * ICON_SIZE) + ((n - 1) * ICON_GAP) + CELL_INNER_PAD_X
 end
@@ -163,7 +177,7 @@ local function contentWidth(cells)
   return w
 end
 
-local function buildElements(cells, focused, totalW)
+local function buildElements(cells, focused, focusedWindowId, totalW)
   local elements = {
     {
       type = "rectangle",
@@ -181,7 +195,7 @@ local function buildElements(cells, focused, totalW)
   for i, cell in ipairs(cells) do
     local w = cellWidth(cell)
     local isActive = cell.id == focused
-    local alpha = isActive and 1.0 or DIM_ALPHA
+    local cellAlpha = isActive and 1.0 or DIM_ALPHA
 
     if isActive then
       elements[#elements + 1] = {
@@ -199,24 +213,28 @@ local function buildElements(cells, focused, totalW)
       type = "text",
       text = labelFor(cell.id),
       frame = { x = x, y = (BAR_HEIGHT - FONT_SIZE) / 2 - 2, w = NUMBER_W, h = FONT_SIZE + 6 },
-      textColor = { white = 1.0, alpha = alpha },
+      textColor = { white = 1.0, alpha = cellAlpha },
       textSize = FONT_SIZE,
       textAlignment = "center",
     }
 
     local iconX = x + NUMBER_W + (CELL_INNER_PAD_X / 2)
-    for j, bundle in ipairs(cell.bundles) do
-      local icon = iconFor(bundle)
+    for j, entry in ipairs(cell.entries) do
+      local icon = iconFor(entry.bundle)
       if icon then
+        local iconAlpha = cellAlpha
+        if isActive and entry.id ~= focusedWindowId then
+          iconAlpha = DIM_ALPHA
+        end
         elements[#elements + 1] = {
           type = "image",
           image = icon,
           frame = { x = iconX, y = (BAR_HEIGHT - ICON_SIZE) / 2, w = ICON_SIZE, h = ICON_SIZE },
-          imageAlpha = alpha,
+          imageAlpha = iconAlpha,
         }
       end
       iconX = iconX + ICON_SIZE
-      if j < #cell.bundles then iconX = iconX + ICON_GAP end
+      if j < #cell.entries then iconX = iconX + ICON_GAP end
     end
 
     local zoneStart = (i == 1) and 0 or (x - CELL_PAD / 2)
@@ -230,11 +248,13 @@ local function buildElements(cells, focused, totalW)
   return elements, hitZones
 end
 
-local function cellsSignature(cells, focused)
-  local parts = { tostring(focused) }
+local function cellsSignature(cells, focused, focusedWindowId)
+  local parts = { tostring(focused), tostring(focusedWindowId) }
   for _, c in ipairs(cells) do
     parts[#parts + 1] = tostring(c.id)
-    parts[#parts + 1] = table.concat(c.bundles, ",")
+    for _, e in ipairs(c.entries) do
+      parts[#parts + 1] = (e.bundle or "") .. ":" .. tostring(e.id)
+    end
   end
   return table.concat(parts, "|")
 end
@@ -255,7 +275,7 @@ local function switchWorkspace(name)
   hs.task.new(AEROSPACE, nil, { "workspace", tostring(name) }):start()
 end
 
-local function renderScreen(screen, cells, focused)
+local function renderScreen(screen, cells, focused, focusedWindowId)
   local uuid = screen:getUUID()
 
   if #cells == 0 then
@@ -263,7 +283,7 @@ local function renderScreen(screen, cells, focused)
     return
   end
 
-  local sig = cellsSignature(cells, focused)
+  local sig = cellsSignature(cells, focused, focusedWindowId)
   if M.signatures[uuid] == sig and M.canvases[uuid] then return end
   M.signatures[uuid] = sig
 
@@ -277,7 +297,7 @@ local function renderScreen(screen, cells, focused)
     x = full.x + (full.w - totalW) / 2
   end
 
-  local elements, hitZones = buildElements(cells, focused, totalW)
+  local elements, hitZones = buildElements(cells, focused, focusedWindowId, totalW)
   M.hitZones[uuid] = hitZones
 
   local canvas = M.canvases[uuid]
@@ -312,8 +332,11 @@ local function render()
       "--format", "%{workspace}%{monitor-id}%{workspace-is-visible}" },
     windows = { "list-windows", "--all", "--json",
       "--format", "%{window-id}%{app-name}%{app-bundle-id}%{workspace}%{monitor-id}" },
+    focusedWindow = { "list-windows", "--focused", "--json",
+      "--format", "%{window-id}" },
   }, function(r)
     local screens = buildScreens(r.monitors, r.workspaces, r.windows)
+    local focusedWindowId = r.focusedWindow and r.focusedWindow[1] and r.focusedWindow[1]["window-id"]
 
     local active = {}
     for _, screen in ipairs(hs.screen.allScreens()) do
@@ -321,7 +344,7 @@ local function render()
       active[uuid] = true
       local data = screens[uuid]
       if data then
-        renderScreen(screen, data.cells, data.focused)
+        renderScreen(screen, data.cells, data.focused, focusedWindowId)
       else
         destroyCanvas(uuid)
       end
