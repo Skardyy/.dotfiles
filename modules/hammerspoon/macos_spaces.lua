@@ -1,4 +1,4 @@
-local M = {}
+local M                  = {}
 
 local BAR_HEIGHT         = 26
 local NUMBER_W           = 14
@@ -18,7 +18,7 @@ local ACTIVE_CELL_STROKE = { red = 0.60, green = 0.75, blue = 0.95, alpha = 0.60
 local NOTCH_THRESHOLD    = 32
 local NOTCH_HALF_WIDTH   = 110
 
-local iconCache = {}
+local iconCache          = {}
 
 local function iconFor(bundle)
   local cached = iconCache[bundle]
@@ -39,7 +39,8 @@ end
 local function buildCells(screen)
   local uuid = screen:getUUID()
   local ordered = hs.spaces.allSpaces()[uuid] or {}
-  local focused = hs.spaces.focusedSpace()
+  local focused = (hs.spaces.activeSpaces() or {})[uuid]
+  local isMain = uuid == hs.screen.primaryScreen():getUUID()
 
   local screenSpaceSet = {}
   for _, sid in ipairs(ordered) do screenSpaceSet[sid] = true end
@@ -63,6 +64,7 @@ local function buildCells(screen)
 
   local cells = {}
   for i, sid in ipairs(ordered) do
+    local label = isMain and tostring(i) or "~"
     local entries = entriesPerSpace[sid]
     if entries then
       table.sort(entries, function(a, b)
@@ -71,9 +73,9 @@ local function buildCells(screen)
       end)
       local bundles = {}
       for j, e in ipairs(entries) do bundles[j] = e.bundle end
-      cells[#cells + 1] = { index = i, id = sid, bundles = bundles }
+      cells[#cells + 1] = { index = i, label = label, id = sid, bundles = bundles }
     elseif sid == focused then
-      cells[#cells + 1] = { index = i, id = sid, bundles = {} }
+      cells[#cells + 1] = { index = i, label = label, id = sid, bundles = {} }
     end
   end
 
@@ -129,7 +131,7 @@ local function buildElements(cells, focused, totalW)
 
     elements[#elements + 1] = {
       type = "text",
-      text = tostring(cell.index),
+      text = cell.label,
       frame = { x = x, y = (BAR_HEIGHT - FONT_SIZE) / 2 - 2, w = NUMBER_W, h = FONT_SIZE + 6 },
       textColor = { white = 1.0, alpha = alpha },
       textSize = FONT_SIZE,

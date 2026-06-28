@@ -24,19 +24,10 @@ local function query(args, onResult)
   end)
 end
 
--- Async-resolve the yabai display under the cursor, then invoke fn with it.
-local function withMouseDisplay(fn)
-  local screen = hs.mouse.getCurrentScreen()
-  if not screen then return end
-  local uuid = screen:getUUID()
-
-  query({ "-m", "query", "--displays" }, function(displays)
-    for _, d in ipairs(displays) do
-      if d.uuid == uuid then
-        fn(d)
-        return
-      end
-    end
+-- Async-resolve the primary yabai display (index 1, the one with the menu bar).
+local function withMainDisplay(fn)
+  query({ "-m", "query", "--displays", "--display", "1" }, function(d)
+    if d then fn(d) end
   end)
 end
 
@@ -53,22 +44,33 @@ end
 
 -- === Apps ===
 
--- Focus the display under the cursor, then invoke launch so the new window spawns there.
-local function launchOnMouseDisplay(launch)
-  withMouseDisplay(function(d)
-    run({ "-m", "display", "--focus", tostring(d.index) }, launch)
-  end)
-end
-
 hs.hotkey.bind(cmd, "return", function()
-  launchOnMouseDisplay(function()
-    hs.task.new("/usr/bin/open", nil, { "-na", "Ghostty" }):start()
-  end)
+  hs.task.new("/usr/bin/open", nil, { "-na", "Ghostty" }):start()
 end)
 
 hs.hotkey.bind(cmd, "w", function()
-  launchOnMouseDisplay(function()
-    hs.application.launchOrFocus("Zen Browser (Beta)")
+  hs.application.launchOrFocus("Zen Browser (Beta)")
+end)
+
+-- Move any new standard window to the display the cursor sits on.
+local newWindowFilter = hs.window.filter.new(true)
+newWindowFilter:setOverrideFilter({ allowRoles = "AXStandardWindow" })
+newWindowFilter:subscribe(hs.window.filter.windowCreated, function(w)
+  local screen = hs.mouse.getCurrentScreen()
+  if not screen then return end
+  local uuid = screen:getUUID()
+  query({ "-m", "query", "--displays" }, function(displays)
+    for _, d in ipairs(displays) do
+      if d.uuid == uuid then
+        run({ "-m", "window", tostring(w:id()), "--display", tostring(d.index) }, function()
+          local f = w:frame()
+          if f then
+            hs.mouse.absolutePosition({ x = f.x + f.w / 2, y = f.y + f.h / 2 })
+          end
+        end)
+        return
+      end
+    end
   end)
 end)
 
@@ -89,14 +91,9 @@ end)
 local function focus(dir)
   return function()
     run({ "-m", "window", "--focus", dir }, function(ec)
-      if ec == 0 then
-        warpToFocusedWindow()
-        return
+      if ec ~= 0 then
+        run({ "-m", "display", "--focus", dir })
       end
-
-      run({ "-m", "display", "--focus", dir }, function(ec2)
-        if ec2 == 0 then warpToFocusedWindow() end
-      end)
     end)
   end
 end
@@ -108,20 +105,15 @@ hs.hotkey.bind(cmd, "l", focus("east"))
 
 -- === Move (h/j/k/l) ===
 
+local function warpIfOk(ec) if ec == 0 then warpToFocusedWindow() end end
+
 local function swap(dir)
   return function()
     run({ "-m", "window", "--swap", dir }, function(ec)
       if ec == 0 then
-        warpToFocusedWindow()
-        return
+        warpToFocusedWindow(); return
       end
-
-      run({ "-m", "window", "--display", dir }, function(ec2)
-        if ec2 ~= 0 then return end
-
-        -- Refocus the destination display so the cursor warp targets the moved window.
-        run({ "-m", "display", "--focus", dir }, function() warpToFocusedWindow() end)
-      end)
+      run({ "-m", "window", "--display", dir }, warpIfOk)
     end)
   end
 end
@@ -131,11 +123,11 @@ hs.hotkey.bind(cmdShift, "j", swap("south"))
 hs.hotkey.bind(cmdShift, "k", swap("north"))
 hs.hotkey.bind(cmdShift, "l", swap("east"))
 
--- === Spaces ===
+-- === Spaces (always target the main display) ===
 
 for i = 1, 9 do
   hs.hotkey.bind(cmd, tostring(i), function()
-    withMouseDisplay(function(d)
+    withMainDisplay(function(d)
       local sid = d.spaces and d.spaces[i]
       if not sid then return end
 
@@ -144,7 +136,7 @@ for i = 1, 9 do
   end)
 
   hs.hotkey.bind(cmdShift, tostring(i), function()
-    query({ "-m", "query", "--displays", "--display" }, function(d)
+    withMainDisplay(function(d)
       local sid = d.spaces and d.spaces[i]
       if not sid then return end
 
