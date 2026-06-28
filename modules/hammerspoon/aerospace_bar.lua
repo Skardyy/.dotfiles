@@ -148,10 +148,18 @@ local function buildScreens(monitors, workspaces, windows)
     end
   end
 
+  local function cellSortKey(cell)
+    local sid = tostring(cell.id)
+    if LABEL_OVERRIDES[sid] then return "z" .. sid end
+    local n = tonumber(sid)
+    if n then return string.format("a%020d", n) end
+    return "y" .. sid
+  end
+
   local result = {}
   for mid, screen in pairs(screenByMonitorId) do
     local cells = cellsByMonitor[mid] or {}
-    table.sort(cells, function(a, b) return tostring(a.id) < tostring(b.id) end)
+    table.sort(cells, function(a, b) return cellSortKey(a) < cellSortKey(b) end)
     result[screen:getUUID()] = {
       cells = cells,
       focused = visibleByMonitor[mid],
