@@ -20,10 +20,17 @@ local NOTCH_HALF_WIDTH   = 110
 
 local AEROSPACE          = "/opt/homebrew/bin/aerospace"
 
-local LABEL_OVERRIDES    = { ["10"] = "~" }
+-- Workspaces numbered at or above this threshold render as "~" and sort to the end.
+local SCRATCH_THRESHOLD  = 10
+
+local function isScratch(ws)
+  local n = tonumber(ws)
+  return n and n >= SCRATCH_THRESHOLD
+end
 
 local function labelFor(ws)
-  return LABEL_OVERRIDES[tostring(ws)] or tostring(ws)
+  if isScratch(ws) then return "~" end
+  return tostring(ws)
 end
 
 local iconCache = {}
@@ -150,9 +157,11 @@ local function buildScreens(monitors, workspaces, windows)
 
   local function cellSortKey(cell)
     local sid = tostring(cell.id)
-    if LABEL_OVERRIDES[sid] then return "z" .. sid end
     local n = tonumber(sid)
-    if n then return string.format("a%020d", n) end
+    if n then
+      if isScratch(sid) then return string.format("z%020d", n) end
+      return string.format("a%020d", n)
+    end
     return "y" .. sid
   end
 
