@@ -30,6 +30,8 @@
     zip
     unzip
     less
+    pandoc
+    tectonic
 
     # virt
     devpod
