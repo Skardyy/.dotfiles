@@ -23,6 +23,9 @@ return {
     open_automatic = true,
     highlight_on_hover = true,
     autojump = true,
+    backends = {
+      ["cpp"] = { "lsp", "treesitter" },
+    },
   },
   config = function(_, opts)
     local auto_open_enabled = true
