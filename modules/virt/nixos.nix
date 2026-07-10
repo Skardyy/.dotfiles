@@ -1,5 +1,7 @@
-{ pkgs, user, ... }: {
+{ pkgs, user, lib, ... }: {
   virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.onBoot = "ignore";
+  systemd.services.libvirtd.wantedBy = lib.mkForce [ ];
   programs.virt-manager.enable = true;
 
   users.users.${user}.extraGroups = [ "libvirtd" "kvm" ];

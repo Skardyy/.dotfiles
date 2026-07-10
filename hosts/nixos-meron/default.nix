@@ -45,6 +45,9 @@ in
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 1;
+
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   networking.hostName = "nixos-meron";
   networking.networkmanager.enable = true;
