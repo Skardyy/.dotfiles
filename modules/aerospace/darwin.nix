@@ -1,6 +1,8 @@
 { user, mod, ... }: {
   homebrew = {
-    taps = [ "nikitabobko/tap" ];
+    taps = [
+      { name = "nikitabobko/tap"; trusted = true; }
+    ];
     casks = [ "aerospace" ];
   };
 
