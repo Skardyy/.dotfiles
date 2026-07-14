@@ -32,6 +32,7 @@
     less
     pandoc
     tectonic
+    ncdu
 
     # virt
     devpod
