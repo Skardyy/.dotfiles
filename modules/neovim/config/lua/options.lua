@@ -156,5 +156,9 @@ vim.g.lang_maps = {
   },
   fish = {
     lsp = lsp("fish-lsp"),
-  }
+  },
+  toml = {
+    lsp = lsp("tombi"),
+    formatter = formatter("tombi"),
+  },
 }
