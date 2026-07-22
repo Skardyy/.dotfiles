@@ -159,6 +159,6 @@ vim.g.lang_maps = {
   },
   toml = {
     lsp = lsp("tombi"),
-    formatter = formatter("tombi"),
+    formatter = formatter("taplo"),
   },
 }
