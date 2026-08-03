@@ -17,10 +17,10 @@ return {
           prev_hunk = "[d",
         },
         conflict = {
-          accept_incoming = "2",
-          accept_current = "1",
-          accept_both = "4",
-          discard = "3",
+          accept_incoming = "ci",
+          accept_current = "co",
+          accept_both = "cb",
+          discard = "cd",
         },
       },
     })
