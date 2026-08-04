@@ -38,7 +38,11 @@ if status is-interactive
         nix run "nixpkgs#$argv[1]" -- $argv[2..]
     end
     function nsl
-        nix shell "nixpkgs#$argv[1]" $argv[2..]
+        if test (count $argv) -eq 0
+            nix-shell
+        else
+            nix shell "nixpkgs#$argv[1]" $argv[2..]
+        end
     end
     function ns
         nix search "nixpkgs#" $argv
