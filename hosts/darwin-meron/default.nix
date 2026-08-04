@@ -26,6 +26,8 @@ in
     ../../modules/zen
   ];
 
+  nix.settings.extra-platforms = [ "aarch64-linux" ];
+
   nix-homebrew = {
     enable = true;
     user = user;
