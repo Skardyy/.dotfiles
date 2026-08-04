@@ -39,7 +39,7 @@ if status is-interactive
     end
     function nsl
         if test (count $argv) -eq 0
-            nix develop
+            nix develop -c fish
         else
             nix shell "nixpkgs#$argv[1]" $argv[2..]
         end
