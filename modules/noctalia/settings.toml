@@ -1,0 +1,125 @@
+config_version = 12
+
+[bar.default]
+background_opacity = 0.64999998547136784
+end = [ "cpu", "network", "bluetooth", "volume" ]
+font_family = "Noto Sans"
+margin_edge = 5
+margin_ends = 800
+shadow = false
+start = [ "launcher", "workspaces" ]
+widget_spacing = 8
+
+[[control_center.shortcuts]]
+type = "wifi"
+
+[[control_center.shortcuts]]
+type = "bluetooth"
+
+[[control_center.shortcuts]]
+type = "audio"
+
+[[control_center.shortcuts]]
+type = "session"
+
+[desktop_widgets]
+enabled = false
+
+[hot_corners]
+enabled = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1280.0
+    cy = 1321.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_login_button = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 960.0
+    cy = 961.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_login_button = true
+
+[shell]
+settings_show_advanced = true
+
+    [shell.panel]
+    shadow = false
+
+[theme]
+source = "wallpaper"
+wallpaper_scheme = "m3-rainbow"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4" ]
+
+[wallpaper]
+directory = "/home/meron/Pictures"
+transition_on_startup = true
+
+    [wallpaper.default]
+    path = "/home/meron/Pictures/Study-table.png"
+
+    [wallpaper.last]
+    path = "/home/meron/Pictures/Study-table.png"
+
+    [wallpaper.monitors.DP-1]
+    path = "/home/meron/Pictures/Study-table.png"
+
+    [wallpaper.monitors.HDMI-A-1]
+    path = "/home/meron/Pictures/Study-table.png"
+
+[widget.clock.actions]
+left = "panel-toggle control-center"
+
+[widget.control-center]
+glyph = "settings"
+
+[widget.cpu]
+visualization = "none"
+
+[widget.launcher]
+glyph = "grid-dots"
+
+[widget.network]
+show_label = false
+
+[widget.volume]
+show_label = false
+
+[widget.workspaces]
+focused_output_only = true
+hide_when_empty = true
+max_label_chars = 13
