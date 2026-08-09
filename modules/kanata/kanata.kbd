@@ -8,59 +8,36 @@
 )
 
 (defsrc
-  caps lalt ralt rmet
-  esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  q    w    e    r    t
-  y    u    i    o    p
+  caps lalt
+  grv  -    =    bspc  [    ]
+  u    i    o    p
   h    j    k    l    ;    '
-  n    m    ,    .    /
-  [
 )
 
 (deflayer default
-  esc  @alt_nav @cmd_nav @cmd_nav
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  q    w    e    r    t
-  y    u    i    o    p
+  esc  @alt_nav
+  XX   XX   XX   XX    XX   XX
+  u    i    o    p
   h    j    k    l    ;    '
-  n    m    ,    .    /
-  bspc
 )
 
 (deflayer navigation
-  _          _         _         _
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  @1_nav     @2_nav    @3_nav    @4_nav    @5_nav
-  @6_nav     @7_nav    @8_nav    @9_nav    @0_nav
-  @left_nav  @down_nav @up_nav   @rght_nav @lbrc_nav @rbrc_nav
-  @grv_nav   @min_nav  @eql_nav  @bs_nav   lmet
-  _
+  _          _
+  XX         XX        XX       XX        XX        XX
+  @grv_nav   @min_nav  @eql_nav @bs_nav
+  @left_nav  @down_nav @up_nav  @rght_nav @lbrc_nav @rbrc_nav
 )
 
 (defalias
-  alt_nav (multi lalt (layer-while-held navigation))
-  cmd_nav (multi lmet (layer-while-held navigation))
-
-  mo-alt  (release-key lalt)
-
-  left_nav (multi @mo-alt left)
-  down_nav (multi @mo-alt down)
-  up_nav   (multi @mo-alt up)
-  rght_nav (multi @mo-alt rght)
-  lbrc_nav (multi @mo-alt [)
-  rbrc_nav (multi @mo-alt ])
-  grv_nav  (multi @mo-alt grv)
-  min_nav  (multi @mo-alt -)
-  eql_nav  (multi @mo-alt =)
-  bs_nav   (multi @mo-alt bspc)
-  1_nav    (multi @mo-alt 1)
-  2_nav    (multi @mo-alt 2)
-  3_nav    (multi @mo-alt 3)
-  4_nav    (multi @mo-alt 4)
-  5_nav    (multi @mo-alt 5)
-  6_nav    (multi @mo-alt 6)
-  7_nav    (multi @mo-alt 7)
-  8_nav    (multi @mo-alt 8)
-  9_nav    (multi @mo-alt 9)
-  0_nav    (multi @mo-alt 0)
+  alt_nav  (multi lalt (layer-while-held navigation))
+  left_nav (multi (release-key lalt) left)
+  down_nav (multi (release-key lalt) down)
+  up_nav   (multi (release-key lalt) up)
+  rght_nav (multi (release-key lalt) rght)
+  lbrc_nav (multi (release-key lalt) [)
+  rbrc_nav (multi (release-key lalt) ])
+  grv_nav  (multi (release-key lalt) grv)
+  min_nav  (multi (release-key lalt) -)
+  eql_nav  (multi (release-key lalt) =)
+  bs_nav   (multi (release-key lalt) bspc)
 )
