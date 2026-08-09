@@ -12,7 +12,7 @@
   q    w    e    r    t
   y    u    i    o    p
   h    j    k    l    ;    '
-  n    m    ,    .
+  n    m    ,    .    /
 )
 
 (deflayer default
@@ -20,7 +20,7 @@
   q    w    e    r    t
   y    u    i    o    p
   h    j    k    l    ;    '
-  n    m    ,    .
+  n    m    ,    .    /
 )
 
 (deflayer navigation
@@ -28,7 +28,7 @@
   @1_nav     @2_nav    @3_nav    @4_nav    @5_nav
   @6_nav     @7_nav    @8_nav    @9_nav    @0_nav
   @left_nav  @down_nav @up_nav   @rght_nav @lbrc_nav @rbrc_nav
-  @grv_nav   @min_nav  @eql_nav  @bs_nav
+  @grv_nav   @min_nav  @eql_nav  @bs_nav   lmet
 )
 
 (defalias
