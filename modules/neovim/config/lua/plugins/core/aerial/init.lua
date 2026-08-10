@@ -20,6 +20,7 @@ return {
     autojump = true,
     backends = {
       ["cpp"] = { "lsp", "treesitter" },
+      ["dockerfile"] = { "dockerfile" },
     },
   },
   config = function(_, opts)
@@ -31,6 +32,10 @@ return {
       return auto_open_enabled
           and is_full_width
           and not require("aerial.util").is_ignored_buf(bufnr)
+    end
+
+    package.preload["aerial.backends.dockerfile"] = function()
+      return require("plugins.core.aerial.backends.dockerfile")
     end
 
     require("aerial").setup(opts)

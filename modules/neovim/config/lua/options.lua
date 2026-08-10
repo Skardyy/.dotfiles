@@ -161,4 +161,8 @@ vim.g.lang_maps = {
     lsp = lsp("tombi"),
     formatter = formatter("taplo"),
   },
+  dockerfile = {
+    lsp = lsp("dockerfile-language-server"),
+    linter = "hadolint",
+  },
 }
