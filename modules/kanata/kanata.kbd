@@ -9,22 +9,22 @@
 
 (defsrc
   caps lalt
-  grv  -    =    bspc  [    ]
-  u    i    o    p
+  grv  -    =    [    ]
+  u    i    o
   h    j    k    l    ;    '
 )
 
 (deflayer default
   esc  @alt_nav
-  XX   XX   XX   XX    XX   XX
-  u    i    o    p
+  XX   XX   XX   XX   XX
+  u    i    o
   h    j    k    l    ;    '
 )
 
 (deflayer navigation
   _          _
-  XX         XX        XX       XX        XX        XX
-  @grv_nav   @min_nav  @eql_nav @bs_nav
+  XX         XX        XX        XX        XX
+  @grv_nav   @min_nav  @eql_nav
   @left_nav  @down_nav @up_nav  @rght_nav @lbrc_nav @rbrc_nav
 )
 
@@ -39,5 +39,4 @@
   grv_nav  (multi (release-key lalt) grv)
   min_nav  (multi (release-key lalt) -)
   eql_nav  (multi (release-key lalt) =)
-  bs_nav   (multi (release-key lalt) bspc)
 )
