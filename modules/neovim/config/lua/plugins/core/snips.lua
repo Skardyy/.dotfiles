@@ -90,7 +90,7 @@ return {
       postfix(".feat", git_commit_wrap("feat", "(", ")", ": ")),
       postfix(".fix", git_commit_wrap("fix", "(", ")", ": ")),
       postfix(".chore", git_commit_wrap("chore", "(", ")", ": ")),
-      postfix(".doc", git_commit_wrap("docs", "(", ")", ": ")),
+      postfix(".perf", git_commit_wrap("perf", "(", ")", ": ")),
       postfix(".refactor", git_commit_wrap("refactor", "(", ")", ": ")),
     })
     ls.filetype_extend("gitcommit", { "markdown" })
