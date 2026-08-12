@@ -132,6 +132,7 @@ vim.g.lang_maps = {
   },
   cpp = {
     lsp = {
+      global = true,
       name = "clangd",
       config = {
         init_options = {
