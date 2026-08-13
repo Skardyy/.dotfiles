@@ -48,7 +48,7 @@ let
     '';
   };
 
-  isDarwin = pkgs.stdenv.isDarwin;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 
   fontPkgs = [
     commitMono
