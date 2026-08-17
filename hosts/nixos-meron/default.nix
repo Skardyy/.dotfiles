@@ -45,7 +45,6 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 1;
-  boot.initrd.systemd.enable = false;
   fileSystems."/boot".options = [ "fmask=0077" "dmask=0077" "nofail" "x-systemd.device-timeout=5s" ];
 
   systemd.services.NetworkManager-wait-online.enable = false;
