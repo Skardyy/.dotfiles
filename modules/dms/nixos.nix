@@ -8,11 +8,7 @@
 
   programs.dms-shell = {
     enable = true;
-
-    systemd = {
-      enable = true;
-      restartIfChanged = true;
-    };
+    systemd.enable = false;
 
     enableSystemMonitoring = true;
     enableDynamicTheming = true;
