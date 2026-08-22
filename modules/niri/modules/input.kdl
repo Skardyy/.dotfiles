@@ -27,12 +27,12 @@ binds {
     Mod+S { spawn "sh" "-c" "screenshot"; }
     Mod+Shift+S { spawn "sh" "-c" "screenshot edit"; }
     Mod+Shift+C { spawn "sh" "-c" "hyprpicker -a"; }
-    Mod+Space { spawn "sh" "-c" "noctalia-shell ipc call launcher toggle"; }
+    Mod+Space { spawn-sh "dms ipc call spotlight toggle"; }
     Mod+W { spawn "sh" "-c" "zen-beta"; }
-    Mod+Shift+W { spawn "sh" "-c" "noctalia-shell ipc call wallpaper toggle"; }
+    Mod+Shift+W { spawn-sh "dms ipc call dankdash wallpaper"; }
     Mod+E { spawn "sh" "-c" "nautilus"; }
-    Ctrl+Shift+Escape { spawn "sh" "-c" "missioncenter"; }
-    Mod+V { spawn "sh" "-c" "noctalia-shell ipc call launcher clipboard"; }
+    Ctrl+Shift+Escape { spawn-sh "dms ipc call processlist toggle"; }
+    Mod+V { spawn-sh "dms ipc call clipboard toggle"; }
 
     // overview
     Mod+Tab repeat=false { toggle-overview; }
