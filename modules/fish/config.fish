@@ -38,7 +38,19 @@ if status is-interactive
         nix run "nixpkgs#$argv[1]" -- $argv[2..]
     end
     function nsl
-        if test (count $argv) -eq 0
+        argparse d/dev -- $argv
+        or return
+
+        if set -q _flag_dev
+            set -l pkgs (string join ' ' (for p in $argv; echo "pkgs.$p"; end))
+            nix develop --impure --expr "
+            let pkgs = import <nixpkgs> {}; in
+            pkgs.mkShell {
+                nativeBuildInputs = [ pkgs.pkg-config ];
+                buildInputs = [ $pkgs ];
+            }
+        " --command fish
+        else if test (count $argv) -eq 0
             nix develop -c fish
         else
             nix shell "nixpkgs#$argv[1]" $argv[2..]
