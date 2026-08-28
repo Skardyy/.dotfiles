@@ -1,9 +1,14 @@
 { pkgs, user, ... }: {
+  #   dont forget to put Proton-GE, and game properties:
+  #   PROTON_ENABLE_WAYLAND=1 PROTON_VKD3D_LOWLATENCY=1 gamemoderun %command%
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     gamescopeSession.enable = true;
+
+    extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
 
   programs.gamemode.enable = true;
@@ -18,7 +23,6 @@
   home-manager.users.${user} = {
     home.packages = with pkgs; [
       discord
-      stremio-linux-shell
       umu-launcher
     ];
   };
