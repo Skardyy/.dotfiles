@@ -11,7 +11,15 @@
     extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
 
-  programs.gamemode.enable = true;
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      general = {
+        renice = 10;
+        softrealtime = "auto";
+      };
+    };
+  };
 
   hardware.graphics = {
     enable = true;

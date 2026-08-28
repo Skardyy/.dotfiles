@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   user = "meron";
   mod = "/home/${user}/.dotfiles/modules";
@@ -42,10 +42,14 @@ in
   services.gvfs.enable = true;
   services.automatic-timezoned.enable = true;
 
+  fileSystems."/boot".options = [ "fmask=0077" "dmask=0077" "nofail" "x-systemd.device-timeout=5s" ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 1;
-  fileSystems."/boot".options = [ "fmask=0077" "dmask=0077" "nofail" "x-systemd.device-timeout=5s" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  specialisation.stable-kernel.configuration = {
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+  };
 
   systemd.services.NetworkManager-wait-online.enable = false;
 

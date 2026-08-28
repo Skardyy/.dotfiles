@@ -12,19 +12,20 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
     open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   boot.blacklistedKernelModules = [ "nouveau" ];
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_RegistryDwords="RmReservePteSysmemMB=128"
+  '';
 
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     NVD_BACKEND = "direct";
-    GBM_BACKEND = "nvidia-drm";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
   };
 }
