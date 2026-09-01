@@ -12,7 +12,7 @@
   grv  -    =    [    ]
   u    i    o
   h    j    k    l    ;    '
-  z    x    c    v    b    n    m    ,    .    /
+  n    m
 )
 
 (deflayer default
@@ -20,7 +20,7 @@
   XX   XX   XX   XX   XX
   u    i    o
   h    j    k    l    ;    '
-  z    x    c    v    b    n    m    ,    .    /
+  n    m
 )
 
 (deflayer navigation
@@ -28,7 +28,7 @@
   XX         XX        XX        XX        XX
   @grv_nav   @min_nav  @eql_nav
   @left_nav  @down_nav @up_nav   @rght_nav @lbrc_nav @rbrc_nav
-  @1_nav     @2_nav    @3_nav    @4_nav    @5_nav    @6_nav    @7_nav    @8_nav    @9_nav    @0_nav
+  @home_nav  @end_nav
 )
 
 (defalias
@@ -42,14 +42,6 @@
   grv_nav  (multi (release-key lalt) grv)
   min_nav  (multi (release-key lalt) -)
   eql_nav  (multi (release-key lalt) =)
-  1_nav    (multi (release-key lalt) 1)
-  2_nav    (multi (release-key lalt) 2)
-  3_nav    (multi (release-key lalt) 3)
-  4_nav    (multi (release-key lalt) 4)
-  5_nav    (multi (release-key lalt) 5)
-  6_nav    (multi (release-key lalt) 6)
-  7_nav    (multi (release-key lalt) 7)
-  8_nav    (multi (release-key lalt) 8)
-  9_nav    (multi (release-key lalt) 9)
-  0_nav    (multi (release-key lalt) 0)
+  home_nav (multi (release-key lalt) home)
+  end_nav  (multi (release-key lalt) end)
 )
