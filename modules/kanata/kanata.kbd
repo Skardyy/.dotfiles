@@ -27,7 +27,7 @@
 
 (deflayer default
   ;; --- modifiers ---
-  esc  @alt_nav
+  esc  @nav
 
   ;; --- disabled ---
   XX   XX   XX   XX   XX
@@ -45,50 +45,22 @@
 
 (deflayer navigation
   ;; --- modifiers ---
-  _          _
+  _    _
 
   ;; --- disabled ---
-  XX         XX        XX        XX        XX
+  XX   XX   XX   XX   XX
 
   ;; --- right hand ---
-  @grv_nav   @min_nav  @eql_nav
-  @left_nav  @down_nav @up_nav   @rght_nav @met_nav
-  @home_nav  @lbrc_nav @rbrc_nav @end_nav
+  grv  -    =
+  left down up   rght lmet
+  home [    ]    end
 
   ;; --- left hand (numpad) ---
-  @7_nav     @8_nav    @9_nav
-  @4_nav     @5_nav    @6_nav    @0_nav
-  @1_nav     @2_nav    @3_nav
+  7    8    9
+  4    5    6    0
+  1    2    3
 )
 
 (defalias
-  alt_nav  (multi lalt (layer-while-held navigation))
-  met_nav  (multi (release-key lalt) lmet)
-
-  ;; arrows + line nav
-  left_nav (multi (release-key lalt) left)
-  down_nav (multi (release-key lalt) down)
-  up_nav   (multi (release-key lalt) up)
-  rght_nav (multi (release-key lalt) rght)
-  home_nav (multi (release-key lalt) home)
-  end_nav  (multi (release-key lalt) end)
-
-  ;; brackets + symbols
-  lbrc_nav (multi (release-key lalt) [)
-  rbrc_nav (multi (release-key lalt) ])
-  grv_nav  (multi (release-key lalt) grv)
-  min_nav  (multi (release-key lalt) -)
-  eql_nav  (multi (release-key lalt) =)
-
-  ;; numpad
-  1_nav    (multi (release-key lalt) 1)
-  2_nav    (multi (release-key lalt) 2)
-  3_nav    (multi (release-key lalt) 3)
-  4_nav    (multi (release-key lalt) 4)
-  5_nav    (multi (release-key lalt) 5)
-  6_nav    (multi (release-key lalt) 6)
-  7_nav    (multi (release-key lalt) 7)
-  8_nav    (multi (release-key lalt) 8)
-  9_nav    (multi (release-key lalt) 9)
-  0_nav    (multi (release-key lalt) 0)
+  nav (layer-while-held navigation)
 )
