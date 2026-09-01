@@ -8,40 +8,87 @@
 )
 
 (defsrc
+  ;; --- modifiers ---
   caps lalt
+
+  ;; --- disabled ---
   grv  -    =    [    ]
+
+  ;; --- right hand ---
   u    i    o
-  h    j    k    l    ;    '
-  n    m
+  h    j    k    l    ;
+  n    m    ,    /
+
+  ;; --- left hand (numpad) ---
+  q    w    e
+  a    s    d    f
+  z    x    c
 )
 
 (deflayer default
+  ;; --- modifiers ---
   esc  @alt_nav
+
+  ;; --- disabled ---
   XX   XX   XX   XX   XX
+
+  ;; --- right hand ---
   u    i    o
-  h    j    k    l    ;    '
-  n    m
+  h    j    k    l    ;
+  n    m    ,    /
+
+  ;; --- left hand (numpad) ---
+  q    w    e
+  a    s    d    f
+  z    x    c
 )
 
 (deflayer navigation
+  ;; --- modifiers ---
   _          _
+
+  ;; --- disabled ---
   XX         XX        XX        XX        XX
+
+  ;; --- right hand ---
   @grv_nav   @min_nav  @eql_nav
-  @left_nav  @down_nav @up_nav   @rght_nav @lbrc_nav @rbrc_nav
-  @home_nav  @end_nav
+  @left_nav  @down_nav @up_nav   @rght_nav @met_nav
+  @home_nav  @lbrc_nav @rbrc_nav @end_nav
+
+  ;; --- left hand (numpad) ---
+  @7_nav     @8_nav    @9_nav
+  @4_nav     @5_nav    @6_nav    @0_nav
+  @1_nav     @2_nav    @3_nav
 )
 
 (defalias
   alt_nav  (multi lalt (layer-while-held navigation))
+  met_nav  (multi (release-key lalt) lmet)
+
+  ;; arrows + line nav
   left_nav (multi (release-key lalt) left)
   down_nav (multi (release-key lalt) down)
   up_nav   (multi (release-key lalt) up)
   rght_nav (multi (release-key lalt) rght)
+  home_nav (multi (release-key lalt) home)
+  end_nav  (multi (release-key lalt) end)
+
+  ;; brackets + symbols
   lbrc_nav (multi (release-key lalt) [)
   rbrc_nav (multi (release-key lalt) ])
   grv_nav  (multi (release-key lalt) grv)
   min_nav  (multi (release-key lalt) -)
   eql_nav  (multi (release-key lalt) =)
-  home_nav (multi (release-key lalt) home)
-  end_nav  (multi (release-key lalt) end)
+
+  ;; numpad
+  1_nav    (multi (release-key lalt) 1)
+  2_nav    (multi (release-key lalt) 2)
+  3_nav    (multi (release-key lalt) 3)
+  4_nav    (multi (release-key lalt) 4)
+  5_nav    (multi (release-key lalt) 5)
+  6_nav    (multi (release-key lalt) 6)
+  7_nav    (multi (release-key lalt) 7)
+  8_nav    (multi (release-key lalt) 8)
+  9_nav    (multi (release-key lalt) 9)
+  0_nav    (multi (release-key lalt) 0)
 )
