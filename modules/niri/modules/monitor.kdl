@@ -1,0 +1,12 @@
+output "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 20530B005818" {
+    mode "2560x1440@169.831"
+    scale 1
+    position x=0 y=0
+    variable-refresh-rate
+}
+
+output "ViewSonic Corporation XG2401 SERIES UG2171100304" {
+    mode "1920x1080@143.766"
+    scale 1
+    position x=2560 y=128
+}
