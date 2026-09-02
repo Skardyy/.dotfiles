@@ -50,6 +50,7 @@ in
   specialisation.stable-kernel.configuration = {
     boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
   };
+  services.system76-scheduler.enable = true;
 
   systemd.services.NetworkManager-wait-online.enable = false;
 
