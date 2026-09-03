@@ -1,5 +1,6 @@
 { pkgs, user, mod, ... }: {
   programs.dconf.enable = true;
+  services.flatpak.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
   services.accounts-daemon.enable = true;
