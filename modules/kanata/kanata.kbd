@@ -20,9 +20,8 @@
   n    m    ,    /
 
   ;; --- left hand (numpad) ---
-  q    w    e
-  a    s    d    f
-  z    x    c
+  q    w    e    r    t
+  a    s    d    f    g
 )
 
 (deflayer default
@@ -38,9 +37,8 @@
   n    m    ,    /
 
   ;; --- left hand (numpad) ---
-  q    w    e
-  a    s    d    f
-  z    x    c
+  q    w    e    r    t
+  a    s    d    f    g
 )
 
 (deflayer navigation
@@ -56,9 +54,8 @@
   home [    ]    end
 
   ;; --- left hand (numpad) ---
-  7    8    9
-  4    5    6    0
-  1    2    3
+  1    2    3    4    5
+  0    9    8    7    6
 )
 
 (defalias
