@@ -12,12 +12,12 @@
   caps lalt
 
   ;; --- disabled ---
-  grv  -    =    [    ]
+  home end  grv  -    =
 
   ;; --- right hand ---
   u    i    o
   h    j    k    l    ;
-  n    m    ,    /
+  n    m
 
   ;; --- left hand (numpad) ---
   q    w    e    r    t
@@ -34,7 +34,7 @@
   ;; --- right hand ---
   u    i    o
   h    j    k    l    ;
-  n    m    ,    /
+  n    m
 
   ;; --- left hand (numpad) ---
   q    w    e    r    t
@@ -51,7 +51,7 @@
   ;; --- right hand ---
   grv  -    =
   left down up   rght lmet
-  home [    ]    end
+  home end
 
   ;; --- left hand (numpad) ---
   1    2    3    4    5
