@@ -9,8 +9,14 @@
           email = "meronbssn@gmail.com";
         };
         alias = {
+          f = "fetch";
+          fp = "fetch --prune";
+          fpa = "fetch --all --prune --prune-tags";
           s = "status -sb";
           b = "branch -vv";
+          bd = "branch -d";
+          bdd = "branch -D";
+          bm = "branch -m";
           cb = "checkout -b";
           c = "commit";
           ca = "commit --amend";
@@ -22,12 +28,11 @@
           pf = "push --force-with-lease";
           pl = "pull";
           plr = "pull --rebase";
-          sp = "stash pop";
-          sps = "stash push --";
           t = "tag";
           td = "tag -d";
           tdr = "push origin -d";
           tm = ''!sh -c 'test -n "$1" || { echo "usage: git tm <tag>" >&2; exit 1; }; git push origin -d "$1" 2>/dev/null; git tag -d "$1" 2>/dev/null; git tag "$1" && git push origin "$1"' --'';
+          bdm = ''!f() { git fetch --prune --prune-tags; git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads | awk '$2 == "[gone]" { print $1 }' | xargs -r git branch -D; }; f'';
           co = ''
             !f() {
               if [ -z "$1" ]; then
