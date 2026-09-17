@@ -1,5 +1,8 @@
 { user, ... }: {
   homebrew = {
+    taps = [
+      { name = "hashicorp/tap"; trusted = true; }
+    ];
     brews = [
       "gstreamer"
       "gst-plugins-base"
@@ -11,6 +14,7 @@
       "awscli"
       "azure-cli"
       "pulumi"
+      "hashicorp/tap/terraform"
     ];
     casks = [
       "claude-code"
