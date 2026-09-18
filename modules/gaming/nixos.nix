@@ -1,9 +1,8 @@
 { pkgs, user, ... }: {
   #   dont forget to put Proton-GE, and game properties:
-  #   MANGOHUD=1 PROTON_ENABLE_WAYLAND=1 WINEDLLOVERRIDES="nvngx_dlssg=d" gamemoderun %command%
+  #   MANGOHUD=1 PROTON_ENABLE_WAYLAND=1 gamemoderun %command%
   #
   #   - proton enable is a must, more performance, better nego
-  #   - dll override is also a must, games might forcefully insert dlssg into the pipeline even when not enabled, only causes issues
   #   - gamemoderun isn't a must, but couldn't hurt, some games, esp with low fps cap, can have issues with cpu being under util
 
   programs.steam = {

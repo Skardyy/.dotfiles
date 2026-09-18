@@ -21,7 +21,7 @@ in
     ../../modules/gaming/nixos.nix
     ../../modules/virt/nixos.nix
     ../../modules/kanata/nixos.nix
-    ../../modules/nvidia/nixos.nix
+    ../../modules/amd/nixos.nix
     ../../modules/ghostty/nixos.nix
     ../../modules/git
     ../../modules/kitty

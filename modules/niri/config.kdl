@@ -2,13 +2,7 @@ environment {
     XDG_CURRENT_DESKTOP "gnome"
     XDG_SESSION_TYPE "wayland"
 
-    __GL_GSYNC_ALLOWED "1"
-    __GL_VRR_ALLOWED "1"
-    LIBVA_DRIVER_NAME "nvidia"
-    __GLX_VENDOR_LIBRARY_NAME "nvidia"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
-    NVD_BACKEND "direct"
-    GBM_BACKEND "nvidia-drm"
 }
 
 hotkey-overlay {
