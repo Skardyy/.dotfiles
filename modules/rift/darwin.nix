@@ -10,6 +10,9 @@
       ProgramArguments = [ "/opt/homebrew/bin/rift" ];
       RunAtLoad = true;
       KeepAlive = true;
+      ProcessType = "Interactive";
+      Nice = -5;
+      LowPriorityIO = false;
     };
   };
 

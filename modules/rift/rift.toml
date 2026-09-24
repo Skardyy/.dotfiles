@@ -1,7 +1,5 @@
 [settings]
 animate = true
-animation_duration = 0.2
-animation_fps = 60
 mouse_follows_focus = true
 focus_follows_mouse = false
 mouse_hides_on_focus = false
@@ -14,6 +12,13 @@ fingers = 3
 invert_horizontal_swipe = true
 skip_empty = false
 haptics_enabled = false
+
+[settings.drag_drop]
+enabled = true
+modifier = "cmd"
+action1 = "move"
+drop_action = "swap"
+preview = true
 
 [settings.layout]
 mode = "master_stack"
@@ -61,16 +66,16 @@ workspace_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 # === Float rules ===
 # Catch-all for dialog/sheet style windows
 app_rules = [
-  { ax_subrole = "AXDialog",         floating = true },
-  { ax_subrole = "AXSystemDialog",   floating = true },
+  { ax_subrole = "AXDialog", floating = true },
+  { ax_subrole = "AXSystemDialog", floating = true },
   { ax_subrole = "AXFloatingWindow", floating = true },
 
   # Specific apps that aren't dialogs but should float
-  { app_name = "System Settings",    floating = true },
-  { app_name = "Raycast",            floating = true },
-  { app_name = "Calculator",         floating = true },
-  { app_name = "Archive Utility",    floating = true },
-  { app_name = "Activity Monitor",   floating = true },
+  { app_name = "System Settings", floating = true },
+  { app_name = "Raycast", floating = true },
+  { app_name = "Calculator", floating = true },
+  { app_name = "Archive Utility", floating = true },
+  { app_name = "Activity Monitor", floating = true },
 
   # Finder file ops
   { app_name = "Finder", title_substring = "Copy", floating = true },
@@ -116,11 +121,21 @@ app_rules = [
 "Meta + Tab" = "show_mission_control_all"
 
 # === Toggle layout between master_stack <-> scrolling ===
-"Meta + O" = { exec = ["/Users/meronbossin/.dotfiles/modules/rift/toggle-layout.sh"] }
+"Meta + O" = { exec = [
+  "/Users/meronbossin/.dotfiles/modules/rift/toggle-layout.sh",
+] }
 
 # === Apps ===
 "Meta + Return" = { exec = ["/usr/bin/open", "-na", "Ghostty"] }
 "Meta + W" = { exec = ["/usr/bin/open", "-a", "Zen Browser (Beta)"] }
 "Meta + S" = { exec = ["/usr/sbin/screencapture", "-ic"] }
-"Meta + Shift + C" = { exec = ["/usr/bin/open", "-g", "raycast://extensions/thomas/color-picker/pick-color"] }
-"Meta + Shift + V" = { exec = ["/usr/bin/open", "-g", "raycast://extensions/raycast/clipboard-history/clipboard-history"] }
+"Meta + Shift + C" = { exec = [
+  "/usr/bin/open",
+  "-g",
+  "raycast://extensions/thomas/color-picker/pick-color",
+] }
+"Meta + Shift + V" = { exec = [
+  "/usr/bin/open",
+  "-g",
+  "raycast://extensions/raycast/clipboard-history/clipboard-history",
+] }
