@@ -37,6 +37,97 @@ if status is-interactive
     function nr
         nix run "nixpkgs#$argv[1]" -- $argv[2..]
     end
+
+    function svc --description 'launchctl wrapper (systemd-ish)'
+        set -l uid (id -u)
+        set -l gui "gui/$uid"
+        set -l sys system
+        set -l cmd $argv[1]
+        set -l label $argv[2]
+
+        # locate plist across user + system paths
+        function __svc_find_plist -a label
+            for dir in ~/Library/LaunchAgents /Library/LaunchAgents /Library/LaunchDaemons
+                if test -f $dir/$label.plist
+                    echo $dir/$label.plist
+                    return 0
+                end
+            end
+            return 1
+        end
+
+        # figure out which domain a running label is loaded in
+        function __svc_domain -a label uid
+            if launchctl print gui/$uid/$label >/dev/null 2>&1
+                echo gui/$uid
+            else if sudo -n launchctl print system/$label >/dev/null 2>&1
+                echo system
+            else
+                return 1
+            end
+        end
+
+        switch $cmd
+            case start enable
+                set -l plist (__svc_find_plist $label); or begin
+                    echo "no plist for $label" >&2; return 1
+                end
+                switch (dirname $plist)
+                    case /Library/LaunchDaemons
+                        sudo launchctl bootstrap $sys $plist
+                    case /Library/LaunchAgents
+                        sudo launchctl bootstrap $sys $plist
+                    case '*'
+                        launchctl bootstrap $gui $plist
+                end
+            case stop disable
+                set -l d (__svc_domain $label $uid); or begin
+                    echo "not loaded: $label" >&2; return 1
+                end
+                if test $d = system
+                    sudo launchctl bootout $d/$label
+                else
+                    launchctl bootout $d/$label
+                end
+            case restart reload
+                set -l d (__svc_domain $label $uid); or begin
+                    echo "not loaded: $label" >&2; return 1
+                end
+                if test $d = system
+                    sudo launchctl kickstart -k $d/$label
+                else
+                    launchctl kickstart -k $d/$label
+                end
+            case status
+                set -l d (__svc_domain $label $uid); or begin
+                    echo "not loaded: $label" >&2; return 1
+                end
+                if test $d = system
+                    sudo launchctl print $d/$label 2>&1 | grep -E 'state|last exit|program|path' | head
+                else
+                    launchctl print $d/$label 2>&1 | grep -E 'state|last exit|program|path' | head
+                end
+            case list ls
+                echo "# user (gui/$uid)"
+                launchctl list | grep -v -e ^- -e com.apple -e application\\.
+                echo "# system"
+                sudo launchctl list 2>/dev/null | grep -v -e ^- -e com.apple -e application\\.
+            case '' -h --help help
+                echo 'usage: svc <start|stop|restart|status|list> [label]'
+            case '*'
+                echo "unknown: $cmd" >&2; return 1
+        end
+    end
+    complete -c svc -f
+    complete -c svc -n __fish_use_subcommand -a 'start stop restart status list' -d subcommand
+    complete -c svc -n 'not __fish_use_subcommand' \
+        -a '(for d in ~/Library/LaunchAgents /Library/LaunchAgents /Library/LaunchDaemons \
+                "/Library/Application Support"/*/*/*.app/Contents/Library/LaunchAgents \
+                "/Library/Application Support"/*/*/*.app/Contents/Library/LaunchDaemons
+                ls $d 2>/dev/null | string replace -r "\.plist\$" ""
+             end | grep -v ^com.apple | sort -u)' \
+        -d 'launch agent/daemon label'
+
     function nsl
         argparse d/dev -- $argv
         or return
