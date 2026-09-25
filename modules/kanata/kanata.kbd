@@ -22,6 +22,10 @@
   ;; --- left hand (numpad) ---
   q    w    e    r    t
   a    s    d    f    g
+
+  ;; --- alt passthrough ---
+  1    2    3    4    5    6    7    8    9
+  spc
 )
 
 (deflayer default
@@ -39,6 +43,10 @@
   ;; --- left hand (numpad) ---
   q    w    e    r    t
   a    s    d    f    g
+
+  ;; --- alt passthrough ---
+  1    2    3    4    5    6    7    8    9
+  spc
 )
 
 (deflayer navigation
@@ -56,6 +64,10 @@
   ;; --- left hand (numpad) ---
   1    2    3    4    5
   0    9    8    7    6
+
+  ;; --- alt passthrough ---
+  A-1  A-2  A-3  A-4  A-5  A-6  A-7  A-8  A-9
+  A-spc
 )
 
 (defalias

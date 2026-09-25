@@ -8,6 +8,7 @@
   "clockFormat": "12h",
   "animationVariant": 1,
   "motionEffect": 2,
+  "m3ElevationEnabled": false,
   "barElevationEnabled": false,
   "blurEnabled": true,
   "blurForegroundLayers": false,
@@ -51,6 +52,7 @@
     }
   },
   "fadeToLockEnabled": false,
+  "syncModeWithPortal": false,
   "matugenTemplateNiri": false,
   "matugenTemplateHyprland": false,
   "matugenTemplateMangowc": false,
@@ -73,37 +75,6 @@
   "dockPosition": 0,
   "dockIconSize": 48,
   "modalDarkenBackground": false,
-  "dankIslandInteractionMode": "click",
-  "dankIslandHomeLayout": [
-    {
-      "id": "clock",
-      "enabled": true
-    },
-    {
-      "id": "status",
-      "enabled": false
-    },
-    {
-      "id": "media",
-      "enabled": false
-    },
-    {
-      "id": "weather",
-      "enabled": false
-    },
-    {
-      "id": "volume",
-      "enabled": false
-    },
-    {
-      "id": "brightness",
-      "enabled": false
-    },
-    {
-      "id": "notifications",
-      "enabled": false
-    }
-  ],
   "displayNameMode": "model",
   "displaySnapToEdge": false,
   "connectedFrameBarStyleBackups": {
@@ -235,5 +206,5 @@
   "frameThickness": 8,
   "frameOpacity": 0.65,
   "frameShowOnOverview": true,
-  "configVersion": 17
+  "configVersion": 18
 }
