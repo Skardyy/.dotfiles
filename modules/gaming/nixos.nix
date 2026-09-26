@@ -6,7 +6,6 @@
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
-    gamescopeSession.enable = true;
 
     package = pkgs.steam.override {
       extraEnv = {
