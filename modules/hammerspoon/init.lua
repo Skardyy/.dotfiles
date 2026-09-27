@@ -11,6 +11,10 @@ local WM = "aerospace"
 
 require("workspace_bar").setup({ source = WM })
 
+if WM == "aerospace" then
+  require("cmd_drag").start()
+end
+
 hs.hotkey.bind({ "cmd", "shift" }, "r", function()
   local reload_cmd = WM == "rift"
       and { "/opt/homebrew/bin/rift-cli", "execute", "config", "reload" }
