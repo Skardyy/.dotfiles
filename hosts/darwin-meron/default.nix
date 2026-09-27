@@ -61,7 +61,7 @@ in
       "com.apple.swipescrolldirection" = false;
       AppleSpacesSwitchOnActivate = false;
     };
-    spaces.spans-displays = true;
+    spaces.spans-displays = false;
     CustomUserPreferences = {
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
