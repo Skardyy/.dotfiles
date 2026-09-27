@@ -13,9 +13,11 @@
   home-manager.users.${user} = { config, ... }: {
     home.file.".hammerspoon/init.lua".source =
       config.lib.file.mkOutOfStoreSymlink "${mod}/hammerspoon/init.lua";
-    home.file.".hammerspoon/aerospace_bar.lua".source =
-      config.lib.file.mkOutOfStoreSymlink "${mod}/hammerspoon/aerospace_bar.lua";
+    home.file.".hammerspoon/workspace_bar.lua".source =
+      config.lib.file.mkOutOfStoreSymlink "${mod}/hammerspoon/workspace_bar.lua";
     home.file.".hammerspoon/cpu.lua".source =
       config.lib.file.mkOutOfStoreSymlink "${mod}/hammerspoon/cpu.lua";
+    home.file.".hammerspoon/sources".source =
+      config.lib.file.mkOutOfStoreSymlink "${mod}/hammerspoon/sources";
   };
 }

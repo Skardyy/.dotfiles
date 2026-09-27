@@ -1,5 +1,7 @@
 [settings]
 animate = true
+animation_duration = 0.18
+animation_easing = "ease_out_circ"
 mouse_follows_focus = true
 focus_follows_mouse = false
 mouse_hides_on_focus = false

@@ -2,6 +2,7 @@
   homebrew = {
     taps = [
       { name = "hashicorp/tap"; trusted = true; }
+      { name = "hudochenkov/sshpass"; trusted = true; }
     ];
     brews = [
       "gstreamer"
@@ -15,6 +16,7 @@
       "azure-cli"
       "pulumi"
       "hashicorp/tap/terraform"
+      "hudochenkov/sshpass/sshpass"
     ];
     casks = [
       "claude-code"
