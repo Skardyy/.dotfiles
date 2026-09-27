@@ -7,7 +7,7 @@ package.path = package.path
 
 require("cpu")
 
-local WM = "rift"
+local WM = "aerospace"
 
 require("workspace_bar").setup({ source = WM })
 

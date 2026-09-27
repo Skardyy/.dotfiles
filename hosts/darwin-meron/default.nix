@@ -17,7 +17,7 @@ in
     ../../modules/ghostty/darwin.nix
     ../../modules/desktop/darwin.nix
     ../../modules/dev/darwin.nix
-    ../../modules/rift/darwin.nix
+    ../../modules/aerospace/darwin.nix
     ../../modules/hammerspoon/darwin.nix
     ../../modules/autoraise/darwin.nix
     ../../modules/git
