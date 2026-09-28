@@ -1,52 +1,52 @@
-local M = {}
+local M                   = {}
 
 -- Bar geometry.
-local BAR_HEIGHT       = 26
-local CONTAINER_PAD_X  = 3
-local CORNER_RADIUS    = 8
-local CELL_PAD         = 8
-local CELL_INNER_PAD_X = 4
-local CELL_CORNER      = 6
+local BAR_HEIGHT          = 26
+local CONTAINER_PAD_X     = 3
+local CORNER_RADIUS       = 8
+local CELL_PAD            = 8
+local CELL_INNER_PAD_X    = 4
+local CELL_CORNER         = 6
 
 -- Active-cell backing rectangle inflates the cell frame by these amounts so
 -- the rounded backing extends past the number/icons on all sides.
-local ACTIVE_INSET_X = 3
-local ACTIVE_INSET_Y = 1
-local ACTIVE_INSET_H = 2
+local ACTIVE_INSET_X      = 3
+local ACTIVE_INSET_Y      = 1
+local ACTIVE_INSET_H      = 2
 
 -- Workspace number label.
-local NUMBER_W   = 14
-local FONT_SIZE  = 12
-local DIM_ALPHA  = 0.55
+local NUMBER_W            = 14
+local FONT_SIZE           = 12
+local DIM_ALPHA           = 0.55
 
 -- Application icon.
-local ICON_SIZE = 16
-local ICON_GAP  = 2
+local ICON_SIZE           = 16
+local ICON_GAP            = 2
 
 -- Hidden-window bucket badge.
-local HIDDEN_BADGE_SIZE     = 6
-local HIDDEN_BADGE_TEXT     = "\u{23F8}"
-local HIDDEN_BADGE_COLOR    = { red = 1.00, green = 0.85, blue = 0.85, alpha = 1.0 }
-local HIDDEN_BADGE_GLOW     = { red = 0.85, green = 0.10, blue = 0.10, alpha = 0.85 }
-local HIDDEN_BADGE_GLOW_R   = 4
-local HIDDEN_ICON_ALPHA     = 0.55
-local HIDDEN_SEP_COLOR   = { red = 0.60, green = 0.70, blue = 0.85, alpha = 0.35 }
-local HIDDEN_SEP_WIDTH   = 1
-local HIDDEN_SEP_GAP     = 6
+local HIDDEN_BADGE_SIZE   = 6
+local HIDDEN_BADGE_TEXT   = "\u{23F8}"
+local HIDDEN_BADGE_COLOR  = { red = 1.00, green = 0.85, blue = 0.85, alpha = 1.0 }
+local HIDDEN_BADGE_GLOW   = { red = 0.85, green = 0.10, blue = 0.10, alpha = 0.85 }
+local HIDDEN_BADGE_GLOW_R = 4
+local HIDDEN_ICON_ALPHA   = 0.55
+local HIDDEN_SEP_COLOR    = { red = 0.60, green = 0.70, blue = 0.85, alpha = 0.35 }
+local HIDDEN_SEP_WIDTH    = 1
+local HIDDEN_SEP_GAP      = 6
 
 -- Colors.
-local CONTAINER_BG       = { red = 0.07, green = 0.09, blue = 0.13, alpha = 0.28 }
-local CONTAINER_STROKE   = { red = 0.60, green = 0.70, blue = 0.85, alpha = 0.35 }
-local ACTIVE_CELL_BG     = { red = 0.25, green = 0.35, blue = 0.55, alpha = 0.55 }
-local ACTIVE_CELL_STROKE = { red = 0.60, green = 0.75, blue = 0.95, alpha = 0.60 }
+local CONTAINER_BG        = { red = 0.07, green = 0.09, blue = 0.13, alpha = 0.28 }
+local CONTAINER_STROKE    = { red = 0.60, green = 0.70, blue = 0.85, alpha = 0.35 }
+local ACTIVE_CELL_BG      = { red = 0.25, green = 0.35, blue = 0.55, alpha = 0.55 }
+local ACTIVE_CELL_STROKE  = { red = 0.60, green = 0.75, blue = 0.95, alpha = 0.60 }
 
 -- Notch clearance and workspace label conventions.
-local NOTCH_THRESHOLD   = 32
-local NOTCH_HALF_WIDTH  = 110
-local SCRATCH_THRESHOLD = 10
-local HIDDEN_CELL_ID    = "hidden"
+local NOTCH_THRESHOLD     = 32
+local NOTCH_HALF_WIDTH    = 110
+local SCRATCH_THRESHOLD   = 10
+local HIDDEN_CELL_ID      = "hidden"
 
-local source = nil
+local source              = nil
 
 local function revealWindow(entry)
   if not entry then return end
@@ -143,7 +143,10 @@ local function buildScreens(monitors, workspaces, windows)
       local primary = hs.screen.primaryScreen()
       local pmid
       for m_id, screen in pairs(screenByMonitorId) do
-        if screen == primary then pmid = m_id break end
+        if screen == primary then
+          pmid = m_id
+          break
+        end
       end
       pmid = pmid or next(screenByMonitorId)
       if pmid then
@@ -504,7 +507,18 @@ local function appendMacosHiddenWindows(windows)
   end
 end
 
-local function render()
+local render
+
+local pendingRender = nil
+local function scheduleRender()
+  if pendingRender then return end
+  pendingRender = hs.timer.doAfter(0.05, function()
+    pendingRender = nil
+    render()
+  end)
+end
+
+render = function()
   if not source then return end
   source.fetch(function(data)
     data = data or {}
@@ -543,20 +557,24 @@ function M.setup(opts)
   end)
   M.screenWatcher:start()
 
-  M.winFilter = hs.window.filter.new()
+  M.winFilter = hs.window.filter.new(true)
   M.winFilter:subscribe({
     hs.window.filter.windowCreated,
     hs.window.filter.windowDestroyed,
     hs.window.filter.windowMoved,
     hs.window.filter.windowFocused,
     hs.window.filter.windowUnfocused,
-  }, render)
+    hs.window.filter.windowMinimized,
+    hs.window.filter.windowUnminimized,
+    hs.window.filter.windowHidden,
+    hs.window.filter.windowUnhidden,
+  }, scheduleRender)
 
   if source.subscribe then
-    M.eventTask = source.subscribe(render)
+    M.eventTask = source.subscribe(scheduleRender)
   end
 
-  hs.urlevent.bind("refreshbar", render)
+  hs.urlevent.bind("refreshbar", scheduleRender)
 
   render()
 end
