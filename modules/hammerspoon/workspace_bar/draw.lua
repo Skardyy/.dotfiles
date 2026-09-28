@@ -229,6 +229,7 @@ function Draw.buildElements(workspaces, focused, focusedWindowId, totalW)
         from = prevBoundary,
         to = hitEnd,
         window = window,
+        workspace = ws.id,
         pillFrom = zoneStart,
         pillTo = zoneEnd,
       }

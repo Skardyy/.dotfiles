@@ -52,19 +52,12 @@ local function attachMouseCallback(canvas, uuid, screen)
     end
     if event == "mouseUp" then
       for _, t in ipairs(targets) do
-        if t.kind == "icon" and mx >= t.from and mx < t.to then
+        if mx >= t.from and mx < t.to then
           if t.window and t.window.hidden then
             Window.reveal(t.window)
-          else
-            Window.focus(t.window)
+          elseif t.workspace then
+            WM.switchWorkspace(t.workspace)
           end
-          WindowPeek.hide(uuid)
-          return
-        end
-      end
-      for _, t in ipairs(targets) do
-        if t.kind == "cell" and mx >= t.from and mx < t.to then
-          WM.switchWorkspace(t.workspace)
           WindowPeek.hide(uuid)
           return
         end

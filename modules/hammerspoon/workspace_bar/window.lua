@@ -41,12 +41,6 @@ function Window.resolve(w)
 end
 
 ---@param w Window
-function Window.focus(w)
-  local hw = Window.resolve(w)
-  if hw then hw:focus() end
-end
-
----@param w Window
 function Window.reveal(w)
   if not w then return end
   if w.bundle then
