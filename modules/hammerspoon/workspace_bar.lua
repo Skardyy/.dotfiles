@@ -1,25 +1,76 @@
-local M                  = {}
+local M = {}
 
-local BAR_HEIGHT         = 26
-local NUMBER_W           = 14
-local ICON_SIZE          = 16
-local ICON_GAP           = 2
-local CELL_PAD           = 8
-local CELL_INNER_PAD_X   = 4
-local CONTAINER_PAD_X    = 3
-local FONT_SIZE          = 12
-local DIM_ALPHA          = 0.55
-local CORNER_RADIUS      = 8
-local CELL_CORNER        = 6
+-- Bar geometry.
+local BAR_HEIGHT       = 26
+local CONTAINER_PAD_X  = 3
+local CORNER_RADIUS    = 8
+local CELL_PAD         = 8
+local CELL_INNER_PAD_X = 4
+local CELL_CORNER      = 6
+
+-- Active-cell backing rectangle inflates the cell frame by these amounts so
+-- the rounded backing extends past the number/icons on all sides.
+local ACTIVE_INSET_X = 3
+local ACTIVE_INSET_Y = 1
+local ACTIVE_INSET_H = 2
+
+-- Workspace number label.
+local NUMBER_W   = 14
+local FONT_SIZE  = 12
+local DIM_ALPHA  = 0.55
+
+-- Application icon.
+local ICON_SIZE = 16
+local ICON_GAP  = 2
+
+-- Hidden-window bucket badge.
+local HIDDEN_BADGE_SIZE     = 6
+local HIDDEN_BADGE_TEXT     = "\u{23F8}"
+local HIDDEN_BADGE_COLOR    = { red = 1.00, green = 0.85, blue = 0.85, alpha = 1.0 }
+local HIDDEN_BADGE_GLOW     = { red = 0.85, green = 0.10, blue = 0.10, alpha = 0.85 }
+local HIDDEN_BADGE_GLOW_R   = 4
+local HIDDEN_ICON_ALPHA     = 0.55
+local HIDDEN_SEP_COLOR   = { red = 0.60, green = 0.70, blue = 0.85, alpha = 0.35 }
+local HIDDEN_SEP_WIDTH   = 1
+local HIDDEN_SEP_GAP     = 6
+
+-- Colors.
 local CONTAINER_BG       = { red = 0.07, green = 0.09, blue = 0.13, alpha = 0.28 }
 local CONTAINER_STROKE   = { red = 0.60, green = 0.70, blue = 0.85, alpha = 0.35 }
 local ACTIVE_CELL_BG     = { red = 0.25, green = 0.35, blue = 0.55, alpha = 0.55 }
 local ACTIVE_CELL_STROKE = { red = 0.60, green = 0.75, blue = 0.95, alpha = 0.60 }
-local NOTCH_THRESHOLD    = 32
-local NOTCH_HALF_WIDTH   = 110
-local SCRATCH_THRESHOLD  = 10
 
-local source             = nil
+-- Notch clearance and workspace label conventions.
+local NOTCH_THRESHOLD   = 32
+local NOTCH_HALF_WIDTH  = 110
+local SCRATCH_THRESHOLD = 10
+local HIDDEN_CELL_ID    = "hidden"
+
+local source = nil
+
+local function revealWindow(entry)
+  if not entry then return end
+  if entry.bundle then
+    local app = hs.application.get(entry.bundle)
+    if app and app:isHidden() then app:unhide() end
+  end
+  if entry.id then
+    local w = hs.window.get(entry.id)
+    if w then
+      if w:isMinimized() then
+        local ax = hs.axuielement.windowElement(w)
+        if ax then ax:setAttributeValue("AXMinimized", false) end
+      end
+      w:focus()
+    end
+  end
+end
+
+local function focusWindow(entry)
+  if not entry or not entry.id then return end
+  local w = hs.window.get(entry.id)
+  if w then w:focus() end
+end
 
 local function isScratch(ws)
   local n = tonumber(ws)
@@ -27,6 +78,7 @@ local function isScratch(ws)
 end
 
 local function labelFor(ws)
+  if ws == HIDDEN_CELL_ID then return HIDDEN_BADGE_TEXT end
   if isScratch(ws) then return "~" end
   return tostring(ws)
 end
@@ -73,6 +125,7 @@ local function buildScreens(monitors, workspaces, windows)
 
   local windowsByWorkspace = {}
   local monitorByWorkspace = {}
+  local hiddenByMonitor = {}
   for _, win in ipairs(windows or {}) do
     local ws = win.workspace
     local mid = win.monitor_id
@@ -80,7 +133,28 @@ local function buildScreens(monitors, workspaces, windows)
     local wid = win.id
     if ws and bundle then
       windowsByWorkspace[ws] = windowsByWorkspace[ws] or {}
-      table.insert(windowsByWorkspace[ws], { id = wid, bundle = bundle, name = win.name or "" })
+      table.insert(windowsByWorkspace[ws], {
+        id = wid,
+        bundle = bundle,
+        name = win.name or "",
+        hidden = win.hidden,
+      })
+    elseif bundle and win.hidden then
+      local primary = hs.screen.primaryScreen()
+      local pmid
+      for m_id, screen in pairs(screenByMonitorId) do
+        if screen == primary then pmid = m_id break end
+      end
+      pmid = pmid or next(screenByMonitorId)
+      if pmid then
+        hiddenByMonitor[pmid] = hiddenByMonitor[pmid] or {}
+        table.insert(hiddenByMonitor[pmid], {
+          id = wid,
+          bundle = bundle,
+          name = win.name or "",
+          hidden = true,
+        })
+      end
     end
     if ws and mid and not monitorByWorkspace[ws] then
       monitorByWorkspace[ws] = mid
@@ -135,6 +209,10 @@ local function buildScreens(monitors, workspaces, windows)
   for mid, screen in pairs(screenByMonitorId) do
     local cells = cellsByMonitor[mid] or {}
     table.sort(cells, function(a, b) return cellSortKey(a) < cellSortKey(b) end)
+    local hiddenEntries = hiddenByMonitor[mid]
+    if hiddenEntries and #hiddenEntries > 0 then
+      table.insert(cells, { id = HIDDEN_CELL_ID, entries = hiddenEntries })
+    end
     result[screen:getUUID()] = {
       cells = cells,
       focused = visibleByMonitor[mid],
@@ -145,8 +223,11 @@ end
 
 local function cellWidth(cell)
   local n = #cell.entries
-  if n == 0 then return NUMBER_W end
-  return NUMBER_W + (n * ICON_SIZE) + ((n - 1) * ICON_GAP) + CELL_INNER_PAD_X
+  local isHidden = cell.id == HIDDEN_CELL_ID
+  local labelW = isHidden and 0 or NUMBER_W
+  local sepW = isHidden and (HIDDEN_SEP_GAP * 2) or 0
+  if n == 0 then return labelW + sepW end
+  return labelW + sepW + (n * ICON_SIZE) + ((n - 1) * ICON_GAP) + CELL_INNER_PAD_X
 end
 
 local function contentWidth(cells)
@@ -158,69 +239,147 @@ local function contentWidth(cells)
   return w
 end
 
-local function buildElements(cells, focused, focusedWindowId, totalW)
-  local elements = {
-    {
-      type = "rectangle",
-      action = "strokeAndFill",
-      fillColor = CONTAINER_BG,
-      strokeColor = CONTAINER_STROKE,
-      strokeWidth = 1,
-      roundedRectRadii = { xRadius = CORNER_RADIUS, yRadius = CORNER_RADIUS },
-      frame = { x = 0.5, y = 0.5, w = totalW - 1, h = BAR_HEIGHT - 1 },
+local function containerElement(totalW)
+  return {
+    type = "rectangle",
+    action = "strokeAndFill",
+    fillColor = CONTAINER_BG,
+    strokeColor = CONTAINER_STROKE,
+    strokeWidth = 1,
+    roundedRectRadii = { xRadius = CORNER_RADIUS, yRadius = CORNER_RADIUS },
+    frame = { x = 0.5, y = 0.5, w = totalW - 1, h = BAR_HEIGHT - 1 },
+  }
+end
+
+local function activeCellBacking(x, w)
+  return {
+    type = "rectangle",
+    action = "strokeAndFill",
+    fillColor = ACTIVE_CELL_BG,
+    strokeColor = ACTIVE_CELL_STROKE,
+    strokeWidth = 1,
+    roundedRectRadii = { xRadius = CELL_CORNER, yRadius = CELL_CORNER },
+    frame = {
+      x = x - ACTIVE_INSET_X,
+      y = ACTIVE_INSET_Y,
+      w = w + ACTIVE_INSET_X * 2,
+      h = BAR_HEIGHT - ACTIVE_INSET_H,
     },
   }
+end
+
+local function hiddenDivider(x)
+  return {
+    type = "rectangle",
+    action = "fill",
+    fillColor = HIDDEN_SEP_COLOR,
+    frame = { x = x - CELL_PAD / 2, y = 4, w = HIDDEN_SEP_WIDTH, h = BAR_HEIGHT - 8 },
+  }
+end
+
+local function labelElement(x, cell, cellAlpha)
+  return {
+    type = "text",
+    text = labelFor(cell.id),
+    frame = { x = x, y = (BAR_HEIGHT - FONT_SIZE) / 2 - 2, w = NUMBER_W, h = FONT_SIZE + 6 },
+    textColor = { white = 1.0, alpha = cellAlpha },
+    textSize = FONT_SIZE,
+    textAlignment = "center",
+  }
+end
+
+local function iconElement(iconX, iconY, icon, alpha)
+  return {
+    type = "image",
+    image = icon,
+    frame = { x = iconX, y = iconY, w = ICON_SIZE, h = ICON_SIZE },
+    imageAlpha = alpha,
+  }
+end
+
+local function hiddenBadgeElements(iconX, iconY)
+  local cx = iconX + ICON_SIZE - HIDDEN_BADGE_GLOW_R
+  local cy = iconY + ICON_SIZE - HIDDEN_BADGE_GLOW_R
+  return {
+    {
+      type = "circle",
+      action = "fill",
+      fillColor = HIDDEN_BADGE_GLOW,
+      center = { x = cx, y = cy },
+      radius = HIDDEN_BADGE_GLOW_R,
+    },
+    {
+      type = "text",
+      text = HIDDEN_BADGE_TEXT,
+      textColor = HIDDEN_BADGE_COLOR,
+      frame = {
+        x = cx - HIDDEN_BADGE_SIZE / 2,
+        y = cy - HIDDEN_BADGE_SIZE / 2 - 1,
+        w = HIDDEN_BADGE_SIZE,
+        h = HIDDEN_BADGE_SIZE + 2,
+      },
+      textSize = HIDDEN_BADGE_SIZE,
+      textAlignment = "center",
+    },
+  }
+end
+
+local function entryAlpha(entry, isActive, cellAlpha, focusedWindowId)
+  if entry.hidden then return HIDDEN_ICON_ALPHA end
+  if isActive and entry.id ~= focusedWindowId then return DIM_ALPHA end
+  return cellAlpha
+end
+
+local function buildElements(cells, focused, focusedWindowId, totalW)
+  local elements = { containerElement(totalW) }
   local hitZones = {}
 
   local x = CONTAINER_PAD_X
   for i, cell in ipairs(cells) do
     local w = cellWidth(cell)
     local isActive = cell.id == focused
+    local isHiddenCell = cell.id == HIDDEN_CELL_ID
     local cellAlpha = isActive and 1.0 or DIM_ALPHA
 
     if isActive then
-      elements[#elements + 1] = {
-        type = "rectangle",
-        action = "strokeAndFill",
-        fillColor = ACTIVE_CELL_BG,
-        strokeColor = ACTIVE_CELL_STROKE,
-        strokeWidth = 1,
-        roundedRectRadii = { xRadius = CELL_CORNER, yRadius = CELL_CORNER },
-        frame = { x = x - 3, y = 1, w = w + 6, h = BAR_HEIGHT - 2 },
-      }
+      elements[#elements + 1] = activeCellBacking(x, w)
     end
 
-    elements[#elements + 1] = {
-      type = "text",
-      text = labelFor(cell.id),
-      frame = { x = x, y = (BAR_HEIGHT - FONT_SIZE) / 2 - 2, w = NUMBER_W, h = FONT_SIZE + 6 },
-      textColor = { white = 1.0, alpha = cellAlpha },
-      textSize = FONT_SIZE,
-      textAlignment = "center",
-    }
+    if isHiddenCell then
+      x = x + HIDDEN_SEP_GAP
+      elements[#elements + 1] = hiddenDivider(x)
+      x = x + HIDDEN_SEP_GAP
+    else
+      elements[#elements + 1] = labelElement(x, cell, cellAlpha)
+    end
 
-    local iconX = x + NUMBER_W + (CELL_INNER_PAD_X / 2)
+    local labelOffset = isHiddenCell and 0 or NUMBER_W
+    local iconX = x + labelOffset + (CELL_INNER_PAD_X / 2)
+    local iconY = (BAR_HEIGHT - ICON_SIZE) / 2
     for j, entry in ipairs(cell.entries) do
       local icon = iconFor(entry.bundle)
       if icon then
-        local iconAlpha = cellAlpha
-        if isActive and entry.id ~= focusedWindowId then
-          iconAlpha = DIM_ALPHA
+        local alpha = entryAlpha(entry, isActive, cellAlpha, focusedWindowId)
+        elements[#elements + 1] = iconElement(iconX, iconY, icon, alpha)
+        if entry.hidden then
+          for _, el in ipairs(hiddenBadgeElements(iconX, iconY)) do
+            elements[#elements + 1] = el
+          end
         end
-        elements[#elements + 1] = {
-          type = "image",
-          image = icon,
-          frame = { x = iconX, y = (BAR_HEIGHT - ICON_SIZE) / 2, w = ICON_SIZE, h = ICON_SIZE },
-          imageAlpha = iconAlpha,
-        }
       end
+      hitZones[#hitZones + 1] = {
+        kind = "icon",
+        from = iconX - ICON_GAP / 2,
+        to = iconX + ICON_SIZE + ICON_GAP / 2,
+        entry = entry,
+      }
       iconX = iconX + ICON_SIZE
       if j < #cell.entries then iconX = iconX + ICON_GAP end
     end
 
     local zoneStart = (i == 1) and 0 or (x - CELL_PAD / 2)
     local zoneEnd = (i == #cells) and totalW or (x + w + CELL_PAD / 2)
-    hitZones[#hitZones + 1] = { from = zoneStart, to = zoneEnd, workspace = cell.id }
+    hitZones[#hitZones + 1] = { kind = "cell", from = zoneStart, to = zoneEnd, workspace = cell.id }
 
     x = x + w
     if i < #cells then x = x + CELL_PAD end
@@ -234,7 +393,7 @@ local function cellsSignature(cells, focused, focusedWindowId)
   for _, c in ipairs(cells) do
     parts[#parts + 1] = tostring(c.id)
     for _, e in ipairs(c.entries) do
-      parts[#parts + 1] = (e.bundle or "") .. ":" .. tostring(e.id)
+      parts[#parts + 1] = (e.bundle or "") .. ":" .. tostring(e.id) .. ":" .. (e.hidden and "h" or "v")
     end
   end
   return table.concat(parts, "|")
@@ -285,8 +444,21 @@ local function renderScreen(screen, cells, focused, focusedWindowId)
     canvas:canvasMouseEvents(false, true, false, false)
     canvas:mouseCallback(function(_, event, _, clickX)
       if event ~= "mouseUp" then return end
-      for _, z in ipairs(M.hitZones[uuid] or {}) do
-        if clickX >= z.from and clickX < z.to then
+      local zones = M.hitZones[uuid] or {}
+      -- Icon hits win over cell hits so clicking a hidden window entry
+      -- reveals that window instead of just switching workspace.
+      for _, z in ipairs(zones) do
+        if z.kind == "icon" and clickX >= z.from and clickX < z.to then
+          if z.entry and z.entry.hidden then
+            revealWindow(z.entry)
+          else
+            focusWindow(z.entry)
+          end
+          return
+        end
+      end
+      for _, z in ipairs(zones) do
+        if z.kind == "cell" and clickX >= z.from and clickX < z.to then
           if source and source.switch_workspace then
             source.switch_workspace(z.workspace)
           end
@@ -303,10 +475,41 @@ local function renderScreen(screen, cells, focused, focusedWindowId)
   canvas:show()
 end
 
+-- Any window the WM source did not include but that macos knows about (via
+-- minimize or cmd h) gets added with workspace = nil; buildScreens routes
+-- those into the hidden bucket.
+local function appendMacosHiddenWindows(windows)
+  local seen = {}
+  for _, w in ipairs(windows) do
+    if w.id then seen[w.id] = true end
+  end
+  for _, hsWin in ipairs(hs.window.allWindows()) do
+    local wid = hsWin:id()
+    if wid and not seen[wid] then
+      local app = hsWin:application()
+      local bundle = app and app:bundleID()
+      local minimized = hsWin:isMinimized()
+      local appHidden = app and app:isHidden() or false
+      if bundle and (minimized or appHidden) then
+        windows[#windows + 1] = {
+          id = wid,
+          bundle = bundle,
+          name = app and app:name() or "",
+          workspace = nil,
+          monitor_id = nil,
+          hidden = true,
+        }
+      end
+    end
+  end
+end
+
 local function render()
   if not source then return end
   source.fetch(function(data)
     data = data or {}
+    data.windows = data.windows or {}
+    appendMacosHiddenWindows(data.windows)
     local screens = buildScreens(data.monitors, data.workspaces, data.windows)
     local focusedWindowId = data.focused_window_id
 

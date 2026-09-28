@@ -27,11 +27,11 @@ local function batch(specs, onDone)
   end
 end
 
--- Fetch normalized model:
--- { monitors  = { { id, name } },
---   workspaces = { { workspace, monitor_id, visible } },
---   windows    = { { id, bundle, name, workspace, monitor_id } },
---   focused_window_id = <id> or nil }
+-- Returns the aerospace-managed slice of the desktop:
+--   { monitors           = { { id, name } },
+--     workspaces         = { { workspace, monitor_id, visible } },
+--     windows            = { { id, bundle, name, workspace, monitor_id, hidden = false } },
+--     focused_window_id  = <id> or nil }
 function M.fetch(cb)
   batch({
     monitors = { "list-monitors", "--json",
@@ -63,8 +63,10 @@ function M.fetch(cb)
         name = w["app-name"] or "",
         workspace = w["workspace"],
         monitor_id = w["monitor-id"],
+        hidden = false,
       }
     end
+
     local focused_window_id = r.focused and r.focused[1] and r.focused[1]["window-id"] or nil
     cb({
       monitors = monitors,
