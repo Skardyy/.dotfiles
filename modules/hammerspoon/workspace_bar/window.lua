@@ -63,6 +63,12 @@ function Window.reveal(w)
 end
 
 ---@param w Window
+function Window.close(w)
+  local hw = Window.resolve(w)
+  if hw then hw:close() end
+end
+
+---@param w Window
 ---@return hs.image?, string?
 function Window.snapshot(w)
   local hw = Window.resolve(w)

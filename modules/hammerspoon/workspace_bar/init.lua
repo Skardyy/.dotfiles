@@ -146,9 +146,38 @@ M.render = render
 ---@field source string?
 
 ---@param opts WorkspaceBarOpts?
+local function findIconTargetAt(x, y)
+  for uuid, canvas in pairs(M.canvases) do
+    local f = canvas:frame()
+    if x >= f.x and x < f.x + f.w and y >= f.y and y < f.y + f.h then
+      local mx = x - f.x
+      for _, t in ipairs(M.targets[uuid] or {}) do
+        if t.kind == "icon" and mx >= t.from and mx < t.to then
+          return t
+        end
+      end
+      return nil
+    end
+  end
+  return nil
+end
+
 function M.setup(opts)
   opts = opts or {}
   WM.load(opts.source or "aerospace")
+
+  M.middleClickTap = hs.eventtap.new({ hs.eventtap.event.types.otherMouseUp }, function(e)
+    local button = e:getProperty(hs.eventtap.event.properties.mouseEventButtonNumber)
+    if button ~= 2 then return false end
+    local p = hs.mouse.absolutePosition()
+    local target = findIconTargetAt(p.x, p.y)
+    if target and target.window then
+      Window.close(target.window)
+      return true
+    end
+    return false
+  end)
+  M.middleClickTap:start()
 
   M.screenWatcher = hs.screen.watcher.new(function()
     for uuid in pairs(M.canvases) do destroyCanvas(uuid) end

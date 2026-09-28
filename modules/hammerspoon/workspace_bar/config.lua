@@ -39,7 +39,7 @@ M.NOTCH_HALF_WIDTH    = 110
 M.SCRATCH_THRESHOLD   = 10
 M.HIDDEN_WORKSPACE_ID = "hidden"
 
-M.PEEK_DELAY          = 0.35
+M.PEEK_DELAY          = 0.10
 M.PEEK_W              = 260
 M.PEEK_H              = 160
 M.PEEK_MARGIN         = 6
