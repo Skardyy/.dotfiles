@@ -48,6 +48,11 @@ M.PEEK_BG             = { red = 0.07, green = 0.09, blue = 0.13, alpha = 0.92 }
 M.PEEK_STROKE         = { red = 0.60, green = 0.70, blue = 0.85, alpha = 0.45 }
 M.PEEK_INNER_PAD      = 6
 
+-- Hover tint painted below icons for the target under the cursor.
+M.HOVER_FILL          = { white = 1.0, alpha = 0.10 }
+M.HOVER_CORNER        = 5
+M.HOVER_INSET_Y       = 2
+
 M.RENDER_DEBOUNCE     = 0.05
 
 return M

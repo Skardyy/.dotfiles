@@ -126,8 +126,35 @@ end
 ---@param focusedWindowId (integer|string)?
 ---@param totalW number
 ---@return table elements, MouseTarget[] mouseTargets
+Draw.HOVER_INDEX = 2
+
+local function hoverPlaceholder()
+  return {
+    type = "rectangle",
+    action = "fill",
+    fillColor = { alpha = 0 },
+    roundedRectRadii = { xRadius = cfg.HOVER_CORNER, yRadius = cfg.HOVER_CORNER },
+    frame = { x = 0, y = 0, w = 0, h = 0 },
+  }
+end
+
+---@param from number?
+---@param to number?
+function Draw.hoverElement(from, to)
+  if not from or not to or to <= from then
+    return hoverPlaceholder()
+  end
+  return {
+    type = "rectangle",
+    action = "fill",
+    fillColor = cfg.HOVER_FILL,
+    roundedRectRadii = { xRadius = cfg.HOVER_CORNER, yRadius = cfg.HOVER_CORNER },
+    frame = { x = from, y = cfg.HOVER_INSET_Y, w = to - from, h = cfg.BAR_HEIGHT - cfg.HOVER_INSET_Y * 2 },
+  }
+end
+
 function Draw.buildElements(workspaces, focused, focusedWindowId, totalW)
-  local elements = { containerElement(totalW) }
+  local elements = { containerElement(totalW), hoverPlaceholder() }
   local mouseTargets = {}
 
   local x = cfg.CONTAINER_PAD_X
@@ -141,18 +168,43 @@ function Draw.buildElements(workspaces, focused, focusedWindowId, totalW)
       elements[#elements + 1] = activeCellBacking(x, w)
     end
 
+    local labelOffset
     if isHiddenWs then
-      x = x + cfg.HIDDEN_SEP_GAP
-      elements[#elements + 1] = hiddenDivider(x)
-      x = x + cfg.HIDDEN_SEP_GAP
+      labelOffset = cfg.HIDDEN_SEP_GAP * 2
+      elements[#elements + 1] = hiddenDivider(x + cfg.HIDDEN_SEP_GAP)
     else
+      labelOffset = cfg.NUMBER_W
       elements[#elements + 1] = labelElement(x, ws, cellAlpha)
     end
 
-    local labelOffset = isHiddenWs and 0 or cfg.NUMBER_W
-    local iconX = x + labelOffset + (cfg.CELL_INNER_PAD_X / 2)
+    local iconAreaStart = x + labelOffset
+    local iconAreaEnd = x + w
+    local iconAreaW = iconAreaEnd - iconAreaStart
+    local n = #ws.windows
+    local segW = n > 0 and (iconAreaW / n) or 0
     local iconY = (cfg.BAR_HEIGHT - cfg.ICON_SIZE) / 2
+
+    -- forgiving hit zones: split the icon area into N equal segments so
+    -- there is no dead space between icons - a hover anywhere in the cell
+    -- picks the closest icon.
+    local zoneStart = (i == 1) and 0 or (x - cfg.CELL_PAD / 2)
+    local zoneEnd = (i == #workspaces) and totalW or (x + w + cfg.CELL_PAD / 2)
+
+    if n == 0 then
+      mouseTargets[#mouseTargets + 1] = {
+        kind = "cell",
+        from = zoneStart,
+        to = zoneEnd,
+        workspace = ws.id,
+        pillFrom = zoneStart,
+        pillTo = zoneEnd,
+      }
+    end
+
+    local prevBoundary = zoneStart
     for j, window in ipairs(ws.windows) do
+      local iconCenterX = iconAreaStart + (j - 0.5) * segW
+      local iconX = iconCenterX - cfg.ICON_SIZE / 2
       local icon = Window.icon(window)
       if icon then
         local alpha = windowAlpha(window, isActive, cellAlpha, focusedWindowId)
@@ -163,19 +215,25 @@ function Draw.buildElements(workspaces, focused, focusedWindowId, totalW)
           end
         end
       end
+      -- hit boundary lands at midpoint between adjacent icon centers, so
+      -- clicking any pixel of an icon lands in that icon's zone.
+      local hitEnd
+      if j == n then
+        hitEnd = zoneEnd
+      else
+        local nextCenter = iconAreaStart + (j + 0.5) * segW
+        hitEnd = (iconCenterX + nextCenter) / 2
+      end
       mouseTargets[#mouseTargets + 1] = {
         kind = "icon",
-        from = iconX - cfg.ICON_GAP / 2,
-        to = iconX + cfg.ICON_SIZE + cfg.ICON_GAP / 2,
+        from = prevBoundary,
+        to = hitEnd,
         window = window,
+        pillFrom = zoneStart,
+        pillTo = zoneEnd,
       }
-      iconX = iconX + cfg.ICON_SIZE
-      if j < #ws.windows then iconX = iconX + cfg.ICON_GAP end
+      prevBoundary = hitEnd
     end
-
-    local zoneStart = (i == 1) and 0 or (x - cfg.CELL_PAD / 2)
-    local zoneEnd = (i == #workspaces) and totalW or (x + w + cfg.CELL_PAD / 2)
-    mouseTargets[#mouseTargets + 1] = { kind = "cell", from = zoneStart, to = zoneEnd, workspace = ws.id }
 
     x = x + w
     if i < #workspaces then x = x + cfg.CELL_PAD end

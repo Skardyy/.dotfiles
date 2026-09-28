@@ -26,16 +26,23 @@ local function attachMouseCallback(canvas, uuid, screen)
     local targets = M.targets[uuid] or {}
     if event == "mouseExit" then
       WindowPeek.hide(uuid)
+      cv[Draw.HOVER_INDEX] = Draw.hoverElement(nil, nil)
       return
     end
     if event == "mouseMove" or event == "mouseEnter" then
       local hovered
       for _, t in ipairs(targets) do
-        if t.kind == "icon" and mx >= t.from and mx < t.to then
+        if mx >= t.from and mx < t.to then
           hovered = t; break
         end
       end
-      if not hovered or (hovered.window and hovered.window.hidden) then
+      if hovered then
+        local cw = cv:frame().w
+        cv[Draw.HOVER_INDEX] = Draw.hoverElement(math.max(0, hovered.pillFrom), math.min(cw, hovered.pillTo))
+      else
+        cv[Draw.HOVER_INDEX] = Draw.hoverElement(nil, nil)
+      end
+      if not hovered or not hovered.window or hovered.window.hidden then
         WindowPeek.hide(uuid)
         return
       end

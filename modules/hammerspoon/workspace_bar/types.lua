@@ -31,6 +31,8 @@
 ---@field kind "icon"|"cell"
 ---@field from number
 ---@field to number
+---@field pillFrom number
+---@field pillTo number
 ---@field window Window?
 ---@field workspace (string|integer)?
 
