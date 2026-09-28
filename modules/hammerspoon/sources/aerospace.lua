@@ -1,39 +1,15 @@
+local Exec = require("workspace_bar.exec")
+local Window = require("workspace_bar.window")
+local Workspace = require("workspace_bar.workspace")
+local Screen = require("workspace_bar.screen")
+
 local M = {}
 
 local AEROSPACE = "/opt/homebrew/bin/aerospace"
 
-local function run(args, onResult)
-  hs.task.new(AEROSPACE, function(_, stdout)
-    if not stdout or stdout == "" then
-      if onResult then onResult(nil) end
-      return
-    end
-    local ok, decoded = pcall(hs.json.decode, stdout)
-    if onResult then onResult(ok and decoded or nil) end
-  end, args):start()
-end
-
-local function batch(specs, onDone)
-  local pending = 0
-  for _ in pairs(specs) do pending = pending + 1 end
-  local results = {}
-  local function finish(key, value)
-    results[key] = value
-    pending = pending - 1
-    if pending == 0 then onDone(results) end
-  end
-  for key, args in pairs(specs) do
-    run(args, function(d) finish(key, d) end)
-  end
-end
-
--- Returns the aerospace-managed slice of the desktop:
---   { monitors           = { { id, name } },
---     workspaces         = { { workspace, monitor_id, visible } },
---     windows            = { { id, bundle, name, workspace, monitor_id, hidden = false } },
---     focused_window_id  = <id> or nil }
+---@param cb fun(snapshot: WMSnapshot?)
 function M.fetch(cb)
-  batch({
+  Exec.batchJson(AEROSPACE, {
     monitors = { "list-monitors", "--json",
       "--format", "%{monitor-id}%{monitor-name}" },
     workspaces = { "list-workspaces", "--all", "--json",
@@ -43,37 +19,41 @@ function M.fetch(cb)
     focused = { "list-windows", "--focused", "--json",
       "--format", "%{window-id}" },
   }, function(r)
-    local monitors = {}
+    local screensById = {}
+    local screens = {}
     for _, m in ipairs(r.monitors or {}) do
-      monitors[#monitors + 1] = { id = m["monitor-id"], name = m["monitor-name"] }
+      local s = Screen.new({ id = m["monitor-id"], name = m["monitor-name"] })
+      screensById[s.id] = s
+      screens[#screens + 1] = s
     end
-    local workspaces = {}
+
+    local workspacesById = {}
     for _, w in ipairs(r.workspaces or {}) do
-      workspaces[#workspaces + 1] = {
-        workspace = w["workspace"],
-        monitor_id = w["monitor-id"],
+      local ws = Workspace.new({
+        id = w["workspace"],
         visible = w["workspace-is-visible"],
-      }
+      })
+      workspacesById[ws.id] = ws
+      local s = screensById[w["monitor-id"]]
+      if s then
+        table.insert(s.workspaces, ws)
+        if ws.visible then s.focused = ws.id end
+      end
     end
-    local windows = {}
+
     for _, w in ipairs(r.windows or {}) do
-      windows[#windows + 1] = {
-        id = w["window-id"],
-        bundle = w["app-bundle-id"],
-        name = w["app-name"] or "",
-        workspace = w["workspace"],
-        monitor_id = w["monitor-id"],
-        hidden = false,
-      }
+      local ws = workspacesById[w["workspace"]]
+      if ws then
+        table.insert(ws.windows, Window.new({
+          id = w["window-id"],
+          bundle = w["app-bundle-id"],
+          name = w["app-name"],
+        }))
+      end
     end
 
     local focused_window_id = r.focused and r.focused[1] and r.focused[1]["window-id"] or nil
-    cb({
-      monitors = monitors,
-      workspaces = workspaces,
-      windows = windows,
-      focused_window_id = focused_window_id,
-    })
+    cb({ screens = screens, focused_window_id = focused_window_id })
   end)
 end
 

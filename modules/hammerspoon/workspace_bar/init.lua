@@ -1,0 +1,179 @@
+require("workspace_bar.types")
+
+local cfg = require("workspace_bar.config")
+local WM = require("workspace_bar.wm")
+local Draw = require("workspace_bar.draw")
+local Window = require("workspace_bar.window")
+local WindowPeek = require("workspace_bar.window_peek")
+
+local M = {}
+
+M.canvases = {}
+M.signatures = {}
+M.targets = {}
+
+local function destroyCanvas(uuid)
+  local canvas = M.canvases[uuid]
+  if canvas then canvas:delete() end
+  M.canvases[uuid] = nil
+  M.signatures[uuid] = nil
+  M.targets[uuid] = nil
+  WindowPeek.clear(uuid)
+end
+
+local function attachMouseCallback(canvas, uuid, screen)
+  canvas:mouseCallback(function(cv, event, _, mx)
+    local targets = M.targets[uuid] or {}
+    if event == "mouseExit" then
+      WindowPeek.hide(uuid)
+      return
+    end
+    if event == "mouseMove" or event == "mouseEnter" then
+      local hovered
+      for _, t in ipairs(targets) do
+        if t.kind == "icon" and mx >= t.from and mx < t.to then
+          hovered = t; break
+        end
+      end
+      if not hovered or (hovered.window and hovered.window.hidden) then
+        WindowPeek.hide(uuid)
+        return
+      end
+      local f = cv:frame()
+      WindowPeek.schedule(uuid, screen, hovered, f.x, f.y)
+      return
+    end
+    if event == "mouseUp" then
+      for _, t in ipairs(targets) do
+        if t.kind == "icon" and mx >= t.from and mx < t.to then
+          if t.window and t.window.hidden then
+            Window.reveal(t.window)
+          else
+            Window.focus(t.window)
+          end
+          WindowPeek.hide(uuid)
+          return
+        end
+      end
+      for _, t in ipairs(targets) do
+        if t.kind == "cell" and mx >= t.from and mx < t.to then
+          WM.switchWorkspace(t.workspace)
+          WindowPeek.hide(uuid)
+          return
+        end
+      end
+    end
+  end)
+end
+
+---@param hs_screen hs.screen
+---@param screen Screen
+---@param focusedWindowId (integer|string)?
+local function renderScreen(hs_screen, screen, focusedWindowId)
+  local uuid = hs_screen:getUUID()
+
+  if #screen.workspaces == 0 then
+    destroyCanvas(uuid)
+    return
+  end
+
+  local sig = Draw.signature(screen.workspaces, screen.focused, focusedWindowId)
+  if M.signatures[uuid] == sig and M.canvases[uuid] then return end
+  M.signatures[uuid] = sig
+
+  local totalW = Draw.contentWidth(screen.workspaces) + (cfg.CONTAINER_PAD_X * 2)
+  local full = hs_screen:fullFrame()
+  local y = full.y + math.max(0, (WM.menubarHeight(hs_screen) - cfg.BAR_HEIGHT) / 2)
+  local x
+  if WM.hasNotch(hs_screen) then
+    x = full.x + full.w / 2 + cfg.NOTCH_HALF_WIDTH
+  else
+    x = full.x + (full.w - totalW) / 2
+  end
+
+  local elements, targets = Draw.buildElements(screen.workspaces, screen.focused, focusedWindowId, totalW)
+  M.targets[uuid] = targets
+
+  local canvas = M.canvases[uuid]
+  if not canvas then
+    canvas = hs.canvas.new({ x = x, y = y, w = totalW, h = cfg.BAR_HEIGHT })
+    canvas:level(hs.canvas.windowLevels.mainMenu + 1)
+    canvas:behavior({ hs.canvas.windowBehaviors.canJoinAllSpaces, hs.canvas.windowBehaviors.stationary })
+    canvas:canvasMouseEvents(false, true, true, true)
+    attachMouseCallback(canvas, uuid, hs_screen)
+    M.canvases[uuid] = canvas
+  else
+    canvas:frame({ x = x, y = y, w = totalW, h = cfg.BAR_HEIGHT })
+  end
+
+  canvas:replaceElements(elements)
+  canvas:show()
+end
+
+local render
+
+local pendingRender = nil
+local function scheduleRender()
+  if pendingRender then return end
+  pendingRender = hs.timer.doAfter(cfg.RENDER_DEBOUNCE, function()
+    pendingRender = nil
+    render()
+  end)
+end
+
+render = function()
+  WM.fetch(function(screens, focusedWindowId)
+    local active = {}
+    for _, hs_screen in ipairs(hs.screen.allScreens()) do
+      local uuid = hs_screen:getUUID()
+      active[uuid] = true
+      local screen = screens[uuid]
+      if screen then
+        renderScreen(hs_screen, screen, focusedWindowId)
+      else
+        destroyCanvas(uuid)
+      end
+    end
+    for uuid in pairs(M.canvases) do
+      if not active[uuid] then destroyCanvas(uuid) end
+    end
+  end)
+end
+
+M.render = render
+
+---@class WorkspaceBarOpts
+---@field source string?
+
+---@param opts WorkspaceBarOpts?
+function M.setup(opts)
+  opts = opts or {}
+  WM.load(opts.source or "aerospace")
+
+  M.screenWatcher = hs.screen.watcher.new(function()
+    for uuid in pairs(M.canvases) do destroyCanvas(uuid) end
+    render()
+  end)
+  M.screenWatcher:start()
+
+  M.winFilter = hs.window.filter.new(true)
+  M.winFilter:subscribe({
+    hs.window.filter.windowCreated,
+    hs.window.filter.windowDestroyed,
+    hs.window.filter.windowMoved,
+    hs.window.filter.windowFocused,
+    hs.window.filter.windowUnfocused,
+    hs.window.filter.windowMinimized,
+    hs.window.filter.windowUnminimized,
+    hs.window.filter.windowHidden,
+    hs.window.filter.windowUnhidden,
+  }, scheduleRender)
+
+  M.eventTask = WM.subscribe(scheduleRender)
+
+  hs.urlevent.bind("refreshbar", scheduleRender)
+
+  render()
+end
+
+return M
