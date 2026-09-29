@@ -95,6 +95,13 @@ function WindowPeek.schedule(uuid, screen, target, barX, barY)
   if p.timer then
     p.timer:stop(); p.timer = nil
   end
+  -- once a peek is already visible for this bar, switching to a new target
+  -- swaps instantly. delay only applies when peek is starting from cold.
+  if p.currentKey then
+    p.pendingKey = nil
+    show(uuid, screen, target, barX, barY)
+    return
+  end
   p.pendingKey = key
   p.timer = hs.timer.doAfter(cfg.PEEK_DELAY, function()
     local pp = WindowPeek.state[uuid]
