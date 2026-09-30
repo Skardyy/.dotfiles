@@ -124,6 +124,25 @@ local function show(uuid, screen, target, barX, barY)
   c:show()
   p.canvas = c
   p.currentKey = tostring(target.workspace or "")
+  p.lastTarget = target
+  p.lastScreen = screen
+  p.lastBarX = barX
+  p.lastBarY = barY
+end
+
+-- Re-render the currently visible peek using its last target. No-op if the
+-- peek is not visible.
+---@param uuid string
+---@param targetsByWorkspace table<string, MouseTarget>?
+function WindowPeek.refresh(uuid, targetsByWorkspace)
+  local p = WindowPeek.state[uuid]
+  if not p or not p.canvas or not p.lastTarget then return end
+  local target = p.lastTarget
+  if targetsByWorkspace then
+    local fresh = targetsByWorkspace[tostring(target.workspace or "")]
+    if fresh then target = fresh end
+  end
+  show(uuid, p.lastScreen, target, p.lastBarX, p.lastBarY)
 end
 
 ---@param uuid string

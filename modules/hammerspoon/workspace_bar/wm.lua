@@ -23,30 +23,6 @@ function WM.hasNotch(hs_screen)
   return WM.menubarHeight(hs_screen) > cfg.NOTCH_THRESHOLD
 end
 
----@param known table<any, boolean>
----@return Window[]
-local function discoverHiddenWindows(known)
-  local out = {}
-  for _, hw in ipairs(hs.window.allWindows()) do
-    local wid = hw:id()
-    if wid and not known[wid] then
-      local app = hw:application()
-      local bundle = app and app:bundleID()
-      local minimized = hw:isMinimized()
-      local appHidden = app and app:isHidden() or false
-      if bundle and (minimized or appHidden) then
-        out[#out + 1] = Window.new({
-          id = wid,
-          bundle = bundle,
-          name = app and app:name() or "",
-          hidden = true,
-        })
-      end
-    end
-  end
-  return out
-end
-
 local function workspaceSortKey(ws)
   local sid = tostring(ws.id)
   local n = tonumber(sid)
@@ -57,8 +33,26 @@ local function workspaceSortKey(ws)
   return "y" .. sid
 end
 
+-- Cheap fingerprint of a raw snapshot. If two consecutive fetches produce
+-- the same fingerprint, callers can skip re-running arrange + repaint.
 ---@param snapshot WMSnapshot
----@return table<string, Screen>  keyed by hs.screen UUID
+---@return string
+local function snapshotFingerprint(snapshot)
+  local parts = { tostring(snapshot.focused_window_id) }
+  for _, s in ipairs(snapshot.screens) do
+    parts[#parts + 1] = tostring(s.id) .. "@" .. tostring(s.focused)
+    for _, ws in ipairs(s.workspaces) do
+      parts[#parts + 1] = tostring(ws.id) .. (ws.visible and "V" or "")
+      for _, w in ipairs(ws.windows) do
+        parts[#parts + 1] = tostring(w.id)
+      end
+    end
+  end
+  return table.concat(parts, "|")
+end
+
+---@param snapshot WMSnapshot
+---@return table<string, Screen>
 local function arrange(snapshot)
   local hsByName, hsByIndex = {}, {}
   for i, hs_screen in ipairs(hs.screen.allScreens()) do
@@ -81,27 +75,46 @@ local function arrange(snapshot)
     end
   end
 
+  -- One AX pass: sort keys for known windows, hidden bucket entries for the
+  -- rest. Merged so we do not enumerate all windows twice.
   local xByWinId = {}
+  local hidden = {}
   for _, hw in ipairs(hs.window.allWindows()) do
     local id = hw:id()
     if id then
-      local f = hw:frame()
-      if f then xByWinId[id] = f.x end
+      if known[id] then
+        local f = hw:frame()
+        if f then xByWinId[id] = f.x end
+      else
+        local minimized = hw:isMinimized()
+        local app = hw:application()
+        local appHidden = app and app:isHidden() or false
+        local bundle = app and app:bundleID()
+        if bundle and (minimized or appHidden) then
+          hidden[#hidden + 1] = Window.new({
+            id = id,
+            bundle = bundle,
+            name = app and app:name() or "",
+            hidden = true,
+          })
+        end
+      end
     end
   end
 
   for _, s in ipairs(snapshot.screens) do
     for _, ws in ipairs(s.workspaces) do
-      table.sort(ws.windows, function(a, b)
-        local ax = xByWinId[a.id] or math.huge
-        local bx = xByWinId[b.id] or math.huge
-        if ax ~= bx then return ax < bx end
-        return tostring(a.id) < tostring(b.id)
-      end)
+      if #ws.windows > 1 then
+        table.sort(ws.windows, function(a, b)
+          local ax = xByWinId[a.id] or math.huge
+          local bx = xByWinId[b.id] or math.huge
+          if ax ~= bx then return ax < bx end
+          return tostring(a.id) < tostring(b.id)
+        end)
+      end
     end
   end
 
-  local hidden = discoverHiddenWindows(known)
   local primary = hs.screen.primaryScreen()
   local primaryScreenId
   for sid, hw in pairs(hsByScreenId) do
@@ -138,12 +151,24 @@ local function arrange(snapshot)
   return out
 end
 
----@param cb fun(screens: table<string, Screen>, focusedWindowId: (integer|string)?)
+local lastFingerprint = nil
+local lastResult = nil
+local lastFocusedWindowId = nil
+
+---@param cb fun(screens: table<string, Screen>, focusedWindowId: (integer|string)?, unchanged: boolean)
 function WM.fetch(cb)
   if not source then return end
   source.fetch(function(snapshot)
     if not snapshot then return end
-    cb(arrange(snapshot), snapshot.focused_window_id)
+    local fp = snapshotFingerprint(snapshot)
+    if fp == lastFingerprint and lastResult then
+      cb(lastResult, lastFocusedWindowId, true)
+      return
+    end
+    lastFingerprint = fp
+    lastResult = arrange(snapshot)
+    lastFocusedWindowId = snapshot.focused_window_id
+    cb(lastResult, lastFocusedWindowId, false)
   end)
 end
 

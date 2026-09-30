@@ -42,3 +42,7 @@
 ---@field timer hs.timer?
 ---@field pendingKey string?
 ---@field currentKey string?
+---@field lastTarget MouseTarget?
+---@field lastScreen hs.screen?
+---@field lastBarX number?
+---@field lastBarY number?

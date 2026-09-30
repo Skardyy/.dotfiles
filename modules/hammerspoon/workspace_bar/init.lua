@@ -117,12 +117,28 @@ local function renderScreen(hs_screen, screen, focusedWindowId)
 
   canvas:replaceElements(elements)
   canvas:show()
+
+  local byWorkspace = {}
+  for _, t in ipairs(targets) do
+    if t.workspace ~= nil then byWorkspace[tostring(t.workspace)] = t end
+  end
+  WindowPeek.refresh(uuid, byWorkspace)
 end
 
 local render
 
+-- Coalesce bursts of window events into one render, and prevent stacking
+-- while a render is already in flight. If more events arrive during a
+-- render, we run exactly one follow-up when the in-flight render finishes.
 local pendingRender = nil
+local renderInFlight = false
+local dirty = false
+
 local function scheduleRender()
+  if renderInFlight then
+    dirty = true
+    return
+  end
   if pendingRender then return end
   pendingRender = hs.timer.doAfter(cfg.RENDER_DEBOUNCE, function()
     pendingRender = nil
@@ -131,20 +147,28 @@ local function scheduleRender()
 end
 
 render = function()
-  WM.fetch(function(screens, focusedWindowId)
-    local active = {}
-    for _, hs_screen in ipairs(hs.screen.allScreens()) do
-      local uuid = hs_screen:getUUID()
-      active[uuid] = true
-      local screen = screens[uuid]
-      if screen then
-        renderScreen(hs_screen, screen, focusedWindowId)
-      else
-        destroyCanvas(uuid)
+  renderInFlight = true
+  WM.fetch(function(screens, focusedWindowId, unchanged)
+    if not unchanged then
+      local active = {}
+      for _, hs_screen in ipairs(hs.screen.allScreens()) do
+        local uuid = hs_screen:getUUID()
+        active[uuid] = true
+        local screen = screens[uuid]
+        if screen then
+          renderScreen(hs_screen, screen, focusedWindowId)
+        else
+          destroyCanvas(uuid)
+        end
+      end
+      for uuid in pairs(M.canvases) do
+        if not active[uuid] then destroyCanvas(uuid) end
       end
     end
-    for uuid in pairs(M.canvases) do
-      if not active[uuid] then destroyCanvas(uuid) end
+    renderInFlight = false
+    if dirty then
+      dirty = false
+      scheduleRender()
     end
   end)
 end
