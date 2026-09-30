@@ -1,4 +1,4 @@
-local Exec = require("workspace_bar.exec")
+local Socket = require("sources.aerospace_socket")
 local Window = require("workspace_bar.window")
 local Workspace = require("workspace_bar.workspace")
 local Screen = require("workspace_bar.screen")
@@ -9,7 +9,7 @@ local AEROSPACE = "/opt/homebrew/bin/aerospace"
 
 ---@param cb fun(snapshot: WMSnapshot?)
 function M.fetch(cb)
-  Exec.batchJson(AEROSPACE, {
+  Socket.batchJson({
     monitors = { "list-monitors", "--json",
       "--format", "%{monitor-id}%{monitor-name}" },
     workspaces = { "list-workspaces", "--all", "--json",
