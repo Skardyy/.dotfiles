@@ -149,22 +149,20 @@ end
 
 render = function()
   renderInFlight = true
-  WM.fetch(function(screens, focusedWindowId, unchanged)
-    if not unchanged then
-      local active = {}
-      for _, hs_screen in ipairs(hs.screen.allScreens()) do
-        local uuid = hs_screen:getUUID()
-        active[uuid] = true
-        local screen = screens[uuid]
-        if screen then
-          renderScreen(hs_screen, screen, focusedWindowId)
-        else
-          destroyCanvas(uuid)
-        end
+  WM.fetch(function(screens, focusedWindowId)
+    local active = {}
+    for _, hs_screen in ipairs(hs.screen.allScreens()) do
+      local uuid = hs_screen:getUUID()
+      active[uuid] = true
+      local screen = screens[uuid]
+      if screen then
+        renderScreen(hs_screen, screen, focusedWindowId)
+      else
+        destroyCanvas(uuid)
       end
-      for uuid in pairs(M.canvases) do
-        if not active[uuid] then destroyCanvas(uuid) end
-      end
+    end
+    for uuid in pairs(M.canvases) do
+      if not active[uuid] then destroyCanvas(uuid) end
     end
     renderInFlight = false
     if dirty then
@@ -219,8 +217,17 @@ function M.setup(opts)
   end)
   M.screenWatcher:start()
 
-  HiddenTracker.start(scheduleRender)
-  M.eventTask = WM.subscribe(scheduleRender)
+  HiddenTracker.start(function()
+    WM.invalidateFrames()
+    scheduleRender()
+  end)
+  M.eventTask = WM.subscribe(function(kind)
+    if kind == "binding-triggered" then
+      WM.invalidate()
+      WM.invalidateFrames()
+    end
+    scheduleRender()
+  end)
 
   render()
 end

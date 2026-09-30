@@ -23,6 +23,29 @@ function WM.hasNotch(hs_screen)
   return WM.menubarHeight(hs_screen) > cfg.NOTCH_THRESHOLD
 end
 
+-- Map of window-id -> frame.x, populated once by walking hs.window.allWindows()
+-- and reused across renders. Invalidated only by layout-changing events
+-- (aerospace binding-triggered, HiddenTracker window create/destroy).
+-- Workspace switches do not move windows in aerospace's overlay model, so
+-- the cache stays valid across switch storms.
+local frameCache = nil
+
+local function ensureFrameCache()
+  local out = {}
+  for _, hw in ipairs(hs.window.allWindows()) do
+    local id = hw:id()
+    if id then
+      local f = hw:frame()
+      if f then out[id] = f.x end
+    end
+  end
+  return out
+end
+
+function WM.invalidateFrames()
+  frameCache = nil
+end
+
 local function workspaceSortKey(ws)
   local sid = tostring(ws.id)
   local n = tonumber(sid)
@@ -31,24 +54,6 @@ local function workspaceSortKey(ws)
     return string.format("a%020d", n)
   end
   return "y" .. sid
-end
-
--- Cheap fingerprint of a raw snapshot. If two consecutive fetches produce
--- the same fingerprint, callers can skip re-running arrange + repaint.
----@param snapshot WMSnapshot
----@return string
-local function snapshotFingerprint(snapshot)
-  local parts = { tostring(snapshot.focused_window_id) }
-  for _, s in ipairs(snapshot.screens) do
-    parts[#parts + 1] = tostring(s.id) .. "@" .. tostring(s.focused)
-    for _, ws in ipairs(s.workspaces) do
-      parts[#parts + 1] = tostring(ws.id) .. (ws.visible and "V" or "")
-      for _, w in ipairs(ws.windows) do
-        parts[#parts + 1] = tostring(w.id)
-      end
-    end
-  end
-  return table.concat(parts, "|")
 end
 
 ---@param snapshot WMSnapshot
@@ -75,23 +80,26 @@ local function arrange(snapshot)
     end
   end
 
-  local xByWinId = {}
+  local needSort = false
   for _, s in ipairs(snapshot.screens) do
     for _, ws in ipairs(s.workspaces) do
-      if #ws.windows > 1 and not ws.preserveOrder then
-        for _, w in ipairs(ws.windows) do
-          local hw = hs.window.get(w.id)
-          if hw then
-            local f = hw:frame()
-            if f then xByWinId[w.id] = f.x end
-          end
+      if #ws.windows > 1 and not ws.preserveOrder then needSort = true; break end
+    end
+    if needSort then break end
+  end
+
+  if needSort then
+    frameCache = frameCache or ensureFrameCache()
+    for _, s in ipairs(snapshot.screens) do
+      for _, ws in ipairs(s.workspaces) do
+        if #ws.windows > 1 and not ws.preserveOrder then
+          table.sort(ws.windows, function(a, b)
+            local ax = frameCache[a.id] or math.huge
+            local bx = frameCache[b.id] or math.huge
+            if ax ~= bx then return ax < bx end
+            return tostring(a.id) < tostring(b.id)
+          end)
         end
-        table.sort(ws.windows, function(a, b)
-          local ax = xByWinId[a.id] or math.huge
-          local bx = xByWinId[b.id] or math.huge
-          if ax ~= bx then return ax < bx end
-          return tostring(a.id) < tostring(b.id)
-        end)
       end
     end
   end
@@ -137,24 +145,46 @@ local function arrange(snapshot)
   return out
 end
 
+local function snapshotFingerprint(snapshot)
+  local parts = { tostring(snapshot.focused_window_id) }
+  for _, s in ipairs(snapshot.screens) do
+    parts[#parts + 1] = tostring(s.id) .. "@" .. tostring(s.focused)
+    for _, ws in ipairs(s.workspaces) do
+      parts[#parts + 1] = tostring(ws.id) .. (ws.visible and "V" or "")
+      for _, w in ipairs(ws.windows) do
+        parts[#parts + 1] = tostring(w.id)
+      end
+    end
+  end
+  return table.concat(parts, "|")
+end
+
 local lastFingerprint = nil
 local lastResult = nil
 local lastFocusedWindowId = nil
 
----@param cb fun(screens: table<string, Screen>, focusedWindowId: (integer|string)?, unchanged: boolean)
+-- Force the next fetch to re-run arrange even if the source snapshot has not
+-- changed. Needed when we know the tree shape changed in a way the source
+-- data cannot express (e.g. move-node shuffles tree position without
+-- changing window ids or workspace assignment).
+function WM.invalidate()
+  lastFingerprint = nil
+end
+
+---@param cb fun(screens: table<string, Screen>, focusedWindowId: (integer|string)?)
 function WM.fetch(cb)
   if not source then return end
   source.fetch(function(snapshot)
     if not snapshot then return end
     local fp = snapshotFingerprint(snapshot)
     if fp == lastFingerprint and lastResult then
-      cb(lastResult, lastFocusedWindowId, true)
+      cb(lastResult, lastFocusedWindowId)
       return
     end
     lastFingerprint = fp
     lastResult = arrange(snapshot)
     lastFocusedWindowId = snapshot.focused_window_id
-    cb(lastResult, lastFocusedWindowId, false)
+    cb(lastResult, lastFocusedWindowId)
   end)
 end
 

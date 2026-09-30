@@ -64,18 +64,29 @@ function M.switch_workspace(name)
 end
 
 -- Long-lived subscription to aerospace's native event stream. Each line
--- streamed on stdout is a JSON ServerEvent; any event means the bar needs
--- to re-fetch. Auto-respawns on unexpected exit.
----@param onEvent fun()
+-- streamed on stdout is a JSON ServerEvent. Auto-respawns on unexpected
+-- exit. The event kind (`_event` field) is passed to the callback so the
+-- caller can decide whether the event may have changed tree shape.
+---@param onEvent fun(kind: string?)
 ---@return hs.task
 function M.subscribe(onEvent)
   local task
+  local buffer = ""
   local function spawn()
     task = hs.task.new(
       AEROSPACE,
       function() hs.timer.doAfter(1.0, spawn) end,
       function(_, stdout, _)
-        if stdout and stdout ~= "" then onEvent() end
+        if not stdout or stdout == "" then return true end
+        buffer = buffer .. stdout
+        while true do
+          local nl = buffer:find("\n", 1, true)
+          if not nl then break end
+          local line = buffer:sub(1, nl - 1)
+          buffer = buffer:sub(nl + 1)
+          local kind = line:match('"_event"%s*:%s*"([^"]+)"')
+          onEvent(kind)
+        end
         return true
       end,
       { "subscribe", "--all" }
