@@ -5,6 +5,7 @@ local WM = require("workspace_bar.wm")
 local Draw = require("workspace_bar.draw")
 local Window = require("workspace_bar.window")
 local WindowPeek = require("workspace_bar.window_peek")
+local HiddenTracker = require("workspace_bar.hidden_tracker")
 
 local M = {}
 
@@ -218,17 +219,13 @@ function M.setup(opts)
   end)
   M.screenWatcher:start()
 
+  HiddenTracker.start(scheduleRender)
+
   M.winFilter = hs.window.filter.new(true)
   M.winFilter:subscribe({
-    hs.window.filter.windowCreated,
-    hs.window.filter.windowDestroyed,
     hs.window.filter.windowMoved,
     hs.window.filter.windowFocused,
     hs.window.filter.windowUnfocused,
-    hs.window.filter.windowMinimized,
-    hs.window.filter.windowUnminimized,
-    hs.window.filter.windowHidden,
-    hs.window.filter.windowUnhidden,
   }, scheduleRender)
 
   M.eventTask = WM.subscribe(scheduleRender)

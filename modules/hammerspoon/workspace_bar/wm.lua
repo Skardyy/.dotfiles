@@ -1,6 +1,6 @@
 local cfg = require("workspace_bar.config")
 local Workspace = require("workspace_bar.workspace")
-local Window = require("workspace_bar.window")
+local HiddenTracker = require("workspace_bar.hidden_tracker")
 
 local WM = {}
 
@@ -75,36 +75,17 @@ local function arrange(snapshot)
     end
   end
 
-  -- One AX pass: sort keys for known windows, hidden bucket entries for the
-  -- rest. Merged so we do not enumerate all windows twice.
   local xByWinId = {}
-  local hidden = {}
-  for _, hw in ipairs(hs.window.allWindows()) do
-    local id = hw:id()
-    if id then
-      if known[id] then
-        local f = hw:frame()
-        if f then xByWinId[id] = f.x end
-      else
-        local minimized = hw:isMinimized()
-        local app = hw:application()
-        local appHidden = app and app:isHidden() or false
-        local bundle = app and app:bundleID()
-        if bundle and (minimized or appHidden) then
-          hidden[#hidden + 1] = Window.new({
-            id = id,
-            bundle = bundle,
-            name = app and app:name() or "",
-            hidden = true,
-          })
-        end
-      end
-    end
-  end
-
   for _, s in ipairs(snapshot.screens) do
     for _, ws in ipairs(s.workspaces) do
       if #ws.windows > 1 then
+        for _, w in ipairs(ws.windows) do
+          local hw = hs.window.get(w.id)
+          if hw then
+            local f = hw:frame()
+            if f then xByWinId[w.id] = f.x end
+          end
+        end
         table.sort(ws.windows, function(a, b)
           local ax = xByWinId[a.id] or math.huge
           local bx = xByWinId[b.id] or math.huge
@@ -113,6 +94,11 @@ local function arrange(snapshot)
         end)
       end
     end
+  end
+
+  local hidden = {}
+  for _, w in ipairs(HiddenTracker.list()) do
+    if not known[w.id] then hidden[#hidden + 1] = w end
   end
 
   local primary = hs.screen.primaryScreen()
