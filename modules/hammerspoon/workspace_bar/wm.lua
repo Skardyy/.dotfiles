@@ -78,7 +78,7 @@ local function arrange(snapshot)
   local xByWinId = {}
   for _, s in ipairs(snapshot.screens) do
     for _, ws in ipairs(s.workspaces) do
-      if #ws.windows > 1 then
+      if #ws.windows > 1 and not ws.preserveOrder then
         for _, w in ipairs(ws.windows) do
           local hw = hs.window.get(w.id)
           if hw then

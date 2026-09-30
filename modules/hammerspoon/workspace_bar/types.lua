@@ -7,10 +7,14 @@
 ---@field name string
 ---@field hidden boolean
 
--- one workspace on a screen. holds the windows placed in it.
+-- one workspace on a screen. holds the windows placed in it. `preserveOrder`
+-- = true tells the bar to keep the source's window order instead of sorting
+-- by on-screen position (useful when windows overlap and x-coordinates
+-- collide).
 ---@class Workspace
 ---@field id string|integer
 ---@field visible boolean
+---@field preserveOrder boolean
 ---@field windows Window[]
 
 -- one physical screen. holds the workspaces on it and which is focused.

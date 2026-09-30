@@ -15,7 +15,7 @@ function M.fetch(cb)
     workspaces = { "list-workspaces", "--all", "--json",
       "--format", "%{workspace}%{monitor-id}%{workspace-is-visible}" },
     windows = { "list-windows", "--all", "--json",
-      "--format", "%{window-id}%{app-name}%{app-bundle-id}%{workspace}%{monitor-id}" },
+      "--format", "%{window-id}%{app-name}%{app-bundle-id}%{workspace}%{monitor-id}%{workspace-root-container-layout}" },
     focused = { "list-windows", "--focused", "--json",
       "--format", "%{window-id}" },
   }, function(r)
@@ -49,6 +49,8 @@ function M.fetch(cb)
           bundle = w["app-bundle-id"],
           name = w["app-name"],
         }))
+        local layout = w["workspace-root-container-layout"] or ""
+        if layout:find("accordion") then ws.preserveOrder = true end
       end
     end
 

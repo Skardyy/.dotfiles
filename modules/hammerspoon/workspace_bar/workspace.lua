@@ -2,12 +2,13 @@ local cfg = require("workspace_bar.config")
 
 local Workspace = {}
 
----@param opts { id: string|integer, visible: boolean?, windows: Window[]? }
+---@param opts { id: string|integer, visible: boolean?, preserveOrder: boolean?, windows: Window[]? }
 ---@return Workspace
 function Workspace.new(opts)
   return {
     id = opts.id,
     visible = opts.visible or false,
+    preserveOrder = opts.preserveOrder or false,
     windows = opts.windows or {},
   }
 end
