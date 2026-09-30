@@ -61,4 +61,27 @@ function M.switch_workspace(name)
   hs.task.new(AEROSPACE, nil, { "workspace", tostring(name) }):start()
 end
 
+-- Long-lived subscription to aerospace's native event stream. Each line
+-- streamed on stdout is a JSON ServerEvent; any event means the bar needs
+-- to re-fetch. Auto-respawns on unexpected exit.
+---@param onEvent fun()
+---@return hs.task
+function M.subscribe(onEvent)
+  local task
+  local function spawn()
+    task = hs.task.new(
+      AEROSPACE,
+      function() hs.timer.doAfter(1.0, spawn) end,
+      function(_, stdout, _)
+        if stdout and stdout ~= "" then onEvent() end
+        return true
+      end,
+      { "subscribe", "--all" }
+    )
+    task:start()
+  end
+  spawn()
+  return task
+end
+
 return M

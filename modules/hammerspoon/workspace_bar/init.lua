@@ -220,17 +220,7 @@ function M.setup(opts)
   M.screenWatcher:start()
 
   HiddenTracker.start(scheduleRender)
-
-  M.winFilter = hs.window.filter.new(true)
-  M.winFilter:subscribe({
-    hs.window.filter.windowMoved,
-    hs.window.filter.windowFocused,
-    hs.window.filter.windowUnfocused,
-  }, scheduleRender)
-
   M.eventTask = WM.subscribe(scheduleRender)
-
-  hs.urlevent.bind("refreshbar", scheduleRender)
 
   render()
 end

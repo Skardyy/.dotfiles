@@ -18,13 +18,6 @@ default-root-container-orientation = 'auto'
 # away from the bar mid-interaction.
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-# Trigger the hammerspoon workspace bar to re-render on workspace switch.
-exec-on-workspace-change = [
-  '/bin/zsh',
-  '-c',
-  '/usr/bin/open -g hammerspoon://refreshBar',
-]
-
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 automatically-unhide-macos-hidden-apps = true
