@@ -30,29 +30,68 @@ function WindowPeek.clear(uuid)
   WindowPeek.state[uuid] = nil
 end
 
-local function show(uuid, screen, target, barX, barY)
-  local w = target.window
-  if not w or not w.id then return end
-  local snap, title = Window.snapshot(w)
-  if not snap then return end
+local function snapshotAll(wins)
+  local out = {}
+  for _, w in ipairs(wins) do
+    if w and w.id and not w.hidden then
+      local snap, title = Window.snapshot(w)
+      if snap then
+        out[#out + 1] = { image = snap, title = title or w.name or "" }
+      end
+    end
+  end
+  return out
+end
 
-  local iconAbsCenterX = barX + (target.from + target.to) / 2
-  local peekY = barY + cfg.BAR_HEIGHT + cfg.PEEK_MARGIN
-  local peekX = iconAbsCenterX - cfg.PEEK_W / 2
+local function show(uuid, screen, target, barX, barY)
+  local wins = target.windows
+  if not wins or #wins == 0 then
+    if target.window then wins = { target.window } else return end
+  end
+
+  local shots = snapshotAll(wins)
+  if #shots == 0 then return end
+
   local sf = screen:fullFrame()
-  peekX = math.max(sf.x + 4, math.min(peekX, sf.x + sf.w - cfg.PEEK_W - 4))
+  local n = #shots
+  local imgH = sf.h * cfg.PEEK_TILE_H_RATIO
+  local tiles = {}
+  local totalImgW = 0
+  for _, shot in ipairs(shots) do
+    local sz = shot.image:size()
+    local aspect = (sz.w > 0 and sz.h > 0) and (sz.w / sz.h) or 1
+    local w = imgH * aspect
+    tiles[#tiles + 1] = { image = shot.image, title = shot.title, w = w }
+    totalImgW = totalImgW + w
+  end
+  local maxW = sf.w * cfg.PEEK_MAX_W_RATIO
+  local avail = maxW - (n - 1) * cfg.PEEK_TILE_GAP - cfg.PEEK_INNER_PAD * 2
+  if totalImgW > avail then
+    local scale = avail / totalImgW
+    imgH = imgH * scale
+    totalImgW = 0
+    for _, t in ipairs(tiles) do
+      t.w = t.w * scale
+      totalImgW = totalImgW + t.w
+    end
+  end
+  local peekW = totalImgW + (n - 1) * cfg.PEEK_TILE_GAP + cfg.PEEK_INNER_PAD * 2
+  local peekH = imgH + cfg.PEEK_INNER_PAD * 2 + cfg.PEEK_TITLE_H
+
+  local pillCenterAbs = barX + (target.pillFrom + target.pillTo) / 2
+  local peekY = barY + cfg.BAR_HEIGHT + cfg.PEEK_MARGIN
+  local peekX = pillCenterAbs - peekW / 2
+  peekX = math.max(sf.x + 4, math.min(peekX, sf.x + sf.w - peekW - 4))
 
   local p = WindowPeek.state[uuid] or {}
   WindowPeek.state[uuid] = p
   if p.canvas then p.canvas:delete() end
-  local c = hs.canvas.new({ x = peekX, y = peekY, w = cfg.PEEK_W, h = cfg.PEEK_H })
+  local c = hs.canvas.new({ x = peekX, y = peekY, w = peekW, h = peekH })
   c:level(hs.canvas.windowLevels.mainMenu)
   c:behavior({ hs.canvas.windowBehaviors.canJoinAllSpaces, hs.canvas.windowBehaviors.stationary })
   c:canvasMouseEvents(false, false, false, false)
 
-  local imgW = cfg.PEEK_W - cfg.PEEK_INNER_PAD * 2
-  local imgH = cfg.PEEK_H - cfg.PEEK_INNER_PAD * 2 - 14
-  c:replaceElements({
+  local elements = {
     {
       type = "rectangle",
       action = "strokeAndFill",
@@ -60,26 +99,31 @@ local function show(uuid, screen, target, barX, barY)
       strokeColor = cfg.PEEK_STROKE,
       strokeWidth = 1,
       roundedRectRadii = { xRadius = cfg.PEEK_CORNER, yRadius = cfg.PEEK_CORNER },
-      frame = { x = 0.5, y = 0.5, w = cfg.PEEK_W - 1, h = cfg.PEEK_H - 1 },
+      frame = { x = 0.5, y = 0.5, w = peekW - 1, h = peekH - 1 },
     },
-    {
+  }
+  local x = cfg.PEEK_INNER_PAD
+  for _, t in ipairs(tiles) do
+    elements[#elements + 1] = {
       type = "image",
-      image = snap,
-      frame = { x = cfg.PEEK_INNER_PAD, y = cfg.PEEK_INNER_PAD, w = imgW, h = imgH },
+      image = t.image,
+      frame = { x = x, y = cfg.PEEK_INNER_PAD, w = t.w, h = imgH },
       imageScaling = "scaleProportionally",
-    },
-    {
+    }
+    elements[#elements + 1] = {
       type = "text",
-      text = title or w.name or "",
-      frame = { x = cfg.PEEK_INNER_PAD, y = cfg.PEEK_INNER_PAD + imgH, w = imgW, h = 14 },
+      text = t.title,
+      frame = { x = x, y = cfg.PEEK_INNER_PAD + imgH, w = t.w, h = cfg.PEEK_TITLE_H },
       textColor = { white = 1.0, alpha = 0.85 },
       textSize = 11,
       textAlignment = "center",
-    },
-  })
+    }
+    x = x + t.w + cfg.PEEK_TILE_GAP
+  end
+  c:replaceElements(elements)
   c:show()
   p.canvas = c
-  p.currentKey = windowKey(w)
+  p.currentKey = tostring(target.workspace or "")
 end
 
 ---@param uuid string
@@ -88,7 +132,7 @@ end
 ---@param barX number
 ---@param barY number
 function WindowPeek.schedule(uuid, screen, target, barX, barY)
-  local key = windowKey(target.window)
+  local key = tostring(target.workspace or windowKey(target.window or {}))
   local p = WindowPeek.state[uuid] or {}
   WindowPeek.state[uuid] = p
   if p.pendingKey == key or p.currentKey == key then return end

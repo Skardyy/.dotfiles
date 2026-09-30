@@ -34,6 +34,7 @@
 ---@field pillFrom number
 ---@field pillTo number
 ---@field window Window?
+---@field windows Window[]?
 ---@field workspace (string|integer)?
 
 ---@class WindowPeekState

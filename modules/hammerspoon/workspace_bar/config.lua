@@ -40,13 +40,15 @@ M.SCRATCH_THRESHOLD   = 10
 M.HIDDEN_WORKSPACE_ID = "hidden"
 
 M.PEEK_DELAY          = 0.10
-M.PEEK_W              = 260
-M.PEEK_H              = 160
+M.PEEK_TILE_H_RATIO   = 0.16
+M.PEEK_MAX_W_RATIO    = 0.60
+M.PEEK_TILE_GAP       = 4
 M.PEEK_MARGIN         = 6
 M.PEEK_CORNER         = 8
 M.PEEK_BG             = { red = 0.07, green = 0.09, blue = 0.13, alpha = 0.92 }
 M.PEEK_STROKE         = { red = 0.60, green = 0.70, blue = 0.85, alpha = 0.45 }
 M.PEEK_INNER_PAD      = 6
+M.PEEK_TITLE_H        = 14
 
 -- Hover tint painted below icons for the target under the cursor.
 M.HOVER_FILL          = { white = 1.0, alpha = 0.10 }

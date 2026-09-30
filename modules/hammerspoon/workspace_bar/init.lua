@@ -11,6 +11,7 @@ local M = {}
 M.canvases = {}
 M.signatures = {}
 M.targets = {}
+M.hoverPill = {}
 
 local function destroyCanvas(uuid)
   local canvas = M.canvases[uuid]
@@ -18,6 +19,7 @@ local function destroyCanvas(uuid)
   M.canvases[uuid] = nil
   M.signatures[uuid] = nil
   M.targets[uuid] = nil
+  M.hoverPill[uuid] = nil
   WindowPeek.clear(uuid)
 end
 
@@ -26,7 +28,10 @@ local function attachMouseCallback(canvas, uuid, screen)
     local targets = M.targets[uuid] or {}
     if event == "mouseExit" then
       WindowPeek.hide(uuid)
-      cv[Draw.HOVER_INDEX] = Draw.hoverElement(nil, nil)
+      if M.hoverPill[uuid] then
+        cv[Draw.HOVER_INDEX] = Draw.hoverElement(nil, nil)
+        M.hoverPill[uuid] = nil
+      end
       return
     end
     if event == "mouseMove" or event == "mouseEnter" then
@@ -36,11 +41,15 @@ local function attachMouseCallback(canvas, uuid, screen)
           hovered = t; break
         end
       end
-      if hovered then
-        local cw = cv:frame().w
-        cv[Draw.HOVER_INDEX] = Draw.hoverElement(math.max(0, hovered.pillFrom), math.min(cw, hovered.pillTo))
-      else
-        cv[Draw.HOVER_INDEX] = Draw.hoverElement(nil, nil)
+      local pillKey = hovered and (tostring(hovered.pillFrom) .. ":" .. tostring(hovered.pillTo)) or nil
+      if pillKey ~= M.hoverPill[uuid] then
+        if hovered then
+          local cw = cv:frame().w
+          cv[Draw.HOVER_INDEX] = Draw.hoverElement(math.max(0, hovered.pillFrom), math.min(cw, hovered.pillTo))
+        else
+          cv[Draw.HOVER_INDEX] = Draw.hoverElement(nil, nil)
+        end
+        M.hoverPill[uuid] = pillKey
       end
       if not hovered or not hovered.window or hovered.window.hidden then
         WindowPeek.hide(uuid)
