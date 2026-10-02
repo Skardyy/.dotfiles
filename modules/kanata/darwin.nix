@@ -25,6 +25,20 @@ in
     fi
   '';
 
+  # the Karabiner DriverKit extension needs a user space daemon running
+  # as root to accept kanata's injected events. the pkg installer no
+  # longer registers it as a system LaunchDaemon, so manage it here.
+  launchd.daemons.karabiner-vhid-daemon = {
+    serviceConfig = {
+      Label = "org.pqrs.service.daemon.Karabiner-DriverKit-VirtualHIDDevice";
+      ProgramArguments = [
+        "/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"
+      ];
+      RunAtLoad = true;
+      KeepAlive = true;
+    };
+  };
+
   launchd.user.agents.kanata = {
     serviceConfig = {
       Label = "org.kanata.agent";
