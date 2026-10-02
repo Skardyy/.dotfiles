@@ -42,7 +42,6 @@ cmd-w = "exec-and-forget open -na 'Zen Browser (Beta)'"
 cmd-s = "exec-and-forget screencapture -ic"
 cmd-shift-c = "exec-and-forget open -g raycast://extensions/thomas/color-picker/pick-color"
 cmd-shift-v = "exec-and-forget open -g raycast://extensions/raycast/clipboard-history/clipboard-history"
-cmd-space = "exec-and-forget open -g raycast://"
 
 # Default
 cmd-h = [

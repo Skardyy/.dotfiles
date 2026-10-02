@@ -2,7 +2,7 @@
 animate = true
 animation_duration = 0.18
 animation_easing = "ease_out_circ"
-mouse_follows_focus = true
+mouse_follows_focus = false
 focus_follows_mouse = false
 mouse_hides_on_focus = false
 hot_reload = true
@@ -47,7 +47,7 @@ horizontal = 12
 vertical = 12
 
 [settings.ui.menu_bar]
-enabled = true
+enabled = false
 show_empty = false
 mode = "all"
 display_style = "label"
@@ -84,8 +84,15 @@ app_rules = [
   { app_name = "Finder", title_substring = "Move", floating = true },
 ]
 
-# === Focus (h/j/k/l) ===
+# === Window ===
 [keys]
+"Meta + Q" = { exec = [
+  "/usr/bin/osascript",
+  "-e",
+  "tell application (path to frontmost application as text) to quit",
+] }
+
+# === Focus (h/j/k/l) ===
 "Meta + H" = { move_focus = "left" }
 "Meta + J" = { move_focus = "down" }
 "Meta + K" = { move_focus = "up" }
