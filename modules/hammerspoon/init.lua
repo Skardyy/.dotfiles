@@ -5,11 +5,7 @@ package.path = package.path
     .. ";" .. hs.configdir .. "/?.lua"
     .. ";" .. hs.configdir .. "/?/init.lua"
 
-require("cpu")
-
 local WM = "aerospace"
-
-require("workspace_bar").setup({ source = WM })
 
 if WM == "aerospace" then
   require("cmd_drag").start()
