@@ -14,6 +14,7 @@
       ProgramArguments = [ "/opt/homebrew/bin/mwmbar" ];
       RunAtLoad = true;
       KeepAlive = true;
+      ProcessType = "Interactive";
       StandardErrorPath = "/tmp/mwmbar.err.log";
       StandardOutPath = "/tmp/mwmbar.out.log";
     };
