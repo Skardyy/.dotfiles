@@ -92,7 +92,8 @@ if status is-interactive
         switch $cmd
             case enable
                 set -l plist (__svc_find_plist $label); or begin
-                    echo "no plist for $label" >&2; return 1
+                    echo "no plist for $label" >&2
+                    return 1
                 end
                 set -l d (__svc_domain_for_plist $plist $uid)
                 __svc_run $d enable $d/$label
@@ -101,7 +102,8 @@ if status is-interactive
                 set -l d (__svc_domain $label $uid)
                 if test -z "$d"
                     set -l plist (__svc_find_plist $label); or begin
-                        echo "no plist for $label" >&2; return 1
+                        echo "no plist for $label" >&2
+                        return 1
                     end
                     set d (__svc_domain_for_plist $plist $uid)
                 end
@@ -109,22 +111,26 @@ if status is-interactive
                 __svc_run $d bootout $d/$label 2>/dev/null
             case start
                 set -l d (__svc_domain $label $uid); or begin
-                    echo "not loaded: $label (enable first)" >&2; return 1
+                    echo "not loaded: $label (enable first)" >&2
+                    return 1
                 end
                 __svc_run $d kickstart $d/$label
             case stop
                 set -l d (__svc_domain $label $uid); or begin
-                    echo "not loaded: $label" >&2; return 1
+                    echo "not loaded: $label" >&2
+                    return 1
                 end
                 __svc_run $d kill TERM $d/$label
             case restart reload
                 set -l d (__svc_domain $label $uid); or begin
-                    echo "not loaded: $label" >&2; return 1
+                    echo "not loaded: $label" >&2
+                    return 1
                 end
                 __svc_run $d kickstart -k $d/$label
             case status
                 set -l d (__svc_domain $label $uid); or begin
-                    echo "not loaded: $label" >&2; return 1
+                    echo "not loaded: $label" >&2
+                    return 1
                 end
                 __svc_run $d print $d/$label 2>&1 | grep -E 'state|last exit|program|path' | head
             case list ls
@@ -135,7 +141,8 @@ if status is-interactive
             case '' -h --help help
                 echo 'usage: svc <enable|disable|start|stop|restart|status|list> [label]'
             case '*'
-                echo "unknown: $cmd" >&2; return 1
+                echo "unknown: $cmd" >&2
+                return 1
         end
     end
     complete -c svc -f
@@ -163,18 +170,18 @@ if status is-interactive
         -d 'loaded label'
 
     function nsl
-        argparse d/dev -- $argv
+        argparse -i d/dev -- $argv
         or return
 
         if set -q _flag_dev
             set -l pkgs (string join ' ' (for p in $argv; echo "pkgs.$p"; end))
             nix develop --impure --expr "
-            let pkgs = import <nixpkgs> {}; in
-            pkgs.mkShell {
-                nativeBuildInputs = [ pkgs.pkg-config ];
-                buildInputs = [ $pkgs ];
-            }
-        " --command fish
+        let pkgs = import <nixpkgs> { config.allowUnfree = true; }; in
+        pkgs.mkShell {
+            nativeBuildInputs = [ pkgs.pkg-config ];
+            buildInputs = [ $pkgs ];
+        }
+    " --command fish
         else if test (count $argv) -eq 0
             nix develop -c fish
         else
