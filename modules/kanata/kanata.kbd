@@ -18,7 +18,10 @@
   y    u    i    o    p
 
   ;; --- home row ---
-  h    j    k    l    ;
+  h    j    k    l
+
+  ;; --- thumb ---
+  spc
 )
 
 (deflayer default
@@ -32,7 +35,10 @@
   y    u    i    o    p
 
   ;; --- home row ---
-  h    j    k    l    ;
+  h    j    k    l
+
+  ;; --- thumb ---
+  spc
 )
 
 (deflayer navigation
@@ -46,7 +52,10 @@
   home grv  -    =    end
 
   ;; --- home row ---
-  left down up   rght lmet
+  left down up   rght
+
+  ;; --- thumb: cmd ---
+  lmet
 )
 
 (defalias

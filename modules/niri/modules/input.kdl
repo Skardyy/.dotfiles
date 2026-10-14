@@ -38,7 +38,7 @@ binds {
     Mod+Tab repeat=false { toggle-overview; }
 
     // change lang
-    Alt+Space { switch-layout "next"; }
+    ctrl+Space { switch-layout "next"; }
 
     // === Window Management ===
     Mod+Q repeat=false { close-window; }
