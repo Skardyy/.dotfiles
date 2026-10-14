@@ -14,10 +14,11 @@
   ;; --- disabled ---
   home end  grv  -    =
 
-  ;; --- right hand ---
-  u    i    o
+  ;; --- top row ---
+  y    u    i    o    p
+
+  ;; --- home row ---
   h    j    k    l    ;
-  y    p
 )
 
 (deflayer default
@@ -27,10 +28,11 @@
   ;; --- disabled ---
   XX   XX   XX   XX   XX
 
-  ;; --- right hand ---
-  u    i    o
+  ;; --- top row ---
+  y    u    i    o    p
+
+  ;; --- home row ---
   h    j    k    l    ;
-  y    p
 )
 
 (deflayer navigation
@@ -40,10 +42,11 @@
   ;; --- disabled ---
   XX   XX   XX   XX   XX
 
-  ;; --- right hand ---
-  grv  -    =
+  ;; --- top row ---
+  home grv  -    =    end
+
+  ;; --- home row ---
   left down up   rght lmet
-  home end
 )
 
 (defalias
