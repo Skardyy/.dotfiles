@@ -19,9 +19,6 @@
 
   ;; --- home row ---
   h    j    k    l
-
-  ;; --- thumb ---
-  spc
 )
 
 (deflayer default
@@ -36,9 +33,6 @@
 
   ;; --- home row ---
   h    j    k    l
-
-  ;; --- thumb ---
-  spc
 )
 
 (deflayer navigation
@@ -53,9 +47,6 @@
 
   ;; --- home row ---
   left down up   rght
-
-  ;; --- thumb: cmd ---
-  lmet
 )
 
 (defalias
