@@ -84,3 +84,45 @@ vim.keymap.set({ 'n', 'v' }, '<C-S-v>', '"+p', { noremap = true })
 
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
+
+
+---------------------------------
+-- Custom text object
+---------------------------------
+local closers = { [")"] = "(", ["]"] = "[", ["}"] = "{" }
+local pairs_  = { ["("] = ")", ["["] = "]", ["{"] = "}" }
+
+-- opening bracket position of the innermost *matched* pair of this type, or nil
+local function enclosing_open(open, close)
+  local o, c = vim.fn.escape(open, "[]"), vim.fn.escape(close, "[]")
+  local view = vim.fn.winsaveview()
+  local p = vim.fn.searchpairpos(o, "", c, "bcnW")
+  local ok = false
+  if p[1] ~= 0 then
+    vim.fn.cursor(p[1], p[2])
+    ok = vim.fn.searchpairpos(o, "", c, "nW")[1] ~= 0 -- is there a matching close?
+  end
+  vim.fn.winrestview(view)
+  return ok and p or nil
+end
+
+local function nearest_bracket()
+  local col = vim.fn.col(".")
+  local under = vim.fn.getline("."):sub(col, col)
+  if closers[under] then return closers[under] end -- cursor on a closing bracket
+
+  local best, bl, bc
+  for open, close in pairs(pairs_) do
+    local p = enclosing_open(open, close)
+    if p and (not best or p[1] > bl or (p[1] == bl and p[2] > bc)) then
+      best, bl, bc = open, p[1], p[2]
+    end
+  end
+  return best
+end
+
+for _, m in ipairs({ { "ir", "i" }, { "ar", "a" } }) do
+  vim.keymap.set({ "x", "o" }, m[1], function()
+    return m[2] .. (nearest_bracket() or "(")
+  end, { expr = true, desc = "Nearest bracket text object" })
+end
