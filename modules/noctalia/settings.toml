@@ -156,6 +156,7 @@ minimal = true
 occupied_color = "on_surface_variant"
 scale = 1.2
 show_active_indicator = false
+workspace_group_inactive_border_color = "#00000000"
 workspace_label_placement = "inside"
 
 [widget.volume]
