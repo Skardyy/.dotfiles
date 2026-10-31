@@ -8,6 +8,6 @@
     home.file.".local/state/noctalia/settings.toml".source =
       config.lib.file.mkOutOfStoreSymlink "${mod}/noctalia/settings.toml";
 
-    programs.noctalia-shell.enable = true;
+    programs.noctalia.enable = true;
   };
 }

@@ -9,7 +9,7 @@ hotkey-overlay {
     skip-at-startup
 }
 
-spawn-at-startup "dms" "restart"
+spawn-at-startup "noctalia"
 
 include "modules/input.kdl"
 include "modules/look.kdl"

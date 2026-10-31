@@ -1,14 +1,18 @@
-config_version = 12
+config_version = 16
 
 [bar.default]
 background_opacity = 0.64999998547136784
+center = [ "taskbar" ]
 end = [ "cpu", "network", "bluetooth", "volume" ]
-font_family = "Noto Sans"
 margin_edge = 5
 margin_ends = 800
 shadow = false
-start = [ "launcher", "workspaces" ]
-widget_spacing = 8
+start = [ "launcher", "clock" ]
+thickness = 38
+widget_spacing = 12
+
+    [bar.default.monitor.HDMI-A-1]
+    margin_ends = 500
 
 [[control_center.shortcuts]]
 type = "wifi"
@@ -22,12 +26,6 @@ type = "audio"
 [[control_center.shortcuts]]
 type = "session"
 
-[desktop_widgets]
-enabled = false
-
-[hot_corners]
-enabled = true
-
 [lockscreen_widgets]
 enabled = false
 schema_version = 2
@@ -39,44 +37,68 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1" ]
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
-    box_height = 70.0
-    box_width = 400.0
+    box_height = 196.0
+    box_width = 720.0
     cx = 1280.0
     cy = 1321.0
     output = "DP-1"
+    placement_height = 1440.0
+    placement_width = 2560.0
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
+        center_password_text = false
         input_opacity = 1.0
         input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
         show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
-    box_height = 70.0
-    box_width = 400.0
+    box_height = 196.0
+    box_width = 720.0
     cx = 960.0
     cy = 961.0
     output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
+        center_password_text = false
         input_opacity = 1.0
         input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
         show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
 [shell]
+font_family = "Noto Sans"
 settings_show_advanced = true
 
     [shell.panel]
-    shadow = false
+    clipboard_placement = "attached"
+    launcher_placement = "attached"
 
 [theme]
 source = "wallpaper"
@@ -90,16 +112,16 @@ directory = "/home/meron/Pictures"
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/meron/Pictures/Study-table.png"
+    path = "/home/meron/Pictures/bridge.jpg"
 
     [wallpaper.last]
-    path = "/home/meron/Pictures/Study-table.png"
+    path = "/home/meron/Pictures/bridge.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/meron/Pictures/Study-table.png"
+    path = "/home/meron/Pictures/bridge.jpg"
 
     [wallpaper.monitors.HDMI-A-1]
-    path = "/home/meron/Pictures/Study-table.png"
+    path = "/home/meron/Pictures/bridge.jpg"
 
 [widget.clock.actions]
 left = "panel-toggle control-center"
@@ -115,6 +137,20 @@ glyph = "grid-dots"
 
 [widget.network]
 show_label = false
+
+[widget.taskbar]
+capsule_radius = 8
+empty_color = "on_surface_variant"
+focused_color = "on_surface"
+font_scale = 1.2
+group_by_workspace = true
+hide_empty_workspaces = true
+inactive_opacity = 0.5
+minimal = true
+occupied_color = "on_surface_variant"
+scale = 1.2
+show_active_indicator = false
+workspace_label_placement = "inside"
 
 [widget.volume]
 show_label = false

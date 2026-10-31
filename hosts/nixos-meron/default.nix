@@ -14,7 +14,7 @@ in
     ../../modules/fish/nixos.nix
     ../../modules/niri/nixos.nix
     ../../modules/mangowm/nixos.nix
-    ../../modules/dms/nixos.nix
+    ../../modules/noctalia/nixos.nix
     ../../modules/pipewire/nixos.nix
     ../../modules/bluetooth/nixos.nix
     ../../modules/desktop/nixos.nix
