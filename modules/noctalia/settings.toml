@@ -104,6 +104,14 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-1" ]
 font_family = "Noto Sans"
 settings_show_advanced = true
 
+    [shell.launcher]
+    app_grid = true
+    categories = false
+    layout = "simple"
+    show_navigation_labels = false
+    show_session_button = false
+    show_settings_button = false
+
     [shell.panel]
     clipboard_placement = "attached"
     launcher_placement = "attached"
