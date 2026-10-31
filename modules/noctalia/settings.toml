@@ -1,30 +1,38 @@
 config_version = 16
 
-[bar.default]
-background_opacity = 0.64999998547136784
-center = [ "taskbar" ]
-end = [ "cpu", "network", "bluetooth", "volume" ]
-margin_edge = 5
-margin_ends = 800
-shadow = false
-start = [ "launcher", "clock" ]
-thickness = 38
-widget_spacing = 12
+[bar]
+order = [ "Main" ]
 
-    [bar.default.monitor.HDMI-A-1]
-    margin_ends = 500
+    [bar.Main]
+    background_opacity = 0.64999998547136784
+    center = [ "taskbar" ]
+    end = [ "cpu", "control-center" ]
+    margin_edge = 5
+    margin_ends = 800
+    shadow = false
+    start = [ "launcher", "clock" ]
+    thickness = 38
+    widget_spacing = 12
 
-[[control_center.shortcuts]]
-type = "wifi"
+        [bar.Main.monitor.HDMI-A-1]
+        margin_ends = 500
 
-[[control_center.shortcuts]]
-type = "bluetooth"
+[control_center]
+circular_avatar = false
+hidden_tabs = [ "monitor", "power", "weather", "calendar", "notifications", "screen-time" ]
+show_avatar_border = false
+sidebar = "full"
+sidebar_section = "full"
+width = 800
 
-[[control_center.shortcuts]]
-type = "audio"
+    [[control_center.shortcuts]]
+    type = "wifi"
 
-[[control_center.shortcuts]]
-type = "session"
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "audio"
 
 [lockscreen_widgets]
 enabled = false
@@ -99,6 +107,7 @@ settings_show_advanced = true
     [shell.panel]
     clipboard_placement = "attached"
     launcher_placement = "attached"
+    wallpaper_placement = "floating"
 
 [theme]
 source = "wallpaper"
@@ -112,22 +121,19 @@ directory = "/home/meron/Pictures"
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/meron/Pictures/bridge.jpg"
+    path = "/home/meron/Pictures/friren-cute.jpg"
 
     [wallpaper.last]
-    path = "/home/meron/Pictures/bridge.jpg"
+    path = "/home/meron/Pictures/friren-cute.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/meron/Pictures/bridge.jpg"
+    path = "/home/meron/Pictures/friren-cute.jpg"
 
     [wallpaper.monitors.HDMI-A-1]
-    path = "/home/meron/Pictures/bridge.jpg"
+    path = "/home/meron/Pictures/friren-cute.jpg"
 
 [widget.clock.actions]
 left = "panel-toggle control-center"
-
-[widget.control-center]
-glyph = "settings"
 
 [widget.cpu]
 visualization = "none"
