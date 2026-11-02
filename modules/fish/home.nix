@@ -5,4 +5,6 @@
 
   xdg.configFile."fish/config.fish".source =
     config.lib.file.mkOutOfStoreSymlink "${mod}/fish/config.fish";
+  xdg.configFile."fish/functions".source =
+    config.lib.file.mkOutOfStoreSymlink "${mod}/fish/functions";
 }
