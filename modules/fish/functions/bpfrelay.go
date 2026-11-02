@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/binary"
 	"flag"
 	"fmt"
 	"net"
@@ -11,6 +12,7 @@ import (
 	"strings"
 	"sync"
 	"syscall"
+	"time"
 
 	"github.com/google/gopacket/layers"
 	"github.com/google/gopacket/pcap"
@@ -35,10 +37,159 @@ func linkOffset(lt layers.LinkType) int {
 	return -1
 }
 
-// udpCapture relays UDP datagrams to 127.0.0.1 by payload resend (stateless,
-// so a plain reinjected packet is indistinguishable from a fresh local send,
-// and never touches the app firewall at all).
-func udpCapture(name, filter string, out *[65536]*net.UDPConn) {
+func ipv4Checksum(b []byte) uint16 {
+	var sum uint32
+	for i := 0; i+1 < len(b); i += 2 {
+		sum += uint32(b[i])<<8 | uint32(b[i+1])
+	}
+	if len(b)%2 == 1 {
+		sum += uint32(b[len(b)-1]) << 8
+	}
+	for sum>>16 != 0 {
+		sum = (sum & 0xffff) + (sum >> 16)
+	}
+	return ^uint16(sum)
+}
+
+// udpSession is one external client's half of a relayed UDP port: an
+// ephemeral loopback socket wired to that one client, so a reply (e.g. a
+// STUN binding response, or any other request/response protocol) can be
+// shipped back out to the real address it came from.
+type udpSession struct {
+	conn     *net.UDPConn
+	lastSeen time.Time
+}
+
+// natUDP relays UDP both ways: inbound payload resend to loopback is
+// indistinguishable from a fresh local send (so it clears the app firewall
+// for free), and replies are read back off each client's dedicated loopback
+// socket and reinjected onto the wire as a fresh UDP/IP/Ethernet frame
+// addressed to that client. Needed for any protocol where the loopback
+// service talks back (WebRTC ICE/STUN on 8189 being the motivating case);
+// harmless overhead for one-way streams like RTP ingest or telemetry.
+func natUDP(name, filter string, ports map[int]bool, selfMAC net.HardwareAddr, selfIP net.IP, handle *pcap.Handle, off int) {
+	var mu sync.Mutex
+	sessions := map[string]*udpSession{}
+
+	go func() {
+		for range time.Tick(30 * time.Second) {
+			mu.Lock()
+			for k, s := range sessions {
+				if time.Since(s.lastSeen) > 60*time.Second {
+					s.conn.Close()
+					delete(sessions, k)
+				}
+			}
+			mu.Unlock()
+		}
+	}()
+
+	writeback := func(clientMAC net.HardwareAddr, clientIP net.IP, clientPort, localPort int, payload []byte) {
+		udp := make([]byte, 8+len(payload))
+		binary.BigEndian.PutUint16(udp[0:2], uint16(localPort))
+		binary.BigEndian.PutUint16(udp[2:4], uint16(clientPort))
+		binary.BigEndian.PutUint16(udp[4:6], uint16(len(udp)))
+		copy(udp[8:], payload)
+		pseudo := make([]byte, 12+len(udp))
+		copy(pseudo[0:4], selfIP.To4())
+		copy(pseudo[4:8], clientIP.To4())
+		pseudo[9] = 17
+		binary.BigEndian.PutUint16(pseudo[10:12], uint16(len(udp)))
+		copy(pseudo[12:], udp)
+		if cksum := ipv4Checksum(pseudo); cksum != 0 {
+			binary.BigEndian.PutUint16(udp[6:8], cksum)
+		} else {
+			binary.BigEndian.PutUint16(udp[6:8], 0xffff)
+		}
+
+		ip := make([]byte, 20+len(udp))
+		ip[0] = 0x45
+		binary.BigEndian.PutUint16(ip[2:4], uint16(len(ip)))
+		ip[8] = 64 // ttl
+		ip[9] = 17 // udp
+		copy(ip[12:16], selfIP.To4())
+		copy(ip[16:20], clientIP.To4())
+		binary.BigEndian.PutUint16(ip[10:12], ipv4Checksum(ip[:20]))
+		copy(ip[20:], udp)
+
+		frame := make([]byte, 14+len(ip))
+		copy(frame[0:6], clientMAC)
+		copy(frame[6:12], selfMAC)
+		frame[12], frame[13] = 0x08, 0x00
+		copy(frame[14:], ip)
+		if err := handle.WritePacketData(frame); err != nil {
+			fmt.Fprintf(os.Stderr, "[%s] udp writeback: %v\n", name, err)
+		}
+	}
+
+	for {
+		pkt, _, err := handle.ZeroCopyReadPacketData()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "[%s] %v\n", name, err)
+			return
+		}
+		if len(pkt) < off+28 || pkt[off]>>4 != 4 || pkt[off+9] != 17 {
+			continue
+		}
+		if pkt[off+6]&0x3f != 0 || pkt[off+7] != 0 { // fragment
+			continue
+		}
+		udp := off + int(pkt[off]&0x0f)*4
+		if len(pkt) < udp+8 {
+			continue
+		}
+		dport := int(pkt[udp+2])<<8 | int(pkt[udp+3])
+		if !ports[dport] {
+			continue
+		}
+		sport := int(pkt[udp+0])<<8 | int(pkt[udp+1])
+		ulen := int(pkt[udp+4])<<8 | int(pkt[udp+5])
+		end := udp + ulen
+		if end > len(pkt) || end <= udp+8 {
+			end = len(pkt)
+		}
+		payload := append([]byte(nil), pkt[udp+8:end]...)
+		clientIP := append(net.IP(nil), pkt[off+12:off+16]...)
+		clientMAC := append(net.HardwareAddr(nil), pkt[6:12]...)
+
+		key := fmt.Sprintf("%s:%d:%d", clientIP, sport, dport)
+		mu.Lock()
+		sess, ok := sessions[key]
+		if !ok {
+			conn, err := net.DialUDP("udp4", nil, &net.UDPAddr{IP: net.IPv4(127, 0, 0, 1), Port: dport})
+			if err != nil {
+				mu.Unlock()
+				fmt.Fprintf(os.Stderr, "[%s] dial 127.0.0.1:%d: %v\n", name, dport, err)
+				continue
+			}
+			sess = &udpSession{conn: conn, lastSeen: time.Now()}
+			sessions[key] = sess
+			go func(conn *net.UDPConn, clientMAC net.HardwareAddr, clientIP net.IP, clientPort int) {
+				buf := make([]byte, 65536)
+				for {
+					n, err := conn.Read(buf)
+					if err != nil {
+						return
+					}
+					writeback(clientMAC, clientIP, clientPort, dport, buf[:n])
+				}
+			}(conn, clientMAC, clientIP, sport)
+		}
+		sess.lastSeen = time.Now()
+		mu.Unlock()
+		sess.conn.Write(payload)
+	}
+}
+
+func ifaceMAC(name string) (net.HardwareAddr, error) {
+	ni, err := net.InterfaceByName(name)
+	if err != nil {
+		return nil, err
+	}
+	return ni.HardwareAddr, nil
+}
+
+func udpCapture(name, filter string, ports map[int]bool) {
 	ih, err := pcap.NewInactiveHandle(name)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "[%s] %v\n", name, err)
@@ -66,34 +217,18 @@ func udpCapture(name, filter string, out *[65536]*net.UDPConn) {
 		fmt.Fprintf(os.Stderr, "[%s] unsupported linktype %v\n", name, h.LinkType())
 		return
 	}
-	fmt.Printf("[%s] udp capturing (link offset %d)\n", name, off)
-
-	for {
-		pkt, _, err := h.ZeroCopyReadPacketData()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "[%s] %v\n", name, err)
-			return
-		}
-		if len(pkt) < off+28 || pkt[off]>>4 != 4 || pkt[off+9] != 17 {
-			continue
-		}
-		if pkt[off+6]&0x3f != 0 || pkt[off+7] != 0 { // fragment
-			continue
-		}
-		udp := off + int(pkt[off]&0x0f)*4
-		if len(pkt) < udp+8 {
-			continue
-		}
-		dport := int(pkt[udp+2])<<8 | int(pkt[udp+3])
-		ulen := int(pkt[udp+4])<<8 | int(pkt[udp+5])
-		end := udp + ulen
-		if end > len(pkt) {
-			end = len(pkt)
-		}
-		if c := out[dport]; c != nil && end > udp+8 {
-			c.Write(pkt[udp+8 : end])
-		}
+	selfMAC, err := ifaceMAC(name)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "[%s] mac: %v\n", name, err)
+		return
 	}
+	selfIP, err := ifaceIPv4(name)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "[%s] ip: %v\n", name, err)
+		return
+	}
+	fmt.Printf("[%s] udp capturing (link offset %d)\n", name, off)
+	natUDP(name, filter, ports, selfMAC, selfIP, h, off)
 }
 
 func ifaceIPv4(name string) (net.IP, error) {
@@ -176,7 +311,7 @@ func main() {
 		os.Exit(2)
 	}
 
-	var out [65536]*net.UDPConn
+	udpPorts := map[int]bool{}
 	var udpTerms []string
 	tcpPorts := map[int]int{}
 	for _, a := range flag.Args() {
@@ -191,12 +326,7 @@ func main() {
 		}
 		switch proto {
 		case "udp":
-			c, err := net.DialUDP("udp4", nil, &net.UDPAddr{IP: net.IPv4(127, 0, 0, 1), Port: p})
-			if err != nil {
-				fmt.Fprintln(os.Stderr, err)
-				os.Exit(1)
-			}
-			out[p] = c
+			udpPorts[p] = true
 			udpTerms = append(udpTerms, "dst port "+portStr)
 		case "tcp":
 			tcpPorts[p] = p
@@ -236,7 +366,7 @@ func main() {
 	var wg sync.WaitGroup
 	for _, n := range ifaces {
 		wg.Add(1)
-		go func(n string) { defer wg.Done(); udpCapture(n, udpFilter, &out) }(n)
+		go func(n string) { defer wg.Done(); udpCapture(n, udpFilter, udpPorts) }(n)
 	}
 	wg.Wait()
 }
