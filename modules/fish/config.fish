@@ -75,4 +75,23 @@ if status is-interactive
                 niri msg action spawn -- nautilus "$target_path"
         end
     end
+
+    function free-space --description "Sweep stale cargo target/ artifacts and prune unused Docker images/volumes"
+        set -l work_root ~/Desktop
+        set -l sweep_days 14
+
+        echo "== cargo sweep (artifacts untouched $sweep_days+ days, under $work_root) =="
+        if type -q cargo-sweep
+            cargo sweep --time $sweep_days -r $work_root
+        else
+            echo "cargo-sweep not found (cargo install cargo-sweep)"
+        end
+
+        echo "== docker prune (dangling images, unused volumes) =="
+        docker image prune -f
+        docker volume prune -f
+
+        echo "== disk free =="
+        df -H / | tail -1
+    end
 end
