@@ -43,4 +43,6 @@
   ] ++ pkgs.lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
     gcc
   ];
+
+  home.sessionVariables.CARGO_TARGET_DIR = "$HOME/.cargo/shared-build";
 }
