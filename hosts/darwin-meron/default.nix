@@ -18,6 +18,7 @@ in
     ../../modules/desktop/darwin.nix
     ../../modules/dev/darwin.nix
     ../../modules/aerospace/darwin.nix
+    ../../modules/marta/darwin.nix
     ../../modules/hammerspoon/darwin.nix
     ../../modules/mwmbar/darwin.nix
     ../../modules/autoraise/darwin.nix

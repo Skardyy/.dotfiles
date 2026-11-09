@@ -70,7 +70,7 @@ if status is-interactive
 
         switch (uname)
             case Darwin
-                open "$target_path"
+                open -a "Marta" "$target_path"
             case Linux
                 niri msg action spawn -- nautilus "$target_path"
         end
