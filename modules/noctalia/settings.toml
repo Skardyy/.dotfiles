@@ -6,16 +6,13 @@ order = [ "Main" ]
     [bar.Main]
     background_opacity = 0.64999998547136784
     center = [ "taskbar" ]
-    end = [ "cpu", "control-center" ]
+    end = [ "cpu", "network", "bluetooth", "volume", "clock" ]
     margin_edge = 5
-    margin_ends = 800
+    margin_ends = 12
     shadow = false
-    start = [ "launcher", "clock" ]
+    start = [ "launcher", "active_window" ]
     thickness = 38
     widget_spacing = 12
-
-        [bar.Main.monitor.HDMI-A-1]
-        margin_ends = 500
 
 [control_center]
 circular_avatar = false
@@ -129,16 +126,16 @@ directory = "/home/meron/Pictures"
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/meron/Pictures/friren-cute.jpg"
+    path = "/home/meron/Pictures/train-girl.png"
 
     [wallpaper.last]
-    path = "/home/meron/Pictures/friren-cute.jpg"
+    path = "/home/meron/Pictures/train-girl.png"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/meron/Pictures/friren-cute.jpg"
+    path = "/home/meron/Pictures/train-girl.png"
 
     [wallpaper.monitors.HDMI-A-1]
-    path = "/home/meron/Pictures/friren-cute.jpg"
+    path = "/home/meron/Pictures/train-girl.png"
 
 [widget.clock.actions]
 left = "panel-toggle control-center"
