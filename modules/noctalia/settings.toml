@@ -112,6 +112,11 @@ settings_show_advanced = true
     [shell.panel]
     clipboard_placement = "attached"
     launcher_placement = "attached"
+    open_near_click_clipboard = true
+    open_near_click_control_center = true
+    open_near_click_launcher = true
+    open_near_click_session = true
+    open_near_click_wallpaper = true
     wallpaper_placement = "floating"
 
 [theme]
@@ -137,17 +142,21 @@ transition_on_startup = true
     [wallpaper.monitors.HDMI-A-1]
     path = "/home/meron/Pictures/train-girl.png"
 
-[widget.clock.actions]
-left = "panel-toggle control-center"
+[widget.bluetooth]
+show_label = true
+
+[widget.clock]
+color = "primary"
+format = "{:%A %H:%M}"
+
+    [widget.clock.actions]
+    left = "panel-toggle control-center"
 
 [widget.cpu]
 visualization = "none"
 
 [widget.launcher]
 glyph = "grid-dots"
-
-[widget.network]
-show_label = false
 
 [widget.taskbar]
 capsule_radius = 8
@@ -163,9 +172,6 @@ scale = 1.2
 show_active_indicator = false
 workspace_group_inactive_border_color = "#00000000"
 workspace_label_placement = "inside"
-
-[widget.volume]
-show_label = false
 
 [widget.workspaces]
 focused_output_only = true
